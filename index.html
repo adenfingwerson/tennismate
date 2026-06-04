@@ -1944,6 +1944,16 @@
                 <label class="profile-label">Coach Name</label>
                 <input type="text" id="addCoachName" class="profile-input" placeholder="Sarah Tennis">
               </div>
+              <div class="admin-form-row">
+                <div class="profile-field">
+                  <label class="profile-label">Coach Email Address</label>
+                  <input type="email" id="addCoachEmail" class="profile-input" placeholder="sarah@example.com">
+                </div>
+                <div class="profile-field">
+                  <label class="profile-label">Coach Login PIN (4 Digits)</label>
+                  <input type="password" id="addCoachPin" maxlength="4" pattern="\d{4}" class="profile-input" placeholder="••••" inputmode="numeric">
+                </div>
+              </div>
               <div class="profile-field">
                 <label class="profile-label">Short Bio</label>
                 <input type="text" id="addCoachBio" class="profile-input" placeholder="Former collegiate star">
@@ -1962,13 +1972,35 @@
                 <label class="profile-label">Google Calendar Schedule Link</label>
                 <input type="url" id="addCoachCalendar" class="profile-input" placeholder="https://calendar.google.com/calendar/appointments/schedules/...">
               </div>
-              <div class="profile-field">
-                <label class="profile-label">Stripe Coaching Link ($25)</label>
-                <input type="url" id="addCoachStripeCoaching" class="profile-input" placeholder="https://buy.stripe.com/...">
+              <div class="admin-form-row">
+                <div class="profile-field">
+                  <label class="profile-label">Stripe Coaching Link</label>
+                  <input type="url" id="addCoachStripeCoaching" class="profile-input" placeholder="https://buy.stripe.com/...">
+                </div>
+                <div class="profile-field">
+                  <label class="profile-label">Coaching Hourly Price ($)</label>
+                  <input type="number" id="addCoachPriceCoaching" class="profile-input" placeholder="25" min="0">
+                </div>
               </div>
-              <div class="profile-field">
-                <label class="profile-label">Stripe Hitting Link ($18)</label>
-                <input type="url" id="addCoachStripeHitting" class="profile-input" placeholder="https://buy.stripe.com/...">
+              <div class="admin-form-row">
+                <div class="profile-field">
+                  <label class="profile-label">Stripe Hitting Link</label>
+                  <input type="url" id="addCoachStripeHitting" class="profile-input" placeholder="https://buy.stripe.com/...">
+                </div>
+                <div class="profile-field">
+                  <label class="profile-label">Hitting Hourly Price ($)</label>
+                  <input type="number" id="addCoachPriceHitting" class="profile-input" placeholder="18" min="0">
+                </div>
+              </div>
+              <div class="admin-form-row">
+                <div class="profile-field">
+                  <label class="profile-label">Stripe Weekly Package Link</label>
+                  <input type="url" id="addCoachStripeWeekly" class="profile-input" placeholder="https://buy.stripe.com/...">
+                </div>
+                <div class="profile-field">
+                  <label class="profile-label">Weekly Package Price ($)</label>
+                  <input type="number" id="addCoachPriceWeekly" class="profile-input" placeholder="60" min="0">
+                </div>
               </div>
               <button type="button" class="profile-btn-submit" style="background:var(--accent); color:var(--black);" onclick="handleAddCoachSubmit()">Add New Coach</button>
             </div>
@@ -2023,6 +2055,44 @@
               </div>
             </div>
           </div>
+
+          <!-- Coach Dashboard View (Shown ONLY to coaches) -->
+          <div id="coachDashboardView" style="display: none;" class="admin-dashboard">
+            <div class="admin-header">
+              <h4 class="admin-title">COACH PANEL</h4>
+            </div>
+            <p class="admin-subtitle">Manage your profile details and track your payouts.</p>
+            
+            <form id="formCoachProfileUpdate" class="profile-form" onsubmit="handleCoachProfileUpdate(event)">
+              <div class="profile-field">
+                <label class="profile-label">Short Bio</label>
+                <input type="text" id="coachMyBio" class="profile-input">
+              </div>
+              <div class="admin-form-row">
+                <div class="profile-field">
+                  <label class="profile-label">Phone Number</label>
+                  <input type="text" id="coachMyPhone" class="profile-input">
+                </div>
+                <div class="profile-field">
+                  <label class="profile-label">Venmo Handle</label>
+                  <input type="text" id="coachMyVenmo" class="profile-input">
+                </div>
+              </div>
+              <div class="profile-field">
+                <label class="profile-label">Google Calendar Schedule Link</label>
+                <input type="url" id="coachMyCalendar" class="profile-input">
+              </div>
+              <button type="submit" class="profile-btn-submit">Update Profile</button>
+            </form>
+
+            <div class="admin-stat-cards" style="margin-top: 15px;">
+              <div class="admin-stat-card" style="grid-column: span 2;">
+                <span class="admin-stat-label">Your Logged Earnings (93.5%)</span>
+                <div class="admin-stat-value" id="coachMyEarnings">$0.00</div>
+                <p class="admin-subtitle" style="margin-top: 5px; margin-bottom: 0; font-size: 10px;">(Includes 6.5% platform fee deduction)</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -2049,6 +2119,7 @@
             <div class="stripe-buttons">
               <a href="https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01" class="stripe-btn" target="_blank">Coaching ($25)</a>
               <a href="https://buy.stripe.com/4gMeV59v42Z89Gc9zhaZi02" class="stripe-btn" target="_blank">Hitting ($18)</a>
+              <a href="https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00" class="stripe-btn" target="_blank">Weekly Pkg ($60)</a>
               <a href="https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00" class="stripe-btn" target="_blank">+ 30 Mins ($5)</a>
             </div>
           </div>
@@ -2240,12 +2311,39 @@
     const pin = document.getElementById('loginPin').value;
     const loginError = document.getElementById('loginError');
 
+    // 1. Check if they are registering or logging in as a Coach (either default or custom)
+    const coaches = getCoaches();
+    let matchedCoach = null;
+    for (const coach of Object.values(coaches)) {
+      if (coach.email && coach.email === email && coach.pin === pin) {
+        matchedCoach = coach;
+        break;
+      }
+    }
+
+    if (matchedCoach) {
+      loginError.style.display = 'none';
+      localStorage.setItem('tm_active_user', email);
+      localStorage.setItem('tm_active_user_type', 'coach');
+      document.getElementById('formLogin').reset();
+      showLoggedInState({
+        name: matchedCoach.name,
+        email: matchedCoach.email,
+        phone: matchedCoach.phone,
+        type: 'coach',
+        coachId: matchedCoach.id
+      });
+      return;
+    }
+
+    // 2. Otherwise, check standard user accounts
     const users = JSON.parse(localStorage.getItem('tm_users') || '{}');
     const user = users[email];
 
     if (user && user.pin === pin) {
       loginError.style.display = 'none';
       localStorage.setItem('tm_active_user', email);
+      localStorage.setItem('tm_active_user_type', 'user');
       document.getElementById('formLogin').reset();
       showLoggedInState(user);
     } else {
@@ -2255,6 +2353,7 @@
 
   function handleProfileLogout() {
     localStorage.removeItem('tm_active_user');
+    localStorage.removeItem('tm_active_user_type');
     showLoggedOutState();
   }
 
@@ -2263,15 +2362,36 @@
     "aden": {
       id: "aden",
       name: "Aden Ingwerson",
+      email: "aden.f.ingwerson@gmail.com",
+      pin: "1111", // Standard default PIN, can use their registered PIN
       bio: "Hastings College Varsity Player · Primary Coach",
       phone: "3089910173",
       venmo: "Aden-Ingwerson",
       calendar: "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1aMaYFfS5CqV2J442kfd7Qd_VNECRxVGSW_XQJOGh5tMOrCtPhbN5Ep_k7aBCegbI0wrsis1m2?gv=true",
       stripeCoaching: "https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01",
       stripeHitting: "https://buy.stripe.com/4gMeV59v42Z89Gc9zhaZi02",
+      stripeWeekly: "https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00", // Generic link, user will replace
       stripeAddon: "https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00",
       coachingPrice: "25",
-      hittingPrice: "18"
+      hittingPrice: "18",
+      weeklyPrice: "60"
+    },
+    "rylan": {
+      id: "rylan",
+      name: "Rylan",
+      email: "rylan@tennistmate.com",
+      pin: "1234",
+      bio: "TennisTmate Coach",
+      phone: "3089910173", // Aden's backup or custom
+      venmo: "Rylan-Venmo",
+      calendar: "https://calendar.app.google/TtUNYzcSqthnaCgH7",
+      stripeCoaching: "https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01", // Shared checkout links or customizable
+      stripeHitting: "https://buy.stripe.com/4gMeV59v42Z89Gc9zhaZi02",
+      stripeWeekly: "https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00",
+      stripeAddon: "https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00",
+      coachingPrice: "25",
+      hittingPrice: "18",
+      weeklyPrice: "60"
     }
   };
 
@@ -2283,7 +2403,7 @@
   function saveCoaches(coaches) {
     const custom = {};
     for (const [id, coach] of Object.entries(coaches)) {
-      if (id !== "aden") custom[id] = coach;
+      if (id !== "aden" && id !== "rylan") custom[id] = coach;
     }
     localStorage.setItem('tm_coaches', JSON.stringify(custom));
   }
@@ -2403,14 +2523,17 @@
 
     // Stripe checkout links in the main Payment Options section
     const stripeButtons = document.querySelectorAll('.stripe-btn');
-    if (stripeButtons.length >= 3) {
+    if (stripeButtons.length >= 4) {
       stripeButtons[0].href = coach.stripeCoaching || "https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01";
       stripeButtons[0].innerText = `Coaching ($${coach.coachingPrice || '25'})`;
 
       stripeButtons[1].href = coach.stripeHitting || "https://buy.stripe.com/4gMeV59v42Z89Gc9zhaZi02";
       stripeButtons[1].innerText = `Hitting ($${coach.hittingPrice || '18'})`;
 
-      stripeButtons[2].href = coach.stripeAddon || "https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00";
+      stripeButtons[2].href = coach.stripeWeekly || "https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00";
+      stripeButtons[2].innerText = `Weekly Pkg ($${coach.weeklyPrice || '60'})`;
+
+      stripeButtons[3].href = coach.stripeAddon || "https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00";
     }
   }
 
@@ -2469,12 +2592,20 @@
 
   function handleAddCoachSubmit() {
     const name = document.getElementById('addCoachName').value.trim();
+    const email = document.getElementById('addCoachEmail').value.trim().toLowerCase();
+    const pin = document.getElementById('addCoachPin').value.trim();
     const bio = document.getElementById('addCoachBio').value.trim();
     const phone = document.getElementById('addCoachPhone').value.trim().replace(/\D/g, '');
     const venmo = document.getElementById('addCoachVenmo').value.trim().replace('@', '');
     const calendar = document.getElementById('addCoachCalendar').value.trim();
     const stripeCoaching = document.getElementById('addCoachStripeCoaching').value.trim();
     const stripeHitting = document.getElementById('addCoachStripeHitting').value.trim();
+    const stripeWeekly = document.getElementById('addCoachStripeWeekly').value.trim();
+
+    // Capturing custom prices
+    const coachingPrice = document.getElementById('addCoachPriceCoaching').value.trim() || "25";
+    const hittingPrice = document.getElementById('addCoachPriceHitting').value.trim() || "18";
+    const weeklyPrice = document.getElementById('addCoachPriceWeekly').value.trim() || "60";
 
     if (!name || !calendar) {
       alert("Please fill out Coach Name and Calendar link.");
@@ -2486,15 +2617,19 @@
     coaches[id] = {
       id,
       name,
+      email: email || `${id}@tennistmate.com`,
+      pin: pin || "1234",
       bio: bio || "TennisTmate Coach",
       phone: phone || "3089910173",
       venmo: venmo || "Aden-Ingwerson",
       calendar,
       stripeCoaching: stripeCoaching || "https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01",
       stripeHitting: stripeHitting || "https://buy.stripe.com/4gMeV59v42Z89Gc9zhaZi02",
+      stripeWeekly: stripeWeekly || "https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00",
       stripeAddon: "https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00",
-      coachingPrice: "25",
-      hittingPrice: "18"
+      coachingPrice,
+      hittingPrice,
+      weeklyPrice
     };
 
     saveCoaches(coaches);
@@ -2503,12 +2638,18 @@
 
     // Clear inputs
     document.getElementById('addCoachName').value = '';
+    document.getElementById('addCoachEmail').value = '';
+    document.getElementById('addCoachPin').value = '';
     document.getElementById('addCoachBio').value = '';
     document.getElementById('addCoachPhone').value = '';
     document.getElementById('addCoachVenmo').value = '';
     document.getElementById('addCoachCalendar').value = '';
     document.getElementById('addCoachStripeCoaching').value = '';
     document.getElementById('addCoachStripeHitting').value = '';
+    document.getElementById('addCoachStripeWeekly').value = '';
+    document.getElementById('addCoachPriceCoaching').value = '';
+    document.getElementById('addCoachPriceHitting').value = '';
+    document.getElementById('addCoachPriceWeekly').value = '';
   }
 
   function handleDeleteCoach(id) {
@@ -2584,6 +2725,32 @@
     document.getElementById('adminYourCut').innerText = `$${(totalVolume * 0.065).toFixed(2)}`;
   }
 
+  function handleCoachProfileUpdate(e) {
+    e.preventDefault();
+    const activeUserEmail = localStorage.getItem('tm_active_user');
+    if (!activeUserEmail) return;
+
+    const coaches = getCoaches();
+    let coachKey = null;
+    for (const [key, coach] of Object.entries(coaches)) {
+      if (coach.email === activeUserEmail) {
+        coachKey = key;
+        break;
+      }
+    }
+
+    if (coachKey) {
+      coaches[coachKey].bio = document.getElementById('coachMyBio').value.trim();
+      coaches[coachKey].phone = document.getElementById('coachMyPhone').value.trim().replace(/\D/g, '');
+      coaches[coachKey].venmo = document.getElementById('coachMyVenmo').value.trim().replace('@', '');
+      coaches[coachKey].calendar = document.getElementById('coachMyCalendar').value.trim();
+
+      saveCoaches(coaches);
+      alert("Profile updated successfully!");
+      updateSelectedCoachUI();
+    }
+  }
+
   function showLoggedInState(user) {
     document.getElementById('profileLoggedOut').style.display = 'none';
     document.getElementById('profileLoggedIn').style.display = 'flex';
@@ -2591,12 +2758,51 @@
     document.getElementById('profileValEmail').innerText = user.email;
     document.getElementById('profileValPhone').innerText = user.phone;
 
-    // Check if admin (your primary gmail)
+    const userType = localStorage.getItem('tm_active_user_type');
+
+    // 1. Admin login view
     if (user.email === 'aden.f.ingwerson@gmail.com') {
       document.getElementById('adminDashboardView').style.display = 'flex';
+      document.getElementById('coachDashboardView').style.display = 'none';
       initAdminPanel();
-    } else {
+    } 
+    // 2. Coach login view
+    else if (userType === 'coach') {
       document.getElementById('adminDashboardView').style.display = 'none';
+      document.getElementById('coachDashboardView').style.display = 'block';
+
+      // Look up coach
+      const coaches = getCoaches();
+      let matchedCoach = null;
+      for (const coach of Object.values(coaches)) {
+        if (coach.email === user.email) {
+          matchedCoach = coach;
+          break;
+        }
+      }
+
+      if (matchedCoach) {
+        document.getElementById('coachMyBio').value = matchedCoach.bio || '';
+        document.getElementById('coachMyPhone').value = matchedCoach.phone || '';
+        document.getElementById('coachMyVenmo').value = matchedCoach.venmo || '';
+        document.getElementById('coachMyCalendar').value = matchedCoach.calendar || '';
+
+        // Calculate and render coach's logged earnings
+        const transactions = JSON.parse(localStorage.getItem('tm_transactions') || '[]');
+        let coachTotal = 0;
+        transactions.forEach(tx => {
+          if (tx.coachId === matchedCoach.id) {
+            // Coach gets 93.5% (after 6.5% platform fee deduction)
+            coachTotal += tx.fee * 0.935;
+          }
+        });
+        document.getElementById('coachMyEarnings').innerText = `$${coachTotal.toFixed(2)}`;
+      }
+    } 
+    // 3. Regular customer login view
+    else {
+      document.getElementById('adminDashboardView').style.display = 'none';
+      document.getElementById('coachDashboardView').style.display = 'none';
     }
 
     updateSelectedCoachUI();
@@ -2606,6 +2812,7 @@
     document.getElementById('profileLoggedIn').style.display = 'none';
     document.getElementById('profileLoggedOut').style.display = 'block';
     document.getElementById('adminDashboardView').style.display = 'none';
+    document.getElementById('coachDashboardView').style.display = 'none';
     toggleProfileTab('login');
     updateSelectedCoachUI();
   }
@@ -2613,13 +2820,37 @@
   // Check login state on page load
   function checkLoginState() {
     const activeUserEmail = localStorage.getItem('tm_active_user');
+    const activeUserType = localStorage.getItem('tm_active_user_type');
+    
     if (activeUserEmail) {
-      const users = JSON.parse(localStorage.getItem('tm_users') || '{}');
-      const user = users[activeUserEmail];
-      if (user) {
-        showLoggedInState(user);
+      if (activeUserType === 'coach') {
+        const coaches = getCoaches();
+        let matchedCoach = null;
+        for (const coach of Object.values(coaches)) {
+          if (coach.email === activeUserEmail) {
+            matchedCoach = coach;
+            break;
+          }
+        }
+        if (matchedCoach) {
+          showLoggedInState({
+            name: matchedCoach.name,
+            email: matchedCoach.email,
+            phone: matchedCoach.phone,
+            type: 'coach',
+            coachId: matchedCoach.id
+          });
+        } else {
+          showLoggedOutState();
+        }
       } else {
-        showLoggedOutState();
+        const users = JSON.parse(localStorage.getItem('tm_users') || '{}');
+        const user = users[activeUserEmail];
+        if (user) {
+          showLoggedInState(user);
+        } else {
+          showLoggedOutState();
+        }
       }
     } else {
       showLoggedOutState();
