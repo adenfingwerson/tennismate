@@ -1,364 +1,1239 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tennis T-Mate</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-</head>
-<body class="no-scroll">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tennis T-Mate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    <!-- 3D WebGL Intro Overlay -->
-    <div id="intro-overlay">
-        <!-- Background Marquee -->
-        <div class="top-marquee">
-            <div class="marquee-track">
-                <span>YOUR TENNIS T-MATE • YOUR TENNIS T-MATE • YOUR TENNIS T-MATE • YOUR TENNIS T-MATE • </span>
-                <span>YOUR TENNIS T-MATE • YOUR TENNIS T-MATE • YOUR TENNIS T-MATE • YOUR TENNIS T-MATE • </span>
-            </div>
+  :root {
+    /* 5% retro from old model: deeper navy/slate instead of pure black */
+    --black: #0f172a; 
+    --off-white: #f8fafc;
+    --court-green: #b8d44a;
+    /* 5% retro from old model: Optic Yellow with a slight glow */
+    --accent: #ccff00; 
+    --warm-gray: #1e293b;
+    --mid-gray: #94a3b8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--off-white);
+    font-family: 'DM Mono', monospace;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.2s, height 0.2s;
+    mix-blend-mode: difference;
+    box-shadow: 0 0 10px var(--accent); /* Retro glow */
+  }
+  .cursor.expand { width: 40px; height: 40px; }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: var(--accent);
+    overflow: hidden;
+    padding: 6px 0;
+    box-shadow: 0 0 15px rgba(204, 255, 0, 0.4); /* Retro glow */
+  }
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 18s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-track span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    color: var(--black);
+    padding: 0 2rem;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 29px;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.1em;
+    color: var(--off-white);
+    text-decoration: none;
+    text-shadow: 0 0 5px rgba(248,250,252,0.3);
+  }
+  .nav-cta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--black);
+    background: var(--accent);
+    padding: 0.55rem 1.4rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 8px rgba(204, 255, 0, 0.5);
+  }
+  .nav-cta:hover { 
+    background: var(--off-white); 
+    box-shadow: 0 0 12px rgba(248, 250, 252, 0.6);
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 3rem 5rem;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: var(--black);
+  }
+
+  /* court lines parallax layer */
+  .court-lines {
+    position: absolute;
+    inset: 0;
+    opacity: 0.06;
+    will-change: transform;
+  }
+  .court-lines svg { width: 100%; height: 100%; }
+
+  /* CRT / Retro scanline/grain overlay - 5% retro feel */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    background-size: 100% 4px, auto;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.4;
+  }
+
+  .ball-parallax {
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 420px;
+    height: 420px;
+    will-change: transform;
+    z-index: 1;
+    filter: drop-shadow(0 0 20px rgba(204, 255, 0, 0.2));
+  }
+
+  .ball-svg {
+    width: 100%;
+    height: 100%;
+    animation: ballFloat 6s ease-in-out infinite;
+  }
+
+  @keyframes ballFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-18px) rotate(4deg); }
+  }
+
+  .hero-eyebrow {
+    position: relative;
+    z-index: 3;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    position: relative;
+    z-index: 3;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 13vw, 13rem);
+    line-height: 0.88;
+    letter-spacing: -0.01em;
+    color: var(--off-white);
+  }
+
+  .hero-title .outline {
+    -webkit-text-stroke: 1px var(--off-white);
+    color: transparent;
+  }
+
+  .hero-title .accent-word {
+    color: var(--accent);
+    text-shadow: 0 0 20px rgba(204, 255, 0, 0.4);
+  }
+
+  .hero-sub {
+    position: relative;
+    z-index: 3;
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .hero-sub p {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--mid-gray);
+    max-width: 380px;
+    letter-spacing: 0.04em;
+  }
+
+  .hero-scroll-hint {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .scroll-line {
+    width: 40px;
+    height: 1px;
+    background: var(--mid-gray);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    left: -100%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--accent);
+    animation: scrollLine 2s ease-in-out infinite;
+    box-shadow: 0 0 5px var(--accent);
+  }
+  @keyframes scrollLine {
+    to { left: 100%; }
+  }
+
+  /* SECTION BASE */
+  section {
+    position: relative;
+    padding: 8rem 3rem;
+  }
+
+  /* ABOUT SECTION */
+  .about {
+    background: var(--off-white);
+    color: var(--black);
+    overflow: hidden;
+  }
+
+  .about-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .about-inner .about-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+  }
+  .section-label::before, .section-label::after {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: currentColor;
+  }
+
+  .about h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1.05;
+    color: var(--black);
+    margin-bottom: 1.5rem;
+  }
+
+  .about h2 em {
+    font-style: italic;
+    color: var(--warm-gray);
+  }
+
+  .about p {
+    font-size: 0.85rem;
+    line-height: 1.9;
+    color: #333;
+    letter-spacing: 0.02em;
+    margin-bottom: 1rem;
+    max-width: 600px;
+  }
+
+  .stat-row {
+    display: flex;
+    gap: 3rem;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid #ccc;
+    justify-content: center;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    line-height: 1;
+    color: var(--black);
+  }
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-top: 0.25rem;
+  }
+
+  .services-court-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 900px;
+    opacity: 0.25; /* much more visible now */
+    transition: opacity 0.5s ease, filter 0.5s ease, transform 0.5s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .services-court-bg svg {
+    width: 100%;
+    height: auto;
+  }
+  .court-fill-left, .court-fill-right {
+    transition: opacity 0.4s ease;
+  }
+  .services:hover .services-court-bg {
+    opacity: 0.5; /* bright pop out on hover */
+    filter: drop-shadow(0 0 20px rgba(204, 255, 0, 0.4));
+    transform: translate(-50%, -52%);
+  }
+  .services:has(.service-card:nth-child(1):hover) .court-fill-left {
+    opacity: 0.5;
+  }
+  .services:has(.service-card:nth-child(2):hover) .court-fill-right {
+    opacity: 0.5;
+  }
+
+  /* SERVICES SECTION */
+  .services {
+    background: var(--black);
+    color: var(--off-white);
+    position: relative;
+    z-index: 1;
+  }
+
+  .services-header {
+    max-width: 1200px;
+    margin: 0 auto 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+    z-index: 2;
+  }
+
+  .services h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 7vw, 7rem);
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+  }
+
+  .services h2 .outline {
+    -webkit-text-stroke: 1px var(--off-white);
+    color: transparent;
+  }
+
+  .services-subtitle {
+    font-size: 0.85rem;
+    color: var(--mid-gray);
+    max-width: 200px;
+    text-align: right;
+    line-height: 1.7;
+    letter-spacing: 0.04em;
+  }
+
+  .service-cards {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    background: transparent;
+    position: relative;
+    z-index: 2;
+  }
+
+  .service-card {
+    background: rgba(15, 23, 42, 0.6); /* Very transparent to see the court clearly */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s, border-color 0.4s, transform 0.4s;
+    cursor: none;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .service-card:hover { 
+    background: rgba(30, 41, 59, 0.8);
+    border-color: rgba(204, 255, 0, 0.4);
+    transform: translateY(-5px);
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.4s ease;
+    box-shadow: 0 0 10px var(--accent);
+  }
+  .service-card:hover::before { width: 100%; }
+
+  .service-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    line-height: 1;
+    -webkit-text-stroke: 1px var(--warm-gray);
+    color: transparent;
+    margin-bottom: 1.5rem;
+    transition: -webkit-text-stroke 0.3s, text-shadow 0.3s;
+  }
+  .service-card:hover .service-num {
+    -webkit-text-stroke-color: var(--accent);
+    text-shadow: 0 0 15px rgba(204, 255, 0, 0.2);
+  }
+
+  .service-type {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-bottom: 0.75rem;
+  }
+
+  .service-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    color: var(--off-white);
+  }
+
+  .service-desc {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: var(--mid-gray);
+    letter-spacing: 0.03em;
+    margin-bottom: 2rem;
+  }
+
+  .service-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .price-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    color: var(--accent);
+    line-height: 1;
+    text-shadow: 0 0 8px rgba(204, 255, 0, 0.3);
+  }
+
+  .price-unit {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+  }
+
+  .service-add-on {
+    max-width: 1200px;
+    margin: 2rem auto 0;
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px dashed var(--mid-gray);
+    border-radius: 8px;
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .add-on-text {
+    font-size: 0.85rem;
+    color: var(--off-white);
+    letter-spacing: 0.04em;
+  }
+  .add-on-text strong {
+    color: var(--accent);
+  }
+
+  .add-on-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 8px rgba(204, 255, 0, 0.3);
+  }
+
+  /* LOCATIONS */
+  .locations {
+    background: var(--off-white);
+    color: var(--black);
+    padding: 8rem 3rem;
+  }
+
+  .locations-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .locations h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 0.9;
+    margin-bottom: 4rem;
+    color: var(--black);
+  }
+
+  .location-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #cbd5e1;
+  }
+
+  .location-item {
+    background: var(--off-white);
+    padding: 3rem;
+    position: relative;
+    transition: background 0.3s;
+  }
+
+  .location-item:hover { background: var(--black); color: var(--off-white); }
+
+  .location-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--mid-gray);
+    margin-bottom: 1.5rem;
+  }
+
+  .location-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+
+  .location-arrow {
+    position: absolute;
+    bottom: 3rem;
+    right: 3rem;
+    font-size: 1.5rem;
+    opacity: 0;
+    transform: translate(-8px, 8px);
+    transition: opacity 0.3s, transform 0.3s;
+    color: var(--accent);
+    text-shadow: 0 0 8px rgba(204, 255, 0, 0.5);
+  }
+  .location-item:hover .location-arrow { opacity: 1; transform: translate(0,0); }
+
+  /* BOOKING */
+  .booking {
+    background: var(--black);
+    color: var(--off-white);
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .booking-bg-text {
+    position: absolute;
+    bottom: -4rem;
+    left: -1rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22vw;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--warm-gray);
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+
+  .booking-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .booking h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 8rem);
+    line-height: 0.88;
+    letter-spacing: -0.01em;
+    margin-bottom: 2rem;
+  }
+
+  .booking-desc {
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: var(--mid-gray);
+    letter-spacing: 0.03em;
+    margin-bottom: 2rem;
+  }
+
+  .booking-desc strong {
+    color: var(--off-white);
+  }
+
+  .payment-options {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 2rem;
+    backdrop-filter: blur(8px);
+    margin-bottom: 2rem;
+  }
+
+  .payment-options h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--off-white);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .pay-note {
+    font-size: 0.8rem;
+    color: var(--mid-gray);
+    margin-bottom: 1.5rem;
+  }
+
+  .pay-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .pay-method {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .pay-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .preferred-badge {
+    background: rgba(204, 255, 0, 0.15);
+    color: var(--accent);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    animation: pulse 2s infinite;
+    border: 1px solid rgba(204, 255, 0, 0.3);
+  }
+
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(204, 255, 0, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 6px rgba(204, 255, 0, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(204, 255, 0, 0);
+    }
+  }
+
+  .pay-value {
+    font-size: 1.1rem;
+    color: var(--accent);
+    text-shadow: 0 0 5px rgba(204, 255, 0, 0.2);
+  }
+
+  .venmo-link {
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+  
+  .venmo-link:hover {
+    color: var(--off-white);
+    text-shadow: 0 0 10px rgba(248, 250, 252, 0.5);
+    transform: translateX(2px);
+  }
+
+  .stripe-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 0.2rem;
+  }
+
+  .stripe-btn {
+    display: inline-block;
+    background: transparent;
+    color: var(--off-white);
+    border: 1px solid var(--accent);
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+
+  .stripe-btn:hover {
+    background: var(--accent);
+    color: var(--black);
+    box-shadow: 0 0 10px rgba(204, 255, 0, 0.3);
+  }
+
+  .contact-info {
+    font-size: 1rem;
+    color: var(--off-white);
+    margin-bottom: 2rem;
+  }
+  
+  .contact-info a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: text-shadow 0.3s ease;
+  }
+
+  .contact-info a:hover {
+    text-shadow: 0 0 8px rgba(204, 255, 0, 0.4);
+  }
+
+  .booking-embed-container {
+    background: var(--off-white);
+    border-radius: 8px;
+    overflow: hidden;
+    height: 600px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  }
+
+  .booking-embed-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    color: var(--off-white);
+    padding: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--warm-gray);
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.08em;
+  }
+
+  .footer-copy {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+  }
+
+  /* REVEAL ANIMATIONS */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.35s; }
+  .reveal-delay-4 { transition-delay: 0.5s; }
+
+  /* TICKER */
+  .ticker-section {
+    background: var(--accent);
+    padding: 1rem 0;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(204, 255, 0, 0.4);
+  }
+  .ticker-inner {
+    display: flex;
+    gap: 0;
+    animation: marquee 12s linear infinite;
+    white-space: nowrap;
+  }
+  .ticker-inner span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    color: var(--black);
+    padding: 0 2rem;
+  }
+  .ticker-inner .dot {
+    color: var(--warm-gray);
+    font-size: 0.5rem;
+    vertical-align: middle;
+  }
+
+  /* mobile */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .hero { padding: 0 1.5rem 4rem; }
+    .ball-parallax { width: 240px; height: 240px; right: -5%; top: 30%; opacity: 0.5; }
+    section { padding: 5rem 1.5rem; }
+    .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .service-cards { grid-template-columns: 1fr; }
+    .service-add-on { flex-direction: column; gap: 1rem; align-items: flex-start; }
+    .location-list { grid-template-columns: 1fr; }
+    .booking-inner { grid-template-columns: 1fr; gap: 4rem; }
+    .services-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .services-subtitle { text-align: left; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<!-- MARQUEE TOP -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marqueeTrack">
+    <span>TENNIS T-MATE</span><span>•</span>
+    <span>ALL LEVELS WELCOME</span><span>•</span>
+    <span>HASTINGS, NE</span><span>•</span>
+    <span>COACHING &amp; HITTING</span><span>•</span>
+    <span>BOOK YOUR SLOT</span><span>•</span>
+    <span>TENNIS T-MATE</span><span>•</span>
+    <span>ALL LEVELS WELCOME</span><span>•</span>
+    <span>HASTINGS, NE</span><span>•</span>
+    <span>COACHING &amp; HITTING</span><span>•</span>
+    <span>BOOK YOUR SLOT</span><span>•</span>
+    <span>TENNIS T-MATE</span><span>•</span>
+    <span>ALL LEVELS WELCOME</span><span>•</span>
+    <span>HASTINGS, NE</span><span>•</span>
+    <span>COACHING &amp; HITTING</span><span>•</span>
+    <span>BOOK YOUR SLOT</span><span>•</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">T-MATE</a>
+  <a href="#booking" class="nav-cta">Book Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+
+  <div class="court-lines" id="courtLines">
+    <svg viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <!-- Court outline -->
+      <rect x="100" y="100" width="1000" height="600" stroke="#ffffff" stroke-width="2"/>
+      <!-- Net line -->
+      <line x1="600" y1="100" x2="600" y2="700" stroke="#ffffff" stroke-width="2"/>
+      <!-- Service boxes -->
+      <line x1="100" y1="300" x2="600" y2="300" stroke="#ffffff" stroke-width="1.5"/>
+      <line x1="600" y1="300" x2="1100" y2="300" stroke="#ffffff" stroke-width="1.5"/>
+      <line x1="100" y1="500" x2="600" y2="500" stroke="#ffffff" stroke-width="1.5"/>
+      <line x1="600" y1="500" x2="1100" y2="500" stroke="#ffffff" stroke-width="1.5"/>
+      <!-- Center service lines -->
+      <line x1="350" y1="300" x2="350" y2="500" stroke="#ffffff" stroke-width="1.5"/>
+      <line x1="850" y1="300" x2="850" y2="500" stroke="#ffffff" stroke-width="1.5"/>
+      <!-- Baselines doubles -->
+      <line x1="50" y1="100" x2="50" y2="700" stroke="#ffffff" stroke-width="1"/>
+      <line x1="1150" y1="100" x2="1150" y2="700" stroke="#ffffff" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <div class="ball-parallax" id="heroBall">
+    <svg class="ball-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="ballGrad" cx="38%" cy="35%" r="60%">
+          <stop offset="0%" stop-color="#ccff00"/>
+          <stop offset="40%" stop-color="#b3e600"/>
+          <stop offset="100%" stop-color="#8a9400"/>
+        </radialGradient>
+        <radialGradient id="specular" cx="35%" cy="30%" r="35%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="shadow" cx="50%" cy="50%" r="50%">
+          <stop offset="60%" stop-color="#000000" stop-opacity="0"/>
+          <stop offset="100%" stop-color="#000000" stop-opacity="0.5"/>
+        </radialGradient>
+        <clipPath id="ballClip">
+          <circle cx="200" cy="200" r="175"/>
+        </clipPath>
+      </defs>
+      <!-- Main ball -->
+      <circle cx="200" cy="200" r="175" fill="url(#ballGrad)"/>
+      <path d="M 90 140 Q 200 180 310 140" stroke="#f0f0e8" stroke-width="5" fill="none" stroke-linecap="round" clip-path="url(#ballClip)" opacity="0.9"/>
+      <path d="M 90 260 Q 200 220 310 260" stroke="#f0f0e8" stroke-width="5" fill="none" stroke-linecap="round" clip-path="url(#ballClip)" opacity="0.9"/>
+      <path d="M 140 80 Q 175 200 140 320" stroke="#f0f0e8" stroke-width="4" fill="none" stroke-linecap="round" clip-path="url(#ballClip)" opacity="0.7"/>
+      <path d="M 260 80 Q 225 200 260 320" stroke="#f0f0e8" stroke-width="4" fill="none" stroke-linecap="round" clip-path="url(#ballClip)" opacity="0.7"/>
+      <circle cx="200" cy="200" r="175" fill="url(#specular)"/>
+      <circle cx="200" cy="200" r="175" fill="url(#shadow)"/>
+      <g clip-path="url(#ballClip)" opacity="0.15">
+        <circle cx="150" cy="150" r="3" fill="#fff"/>
+        <circle cx="180" cy="120" r="2" fill="#fff"/>
+        <circle cx="220" cy="160" r="2.5" fill="#fff"/>
+        <circle cx="130" cy="200" r="2" fill="#fff"/>
+        <circle cx="170" cy="240" r="3" fill="#fff"/>
+        <circle cx="240" cy="130" r="2" fill="#fff"/>
+        <circle cx="260" cy="200" r="2.5" fill="#fff"/>
+        <circle cx="200" cy="270" r="2" fill="#fff"/>
+        <circle cx="280" cy="240" r="3" fill="#fff"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="hero-eyebrow">Holdrege + Hastings, Nebraska</div>
+
+  <h1 class="hero-title">
+    YOUR TENNIS<br>
+    <span class="accent-word">T-MATE</span>
+  </h1>
+
+  <div class="hero-sub">
+    <p>All level coaching and hitting sessions.<br>Seamless booking process.</p>
+    <div class="hero-scroll-hint">
+      <div class="scroll-line"></div>
+      Scroll to explore
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-section">
+  <div class="ticker-inner">
+    <span>COACHING</span><span class="dot">●</span>
+    <span>HITTING PARTNER</span><span class="dot">●</span>
+    <span>ALL SKILL LEVELS</span><span class="dot">●</span>
+    <span>$25/HR</span><span class="dot">●</span>
+    <span>HASTINGS COLLEGE COURTS</span><span class="dot">●</span>
+    <span>NORTH PARK COURTS</span><span class="dot">●</span>
+    <span>COACHING</span><span class="dot">●</span>
+    <span>HITTING PARTNER</span><span class="dot">●</span>
+    <span>ALL SKILL LEVELS</span><span class="dot">●</span>
+    <span>$25/HR</span><span class="dot">●</span>
+    <span>HASTINGS COLLEGE COURTS</span><span class="dot">●</span>
+    <span>NORTH PARK COURTS</span><span class="dot">●</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-text">
+      <div class="section-label reveal">About Me</div>
+      <h2 class="reveal reveal-delay-1">
+        Hi, I'm <em>Aden.</em>
+      </h2>
+      <p class="reveal reveal-delay-2">
+        I love the sport and currently compete on the <strong>Hastings College Men's Tennis Team</strong>.
+      </p>
+      <p class="reveal reveal-delay-3">
+        My goal is simple: help you improve your game and have a good time on court. Zero pressure—whether you're an adult beginner learning the basics, a high schooler prepping for varsity, or you just want a reliable hitting partner, I'm here to help.
+      </p>
+      <div class="stat-row reveal reveal-delay-4">
+        <div class="stat-item">
+          <div class="stat-num">Real</div>
+          <div class="stat-label">Coaching Experience</div>
         </div>
-        <canvas id="plasma-canvas"></canvas>
-        <div class="intro-content">
-            <h1 class="intro-name"><span class="charged-text">Tennis <span style="white-space: nowrap;">T-Mate</span></span></h1>
-            <p class="intro-tagline"><span class="charged-text">All level coaching and hitting sessions.<br>Seamless booking process.</span></p>
-            <button id="enter-btn" class="cta-button">Enter</button>
+        <div class="stat-item">
+          <div class="stat-num">All</div>
+          <div class="stat-label">Skill Levels</div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-court-bg">
+    <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+      <!-- Base outline -->
+      <rect x="20" y="20" width="360" height="260" fill="none" stroke="#f8fafc" stroke-width="2" rx="4"/>
+      
+      <!-- Interactive fills for left (coaching) and right (hitting) -->
+      <rect class="court-fill-left" x="35" y="35" width="165" height="230" fill="var(--accent)" opacity="0"/>
+      <rect class="court-fill-right" x="200" y="35" width="165" height="230" fill="var(--accent)" opacity="0"/>
+      
+      <!-- court surface lines -->
+      <rect x="35" y="35" width="330" height="230" fill="none" stroke="#f8fafc" stroke-width="2"/>
+      <line x1="200" y1="35" x2="200" y2="265" stroke="#f8fafc" stroke-width="3"/> <!-- Net -->
+      
+      <!-- service boxes -->
+      <line x1="110" y1="35" x2="110" y2="265" stroke="#f8fafc" stroke-width="1.5"/>
+      <line x1="290" y1="35" x2="290" y2="265" stroke="#f8fafc" stroke-width="1.5"/>
+      <line x1="110" y1="150" x2="290" y2="150" stroke="#f8fafc" stroke-width="1.5"/>
+      
+      <!-- doubles lines -->
+      <line x1="35" y1="60" x2="365" y2="60" stroke="#f8fafc" stroke-width="1" opacity="0.6"/>
+      <line x1="35" y1="240" x2="365" y2="240" stroke="#f8fafc" stroke-width="1" opacity="0.6"/>
+      
+      <!-- center marks -->
+      <line x1="35" y1="150" x2="48" y2="150" stroke="#f8fafc" stroke-width="1.5"/>
+      <line x1="352" y1="150" x2="365" y2="150" stroke="#f8fafc" stroke-width="1.5"/>
+    </svg>
+  </div>
+
+  <div class="services-header reveal">
+    <h2>HOW IT WORKS</h2>
+    <p class="services-subtitle">Book an Hour. I'll focus on whatever you need.</p>
+  </div>
+
+  <div class="service-cards">
+    <div class="service-card reveal">
+      <div class="service-num">01</div>
+      <div class="service-type">Session Type</div>
+      <div class="service-name">Coaching</div>
+      <p class="service-desc">Technique &amp; Drills</p>
+      <div class="service-price">
+        <span class="price-amount">$25</span>
+        <span class="price-unit">per hour</span>
+      </div>
     </div>
 
-    <!-- Dynamic Rope Background (for the main content) -->
-    <svg id="rope-bg" preserveAspectRatio="none">
-        <path id="rope-glow" d="" stroke="rgba(204,255,0,0.02)" stroke-width="40" fill="none" stroke-linecap="round" />
-        <path id="rope-path" d="" stroke="rgba(204,255,0,0.15)" stroke-width="4" fill="none" stroke-linecap="round" />
-    </svg>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-num">02</div>
+      <div class="service-type">Session Type</div>
+      <div class="service-name">Hitting Partner</div>
+      <p class="service-desc">Sets &amp; Rallies</p>
+      <div class="service-price">
+        <span class="price-amount">$18</span>
+        <span class="price-unit">per hour</span>
+      </div>
+    </div>
+  </div>
 
-    <!-- Main Content (Revealed after intro) -->
-    <main id="main-content">
-        <!-- About Section -->
-        <section id="about" class="section">
-            <div class="container text-center">
-                <h2>About Me</h2>
-                <div class="about-grid">
-                    <div class="about-text">
-                        <p>Hi, I'm Aden. I've been playing tennis for 8 years and currently compete on the <strong>Hastings College Men's Tennis Team</strong>.</p>
-                        <p>My goal is simply to help you improve your game and have a great time on the court. Whether you're an adult beginner learning the fundamentals, a high schooler prepping for varsity, or you're just looking for a solid hitting session, I'm here to help players of all ages and skill levels reach their goals.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <div class="service-add-on reveal">
+    <div class="add-on-text">
+      <strong>Want to keep going?</strong> Add 30 minutes at the end of any session.
+    </div>
+    <div class="add-on-price">+ $5 / HALF HOUR</div>
+  </div>
+</section>
 
-        <!-- Services Section -->
-        <section id="services" class="section">
-            <div class="container">
-                <h2 class="text-center">How it Works</h2>
-                <div class="services-grid" style="grid-template-columns: 1fr; max-width: 600px; margin: 40px auto 0;">
-                    
-                    <div class="service-card">
-                        <div class="card-header">
-                            <h3>Book an Hour</h3>
-                            <p>I'll focus on whatever you need.</p>
-                        </div>
-                        <div class="card-body">
-                            <ul class="pricing-list">
-                                <li><span>Coaching (Technique/Drills)</span> <strong>$25 / hr</strong></li>
-                                <li><span>Hitting Partner (Sets/Rallies)</span> <strong>$18 / hr</strong></li>
-                            </ul>
-                            <p class="service-details">
-                                <strong>Want to play longer?</strong> You can optionally add a half hour at the end of your coaching or hitting session for an extra $5 if you want to keep going.
-                            </p>
-                        </div>
-                    </div>
+<!-- LOCATIONS -->
+<section class="locations" id="locations">
+  <div class="locations-inner">
+    <div class="section-label reveal">Where We Train</div>
+    <h2 class="reveal reveal-delay-1">AVAILABLE LOCATIONS</h2>
+    <div class="location-list">
+      <div class="location-item reveal reveal-delay-2">
+        <div class="location-num">LOC / 01</div>
+        <div class="location-name">Hastings College Courts</div>
+        <div class="location-arrow">📍</div>
+      </div>
+      <div class="location-item reveal reveal-delay-3">
+        <div class="location-num">LOC / 02</div>
+        <div class="location-name">North Park Courts (Holdrege)</div>
+        <div class="location-arrow">📍</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                </div>
-            </div>
-        </section>
+<!-- BOOKING -->
+<section class="booking" id="booking">
+  <div class="booking-bg-text">BOOK IT</div>
 
-        <!-- Locations Section -->
-        <section id="locations" class="section">
-            <div class="container text-center">
-                <h2>Available Locations</h2>
-                <div class="location-badges">
-                    <span class="badge">📍 Hastings College Courts</span>
-                    <span class="badge">📍 North Park Courts (Holdrege)</span>
-                </div>
-            </div>
-        </section>
+  <div class="booking-inner">
+    <div>
+      <div class="section-label reveal" style="color: var(--mid-gray);">Lock It In</div>
+      <h2 class="reveal reveal-delay-1">
+        LOCK IT IN
+      </h2>
+      <p class="booking-desc reveal reveal-delay-2">
+        Pick a 1-hour slot below. Be sure to drop your name, phone number, email, and <strong>pick your training type (Coaching or Hitting)</strong>.
+      </p>
 
-        <!-- Booking Section -->
-        <section id="booking" class="section">
-            <div class="container text-center">
-                <h2>Lock It In</h2>
-                <p>Pick a 1-hour slot below. Be sure to drop your name, phone number, email, and <strong>pick your training type (Coaching or Hitting)</strong>.</p>
-                <p style="margin-top: 15px; margin-bottom: 25px; font-size: 1.1rem; color: #e2e8f0;">
-                    💵 <strong>Venmo:</strong> @Aden-Ingwerson &nbsp;&nbsp;|&nbsp;&nbsp; 📱 <strong>Text:</strong> <a href="tel:3089910173" style="color: var(--accent-color); text-decoration: none;">(308) 991-0173</a>
-                </p>
-                
-                <div class="booking-embed">
-                    <!-- Google Calendar Appointment Scheduling begin -->
-                    <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1aMaYFfS5CqV2J442kfd7Qd_VNECRxVGSW_XQJOGh5tMOrCtPhbN5Ep_k7aBCegbI0wrsis1m2?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
-                    <!-- end Google Calendar Appointment Scheduling -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer>
-            <p>&copy; 2026 Aden Ingwerson.</p>
-        </footer>
-    </main>
-
-    <!-- Scripts -->
-    <script>
-        // Custom SLOW smooth scrolling for all anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (!targetElement) return;
-
-                const targetPosition = targetElement.offsetTop;
-                const startPosition = window.pageYOffset;
-                const distance = targetPosition - startPosition;
-                const duration = 1500; 
-                let start = null;
-
-                function step(timestamp) {
-                    if (!start) start = timestamp;
-                    const progress = timestamp - start;
-                    const easeInOut = progress < duration / 2 ? 
-                        4 * Math.pow(progress / duration, 3) : 
-                        1 - Math.pow(-2 * progress / duration + 2, 3) / 2;
-                    
-                    window.scrollTo(0, startPosition + distance * easeInOut);
-                    
-                    if (progress < duration) {
-                        window.requestAnimationFrame(step);
-                    } else {
-                        window.scrollTo(0, targetPosition); 
-                    }
-                }
-                window.requestAnimationFrame(step);
-            });
-        });
-
-        // Dynamic flowing rope background
-        const rope = document.getElementById('rope-path');
-        const ropeGlow = document.getElementById('rope-glow');
+      <div class="payment-options reveal reveal-delay-3">
+        <h3>Payment Options</h3>
+        <p class="pay-note">Pay when you're ready—either right after you book, or after the session.</p>
         
-        function updateRope() {
-            const scrollY = window.scrollY;
-            const w = window.innerWidth;
-            const h = window.innerHeight;
-            
-            const topX = (w / 2) + Math.sin(scrollY * 0.001) * 150;
-            const cp1x = (w / 2) + Math.sin(scrollY * 0.0025) * (w * 0.45);
-            const cp2x = (w / 2) + Math.cos(scrollY * 0.0015) * (w * 0.45);
-            const bottomX = (w / 2) + Math.cos(scrollY * 0.001) * 150;
-            
-            const d = `M ${topX} -100 C ${cp1x} ${h * 0.25}, ${cp2x} ${h * 0.75}, ${bottomX} ${h + 100}`;
-            
-            if(rope) rope.setAttribute('d', d);
-            if(ropeGlow) ropeGlow.setAttribute('d', d);
-        }
+        <div class="pay-methods">
+          <div class="pay-method cash">
+            <span class="pay-label">Cash</span>
+            <span class="pay-value" style="color: var(--off-white); text-shadow: none;">In person</span>
+          </div>
 
-        window.addEventListener('scroll', updateRope);
-        window.addEventListener('resize', updateRope);
-        updateRope(); 
-    </script>
+          <div class="pay-method venmo">
+            <span class="pay-label">
+              Venmo 
+              <span class="preferred-badge">Preferred</span>
+            </span>
+            <a href="https://venmo.com/u/TennisTmate" target="_blank" class="pay-value venmo-link">@TennisTmate ↗</a>
+          </div>
+          
+          <div class="pay-method stripe">
+            <span class="pay-label">Pay with Card (Stripe)</span>
+            <div class="stripe-buttons">
+              <a href="https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01" class="stripe-btn" target="_blank">Coaching ($25)</a>
+              <a href="https://buy.stripe.com/4gMeV59v42Z89Gc9zhaZi02" class="stripe-btn" target="_blank">Hitting ($18)</a>
+              <a href="https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00" class="stripe-btn" target="_blank">+ 30 Mins ($5)</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="contact-info reveal reveal-delay-4">
+        <span>📱 <strong>Questions? Text:</strong> <a href="tel:3089910173">(308) 991-0173</a></span>
+      </div>
+    </div>
 
-    <!-- Three.js Plasma Ball Intro -->
-    <script type="module">
-        import * as THREE from 'https://cdn.skypack.dev/three@0.136.0';
+    <!-- Calendar Embed -->
+    <div class="reveal reveal-delay-2 booking-embed-container">
+        <!-- Google Calendar Appointment Scheduling begin -->
+        <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1aMaYFfS5CqV2J442kfd7Qd_VNECRxVGSW_XQJOGh5tMOrCtPhbN5Ep_k7aBCegbI0wrsis1m2?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
+        <!-- end Google Calendar Appointment Scheduling -->
+    </div>
 
-        const canvas = document.getElementById('plasma-canvas');
-        if (canvas) {
-            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  </div>
+</section>
 
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-            
-            // Push camera back so the ball looks smaller
-            camera.position.z = 6.0;
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Tennis T-Mate</div>
+  <div class="footer-copy">© 2026 Aden Ingwerson.</div>
+</footer>
 
-            // Simplex noise in GLSL
-            const vertexShader = `
-            uniform float uTime;
-            uniform vec2 uMouse;
-            varying vec2 vUv;
-            varying vec3 vNormal;
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, button, .service-card, .location-item').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+  });
 
-            vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x, 289.0);}
-            vec4 taylorInvSqrt(vec4 r){return 1.79284291400159 - 0.85373472095314 * r;}
-            float snoise(vec3 v){ 
-              const vec2  C = vec2(1.0/6.0, 1.0/3.0) ;
-              const vec4  D = vec4(0.0, 0.5, 1.0, 2.0);
-              vec3 i  = floor(v + dot(v, C.yyy) );
-              vec3 x0 = v - i + dot(i, C.xxx) ;
-              vec3 g = step(x0.yzx, x0.xyz);
-              vec3 l = 1.0 - g;
-              vec3 i1 = min( g.xyz, l.zxy );
-              vec3 i2 = max( g.xyz, l.zxy );
-              vec3 x1 = x0 - i1 + 1.0 * C.xxx;
-              vec3 x2 = x0 - i2 + 2.0 * C.xxx;
-              vec3 x3 = x0 - 1.0 + 3.0 * C.xxx;
-              i = mod(i, 289.0 ); 
-              vec4 p = permute( permute( permute( 
-                         i.z + vec4(0.0, i1.z, i2.z, 1.0 ))
-                       + i.y + vec4(0.0, i1.y, i2.y, 1.0 )) 
-                       + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));
-              float n_ = 1.0/7.0;
-              vec3  ns = n_ * D.wyz - D.xzx;
-              vec4 j = p - 49.0 * floor(p * ns.z *ns.z);
-              vec4 x_ = floor(j * ns.z);
-              vec4 y_ = floor(j - 7.0 * x_ );
-              vec4 x = x_ *ns.x + ns.yyyy;
-              vec4 y = y_ *ns.x + ns.yyyy;
-              vec4 h = 1.0 - abs(x) - abs(y);
-              vec4 b0 = vec4( x.xy, y.xy );
-              vec4 b1 = vec4( x.zw, y.zw );
-              vec4 s0 = floor(b0)*2.0 + 1.0;
-              vec4 s1 = floor(b1)*2.0 + 1.0;
-              vec4 sh = -step(h, vec4(0.0));
-              vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy ;
-              vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww ;
-              vec3 p0 = vec3(a0.xy,h.x);
-              vec3 p1 = vec3(a0.zw,h.y);
-              vec3 p2 = vec3(a1.xy,h.z);
-              vec3 p3 = vec3(a1.zw,h.w);
-              vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
-              p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
-              vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
-              m = m * m;
-              return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3) ) );
-            }
+  // Parallax
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const courtLines = document.getElementById('courtLines');
+    const heroBall = document.getElementById('heroBall');
+    if (courtLines) courtLines.style.transform = `translateY(${scrollY * 0.4}px)`;
+    if (heroBall) heroBall.style.transform = `translateY(calc(-50% + ${scrollY * 0.25}px))`;
+  });
 
-            void main() {
-                vUv = uv;
-                vNormal = normal;
-                // Warp the sphere over time, much less extreme so it stays round
-                float noise = snoise(position * 1.5 + uTime * 0.5 + (uMouse.x * 0.5));
-                vec3 newPosition = position + normal * noise * 0.08; 
-                gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
-            }
-            `;
-
-            const fragmentShader = `
-            uniform float uTime;
-            varying vec2 vUv;
-            varying vec3 vNormal;
-
-            void main() {
-                // Optic Yellow tennis ball colors
-                vec3 yellow = vec3(0.85, 1.0, 0.0);
-                vec3 darkYellow = vec3(0.5, 0.7, 0.0);
-                
-                // Plasma color mixing
-                vec3 color = mix(darkYellow, yellow, 0.5 + 0.5 * sin(uTime + vNormal.x * 3.0 + vNormal.y * 3.0));
-                
-                // Sharp, distinctive tennis ball wavy line
-                float wave = cos(vNormal.y * 5.0 + sin(uTime * 0.2)) + sin(vNormal.x * 5.0);
-                float line = smoothstep(0.02, 0.06, abs(wave));
-                
-                // Mix pure white line onto the yellow body
-                color = mix(vec3(1.0, 1.0, 1.0), color, line);
-                
-                // Outer glow rim lighting
-                float rim = 1.0 - max(dot(vNormal, vec3(0.0, 0.0, 1.0)), 0.0);
-                color += vec3(0.3, 0.4, 0.0) * pow(rim, 3.0);
-                
-                // Internal electricity crackle
-                float electric = pow(max(0.0, sin(vNormal.x * 15.0 + uTime * 12.0) * sin(vNormal.y * 15.0 - uTime * 8.0)), 3.0);
-                color += vec3(0.8, 1.0, 0.5) * electric * 0.8;
-                
-                // Make the ball translucent, with electricity being opaque
-                float alpha = 0.80 + 0.20 * electric;
-                
-                gl_FragColor = vec4(color, alpha);
-            }
-            `;
-
-            const geometry = new THREE.IcosahedronGeometry(1.2, 128); // high poly for smooth roundness
-            const material = new THREE.ShaderMaterial({
-                vertexShader,
-                fragmentShader,
-                uniforms: { 
-                    uTime: { value: 0 },
-                    uMouse: { value: new THREE.Vector2(0, 0) }
-                },
-                wireframe: false,
-                transparent: true,
-                blending: THREE.AdditiveBlending // Gives it that intense energetic glow
-            });
-
-            const sphere = new THREE.Mesh(geometry, material);
-            scene.add(sphere);
-
-            // Mouse tracking
-            const mouse = new THREE.Vector2();
-            const targetRotation = new THREE.Vector2();
-            
-            window.addEventListener('mousemove', (e) => {
-                mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-                mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-                
-                targetRotation.x = mouse.y * 0.5;
-                targetRotation.y = mouse.x * 0.5;
-                
-                material.uniforms.uMouse.value = mouse;
-            });
-
-            const clock = new THREE.Clock();
-            let isEating = false;
-
-            // Transition logic
-            document.getElementById('enter-btn').addEventListener('click', () => {
-                // Fade out text instantly
-                document.querySelector('.intro-content').style.opacity = 0;
-                document.querySelector('.intro-content').style.transition = "opacity 0.3s";
-                
-                // Trigger the eat animation
-                isEating = true;
-            });
-
-            function animate() {
-                requestAnimationFrame(animate);
-                const elapsedTime = clock.getElapsedTime();
-                
-                if (!isEating) {
-                    material.uniforms.uTime.value = elapsedTime;
-                    // React to mouse
-                    sphere.rotation.y += (targetRotation.y + elapsedTime * 0.2 - sphere.rotation.y) * 0.05;
-                    sphere.rotation.x += (targetRotation.x + elapsedTime * 0.1 - sphere.rotation.x) * 0.05;
-                } else {
-                    // Eat the screen!
-                    material.uniforms.uTime.value += 0.01; // Keep uTime slow so color stays consistent, don't boil it
-                    sphere.scale.multiplyScalar(1.15); // exponential scale growth to eat screen
-                    
-                    if (sphere.scale.x > 30) { // Big enough to swallow camera
-                        const overlay = document.getElementById('intro-overlay');
-                        overlay.style.opacity = 0;
-                        document.body.classList.remove('no-scroll');
-                        
-                        setTimeout(() => {
-                            overlay.style.display = 'none';
-                        }, 1000);
-                        return; // Stop animation loop for the overlay
-                    }
-                }
-                
-                renderer.render(scene, camera);
-            }
-            animate();
-
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-        }
-    </script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
