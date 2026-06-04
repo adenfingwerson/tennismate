@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tennis T-Mate</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body class="no-scroll">
+
+    <!-- 3D WebGL Intro Overlay -->
+    <div id="intro-overlay">
+        <!-- Background Marquee -->
+        <div class="top-marquee">
+            <div class="marquee-track">
+                <span>YOUR TENNIS T-MATE • YOUR TENNIS T-MATE • YOUR TENNIS T-MATE • YOUR TENNIS T-MATE • </span>
+                <span>YOUR TENNIS T-MATE • YOUR TENNIS T-MATE • YOUR TENNIS T-MATE • YOUR TENNIS T-MATE • </span>
+            </div>
+        </div>
+        <canvas id="plasma-canvas"></canvas>
+        <div class="intro-content">
+            <h1 class="intro-name"><span class="charged-text">Tennis <span style="white-space: nowrap;">T-Mate</span></span></h1>
+            <p class="intro-tagline"><span class="charged-text">All level coaching and hitting sessions.<br>Seamless booking process.</span></p>
+            <button id="enter-btn" class="cta-button">Enter</button>
+        </div>
+    </div>
+
+    <!-- Dynamic Rope Background (for the main content) -->
+    <svg id="rope-bg" preserveAspectRatio="none">
+        <path id="rope-glow" d="" stroke="rgba(204,255,0,0.02)" stroke-width="40" fill="none" stroke-linecap="round" />
+        <path id="rope-path" d="" stroke="rgba(204,255,0,0.15)" stroke-width="4" fill="none" stroke-linecap="round" />
+    </svg>
+
+    <!-- Main Content (Revealed after intro) -->
+    <main id="main-content">
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container text-center">
+                <h2>About Me</h2>
+                <div class="about-grid">
+                    <div class="about-text">
+                        <p>Hi, I'm Aden. I've been playing tennis for 8 years and currently compete on the <strong>Hastings College Men's Tennis Team</strong>.</p>
+                        <p>My goal is simply to help you improve your game and have a great time on the court. Whether you're an adult beginner learning the fundamentals, a high schooler prepping for varsity, or you're just looking for a solid hitting session, I'm here to help players of all ages and skill levels reach their goals.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="section">
+            <div class="container">
+                <h2 class="text-center">How it Works</h2>
+                <div class="services-grid" style="grid-template-columns: 1fr; max-width: 600px; margin: 40px auto 0;">
+                    
+                    <div class="service-card">
+                        <div class="card-header">
+                            <h3>Book an Hour</h3>
+                            <p>I'll focus on whatever you need.</p>
+                        </div>
+                        <div class="card-body">
+                            <ul class="pricing-list">
+                                <li><span>Coaching (Technique/Drills)</span> <strong>$25 / hr</strong></li>
+                                <li><span>Hitting Partner (Sets/Rallies)</span> <strong>$18 / hr</strong></li>
+                            </ul>
+                            <p class="service-details">
+                                <strong>Want to play longer?</strong> You can optionally add a half hour at the end of your coaching or hitting session for an extra $5 if you want to keep going.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Locations Section -->
+        <section id="locations" class="section">
+            <div class="container text-center">
+                <h2>Available Locations</h2>
+                <div class="location-badges">
+                    <span class="badge">📍 Hastings College Courts</span>
+                    <span class="badge">📍 North Park Courts (Holdrege)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Section -->
+        <section id="booking" class="section">
+            <div class="container text-center">
+                <h2>Lock It In</h2>
+                <p>Pick a 1-hour slot below. Be sure to drop your name, phone number, email, and <strong>pick your training type (Coaching or Hitting)</strong>.</p>
+                <p style="margin-top: 15px; margin-bottom: 25px; font-size: 1.1rem; color: #e2e8f0;">
+                    💵 <strong>Venmo:</strong> @Aden-Ingwerson &nbsp;&nbsp;|&nbsp;&nbsp; 📱 <strong>Text:</strong> <a href="tel:3089910173" style="color: var(--accent-color); text-decoration: none;">(308) 991-0173</a>
+                </p>
+                
+                <div class="booking-embed">
+                    <!-- Google Calendar Appointment Scheduling begin -->
+                    <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1aMaYFfS5CqV2J442kfd7Qd_VNECRxVGSW_XQJOGh5tMOrCtPhbN5Ep_k7aBCegbI0wrsis1m2?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
+                    <!-- end Google Calendar Appointment Scheduling -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2026 Aden Ingwerson.</p>
+        </footer>
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        // Custom SLOW smooth scrolling for all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (!targetElement) return;
+
+                const targetPosition = targetElement.offsetTop;
+                const startPosition = window.pageYOffset;
+                const distance = targetPosition - startPosition;
+                const duration = 1500; 
+                let start = null;
+
+                function step(timestamp) {
+                    if (!start) start = timestamp;
+                    const progress = timestamp - start;
+                    const easeInOut = progress < duration / 2 ? 
+                        4 * Math.pow(progress / duration, 3) : 
+                        1 - Math.pow(-2 * progress / duration + 2, 3) / 2;
+                    
+                    window.scrollTo(0, startPosition + distance * easeInOut);
+                    
+                    if (progress < duration) {
+                        window.requestAnimationFrame(step);
+                    } else {
+                        window.scrollTo(0, targetPosition); 
+                    }
+                }
+                window.requestAnimationFrame(step);
+            });
+        });
+
+        // Dynamic flowing rope background
+        const rope = document.getElementById('rope-path');
+        const ropeGlow = document.getElementById('rope-glow');
+        
+        function updateRope() {
+            const scrollY = window.scrollY;
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            
+            const topX = (w / 2) + Math.sin(scrollY * 0.001) * 150;
+            const cp1x = (w / 2) + Math.sin(scrollY * 0.0025) * (w * 0.45);
+            const cp2x = (w / 2) + Math.cos(scrollY * 0.0015) * (w * 0.45);
+            const bottomX = (w / 2) + Math.cos(scrollY * 0.001) * 150;
+            
+            const d = `M ${topX} -100 C ${cp1x} ${h * 0.25}, ${cp2x} ${h * 0.75}, ${bottomX} ${h + 100}`;
+            
+            if(rope) rope.setAttribute('d', d);
+            if(ropeGlow) ropeGlow.setAttribute('d', d);
+        }
+
+        window.addEventListener('scroll', updateRope);
+        window.addEventListener('resize', updateRope);
+        updateRope(); 
+    </script>
+
+    <!-- Three.js Plasma Ball Intro -->
+    <script type="module">
+        import * as THREE from 'https://cdn.skypack.dev/three@0.136.0';
+
+        const canvas = document.getElementById('plasma-canvas');
+        if (canvas) {
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+            
+            // Push camera back so the ball looks smaller
+            camera.position.z = 6.0;
+
+            // Simplex noise in GLSL
+            const vertexShader = `
+            uniform float uTime;
+            uniform vec2 uMouse;
+            varying vec2 vUv;
+            varying vec3 vNormal;
+
+            vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x, 289.0);}
+            vec4 taylorInvSqrt(vec4 r){return 1.79284291400159 - 0.85373472095314 * r;}
+            float snoise(vec3 v){ 
+              const vec2  C = vec2(1.0/6.0, 1.0/3.0) ;
+              const vec4  D = vec4(0.0, 0.5, 1.0, 2.0);
+              vec3 i  = floor(v + dot(v, C.yyy) );
+              vec3 x0 = v - i + dot(i, C.xxx) ;
+              vec3 g = step(x0.yzx, x0.xyz);
+              vec3 l = 1.0 - g;
+              vec3 i1 = min( g.xyz, l.zxy );
+              vec3 i2 = max( g.xyz, l.zxy );
+              vec3 x1 = x0 - i1 + 1.0 * C.xxx;
+              vec3 x2 = x0 - i2 + 2.0 * C.xxx;
+              vec3 x3 = x0 - 1.0 + 3.0 * C.xxx;
+              i = mod(i, 289.0 ); 
+              vec4 p = permute( permute( permute( 
+                         i.z + vec4(0.0, i1.z, i2.z, 1.0 ))
+                       + i.y + vec4(0.0, i1.y, i2.y, 1.0 )) 
+                       + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));
+              float n_ = 1.0/7.0;
+              vec3  ns = n_ * D.wyz - D.xzx;
+              vec4 j = p - 49.0 * floor(p * ns.z *ns.z);
+              vec4 x_ = floor(j * ns.z);
+              vec4 y_ = floor(j - 7.0 * x_ );
+              vec4 x = x_ *ns.x + ns.yyyy;
+              vec4 y = y_ *ns.x + ns.yyyy;
+              vec4 h = 1.0 - abs(x) - abs(y);
+              vec4 b0 = vec4( x.xy, y.xy );
+              vec4 b1 = vec4( x.zw, y.zw );
+              vec4 s0 = floor(b0)*2.0 + 1.0;
+              vec4 s1 = floor(b1)*2.0 + 1.0;
+              vec4 sh = -step(h, vec4(0.0));
+              vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy ;
+              vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww ;
+              vec3 p0 = vec3(a0.xy,h.x);
+              vec3 p1 = vec3(a0.zw,h.y);
+              vec3 p2 = vec3(a1.xy,h.z);
+              vec3 p3 = vec3(a1.zw,h.w);
+              vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
+              p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
+              vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+              m = m * m;
+              return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3) ) );
+            }
+
+            void main() {
+                vUv = uv;
+                vNormal = normal;
+                // Warp the sphere over time, much less extreme so it stays round
+                float noise = snoise(position * 1.5 + uTime * 0.5 + (uMouse.x * 0.5));
+                vec3 newPosition = position + normal * noise * 0.08; 
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+            }
+            `;
+
+            const fragmentShader = `
+            uniform float uTime;
+            varying vec2 vUv;
+            varying vec3 vNormal;
+
+            void main() {
+                // Optic Yellow tennis ball colors
+                vec3 yellow = vec3(0.85, 1.0, 0.0);
+                vec3 darkYellow = vec3(0.5, 0.7, 0.0);
+                
+                // Plasma color mixing
+                vec3 color = mix(darkYellow, yellow, 0.5 + 0.5 * sin(uTime + vNormal.x * 3.0 + vNormal.y * 3.0));
+                
+                // Sharp, distinctive tennis ball wavy line
+                float wave = cos(vNormal.y * 5.0 + sin(uTime * 0.2)) + sin(vNormal.x * 5.0);
+                float line = smoothstep(0.02, 0.06, abs(wave));
+                
+                // Mix pure white line onto the yellow body
+                color = mix(vec3(1.0, 1.0, 1.0), color, line);
+                
+                // Outer glow rim lighting
+                float rim = 1.0 - max(dot(vNormal, vec3(0.0, 0.0, 1.0)), 0.0);
+                color += vec3(0.3, 0.4, 0.0) * pow(rim, 3.0);
+                
+                // Internal electricity crackle
+                float electric = pow(max(0.0, sin(vNormal.x * 15.0 + uTime * 12.0) * sin(vNormal.y * 15.0 - uTime * 8.0)), 3.0);
+                color += vec3(0.8, 1.0, 0.5) * electric * 0.8;
+                
+                // Make the ball translucent, with electricity being opaque
+                float alpha = 0.80 + 0.20 * electric;
+                
+                gl_FragColor = vec4(color, alpha);
+            }
+            `;
+
+            const geometry = new THREE.IcosahedronGeometry(1.2, 128); // high poly for smooth roundness
+            const material = new THREE.ShaderMaterial({
+                vertexShader,
+                fragmentShader,
+                uniforms: { 
+                    uTime: { value: 0 },
+                    uMouse: { value: new THREE.Vector2(0, 0) }
+                },
+                wireframe: false,
+                transparent: true,
+                blending: THREE.AdditiveBlending // Gives it that intense energetic glow
+            });
+
+            const sphere = new THREE.Mesh(geometry, material);
+            scene.add(sphere);
+
+            // Mouse tracking
+            const mouse = new THREE.Vector2();
+            const targetRotation = new THREE.Vector2();
+            
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+                
+                targetRotation.x = mouse.y * 0.5;
+                targetRotation.y = mouse.x * 0.5;
+                
+                material.uniforms.uMouse.value = mouse;
+            });
+
+            const clock = new THREE.Clock();
+            let isEating = false;
+
+            // Transition logic
+            document.getElementById('enter-btn').addEventListener('click', () => {
+                // Fade out text instantly
+                document.querySelector('.intro-content').style.opacity = 0;
+                document.querySelector('.intro-content').style.transition = "opacity 0.3s";
+                
+                // Trigger the eat animation
+                isEating = true;
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+                const elapsedTime = clock.getElapsedTime();
+                
+                if (!isEating) {
+                    material.uniforms.uTime.value = elapsedTime;
+                    // React to mouse
+                    sphere.rotation.y += (targetRotation.y + elapsedTime * 0.2 - sphere.rotation.y) * 0.05;
+                    sphere.rotation.x += (targetRotation.x + elapsedTime * 0.1 - sphere.rotation.x) * 0.05;
+                } else {
+                    // Eat the screen!
+                    material.uniforms.uTime.value += 0.01; // Keep uTime slow so color stays consistent, don't boil it
+                    sphere.scale.multiplyScalar(1.15); // exponential scale growth to eat screen
+                    
+                    if (sphere.scale.x > 30) { // Big enough to swallow camera
+                        const overlay = document.getElementById('intro-overlay');
+                        overlay.style.opacity = 0;
+                        document.body.classList.remove('no-scroll');
+                        
+                        setTimeout(() => {
+                            overlay.style.display = 'none';
+                        }, 1000);
+                        return; // Stop animation loop for the overlay
+                    }
+                }
+                
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+    </script>
+</body>
+</html>
