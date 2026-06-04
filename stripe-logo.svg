@@ -1,0 +1,21 @@
+<svg width="600" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg">
+  <!-- Clean, bold text matching the site's neon aesthetic without looking rough -->
+  <style>
+    .font-bebas { font-family: 'Bebas Neue', sans-serif, 'Helvetica Neue', Arial; font-weight: bold; }
+    .text-white { fill: #f8fafc; }
+    .text-neon { fill: #ccff00; }
+    .ball-stroke { stroke: #ccff00; stroke-width: 4; fill: #0f172a; }
+    .ball-line { stroke: #ccff00; stroke-width: 3; fill: none; }
+  </style>
+
+  <!-- Clean Tennis Ball Graphic -->
+  <g transform="translate(30, 25)">
+    <circle cx="50" cy="50" r="45" class="ball-stroke" />
+    <path d="M 20 15 Q 60 50 20 85" class="ball-line" />
+    <path d="M 80 15 Q 40 50 80 85" class="ball-line" />
+  </g>
+
+  <!-- Clean Logo Text -->
+  <text x="160" y="105" font-size="80" class="font-bebas text-white" letter-spacing="2">TENNIS</text>
+  <text x="375" y="105" font-size="80" class="font-bebas text-neon" letter-spacing="2">TMATE</text>
+</svg>

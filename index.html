@@ -876,6 +876,687 @@
     vertical-align: middle;
   }
 
+  /* UX Improvement Fixes */
+  .locations-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  .location-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(15, 23, 42, 0.05);
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    border-radius: 10px;
+    padding: 14px 18px;
+    text-decoration: none;
+    color: var(--black);
+    transition: all 0.3s ease;
+    cursor: none;
+  }
+
+  .location-card:hover {
+    background: var(--black);
+    color: var(--off-white);
+    border-color: var(--black);
+    transform: translateY(-2px);
+  }
+
+  .location-card strong {
+    display: block;
+    font-size: 14px;
+    color: inherit;
+  }
+
+  .loc-note {
+    display: block;
+    font-size: 12px;
+    color: var(--mid-gray);
+    margin-top: 2px;
+  }
+
+  .loc-arrow {
+    margin-left: auto;
+    color: var(--accent);
+    font-size: 16px;
+    text-shadow: 0 0 8px rgba(204, 255, 0, 0.5);
+    opacity: 0;
+    transform: translate(-4px, 4px);
+    transition: all 0.3s ease;
+  }
+
+  .location-card:hover .loc-arrow {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  .pricing-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .price-item {
+    flex: 1 1 140px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--text-light);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .price-item strong {
+    color: var(--accent);
+    text-shadow: 0 0 5px rgba(204, 255, 0, 0.2);
+    white-space: nowrap;
+    font-weight: 700;
+  }
+
+  .price-item--extra {
+    border-color: rgba(204, 255, 0, 0.2);
+  }
+
+  .booking-wrap {
+    width: 100%;
+    background: var(--off-white);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    margin: 24px 0;
+  }
+
+  .booking-wrap iframe {
+    width: 100%;
+    height: 600px;
+    border: none;
+    display: block;
+  }
+
+  @media (max-width: 600px) {
+    .booking-wrap iframe {
+      height: 520px;
+    }
+  }
+
+  .next-steps {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px dashed rgba(204, 255, 0, 0.3);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-top: 24px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .next-steps h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--off-white);
+    letter-spacing: 0.05em;
+  }
+
+  .next-steps ol {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--mid-gray);
+  }
+
+  .next-steps ol li::marker {
+    color: var(--accent);
+    font-weight: bold;
+  }
+
+  .next-steps a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: text-shadow 0.3s ease;
+  }
+
+  .next-steps a:hover {
+    text-shadow: 0 0 8px rgba(204, 255, 0, 0.4);
+  }
+
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  .btn {
+    flex: 1 1 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    transition: all 0.3s ease;
+    cursor: none;
+  }
+
+  .btn-venmo {
+    background: #008cff;
+    color: #fff;
+    border: 1px solid #008cff;
+    box-shadow: 0 4px 12px rgba(0, 140, 255, 0.2);
+  }
+
+  .btn-venmo:hover {
+    background: transparent;
+    color: #008cff;
+    box-shadow: 0 6px 16px rgba(0, 140, 255, 0.4);
+  }
+
+  .btn-text {
+    background: var(--accent);
+    color: var(--black);
+    border: 1px solid var(--accent);
+    box-shadow: 0 4px 12px rgba(204, 255, 0, 0.2);
+  }
+
+  .btn-text:hover {
+    background: transparent;
+    color: var(--accent);
+    box-shadow: 0 6px 16px rgba(204, 255, 0, 0.4);
+  }
+
+  @media (max-width: 480px) {
+    .btn {
+      flex: 1 1 100%;
+    }
+  }
+
+  /* Profile/Login Panel Styles */
+  .profile-panel {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 2rem;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .profile-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+  }
+
+  .profile-header h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--off-white);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .profile-subtitle {
+    font-size: 0.8rem;
+    color: var(--mid-gray);
+    margin-bottom: 1.5rem;
+  }
+
+  .profile-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+  }
+
+  .profile-tab {
+    background: none;
+    border: none;
+    color: var(--mid-gray);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    cursor: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+
+  .profile-tab.active {
+    color: var(--accent);
+    background: rgba(204, 255, 0, 0.1);
+    text-shadow: 0 0 5px rgba(204, 255, 0, 0.3);
+  }
+
+  .profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .profile-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .profile-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+  }
+
+  .profile-input {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 10px 14px;
+    color: var(--off-white);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    width: 100%;
+  }
+
+  .profile-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(204, 255, 0, 0.2);
+  }
+
+  .profile-btn-submit {
+    background: var(--accent);
+    color: var(--black);
+    border: none;
+    border-radius: 6px;
+    padding: 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: none;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .profile-btn-submit:hover {
+    background: var(--off-white);
+    box-shadow: 0 0 12px rgba(248, 250, 252, 0.4);
+  }
+
+  /* Logged In State Styles */
+  .profile-logged-in {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .profile-user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .profile-avatar {
+    width: 42px;
+    height: 42px;
+    background: rgba(204, 255, 0, 0.1);
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 0 10px rgba(204, 255, 0, 0.2);
+  }
+
+  .profile-welcome-text h4 {
+    font-size: 1.1rem;
+    color: var(--off-white);
+    margin: 0;
+  }
+
+  .profile-welcome-text p {
+    font-size: 0.75rem;
+    color: var(--accent);
+    margin: 0;
+  }
+
+  .profile-details-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+  }
+
+  .profile-detail-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+  }
+
+  .profile-detail-label {
+    color: var(--mid-gray);
+  }
+
+  .profile-detail-val {
+    color: var(--off-white);
+  }
+
+  .profile-logout-btn {
+    align-self: flex-start;
+    background: transparent;
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    cursor: none;
+    transition: all 0.3s ease;
+  }
+
+  .profile-logout-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: #ef4444;
+  }
+
+  .profile-error-msg {
+    color: #ef4444;
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+    display: none;
+  }
+
+  /* Coach Selector Styles */
+  .coach-selector-container {
+    margin-bottom: 24px;
+  }
+
+  .coach-selector-title {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-bottom: 12px;
+  }
+
+  .coach-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+  }
+
+  .coach-card {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 16px;
+    cursor: none;
+    text-align: left;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .coach-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+    transition: transform 0.3s ease;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .coach-card:hover {
+    background: rgba(30, 41, 59, 0.8);
+    border-color: rgba(204, 255, 0, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .coach-card.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(204, 255, 0, 0.2);
+  }
+
+  .coach-card.active::before {
+    transform: scaleX(1);
+  }
+
+  .coach-card-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--off-white);
+    letter-spacing: 0.02em;
+    margin-bottom: 4px;
+    line-height: 1.1;
+  }
+
+  .coach-card-bio {
+    font-size: 11px;
+    color: var(--mid-gray);
+    line-height: 1.3;
+  }
+
+  /* Admin Dashboard Styles */
+  .admin-dashboard {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .admin-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    margin: 0;
+  }
+
+  .admin-subtitle {
+    font-size: 0.75rem;
+    color: var(--mid-gray);
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .admin-nav-tabs {
+    display: flex;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 4px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .admin-nav-tab {
+    flex: 1;
+    background: none;
+    border: none;
+    color: var(--mid-gray);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    padding: 6px;
+    border-radius: 4px;
+    cursor: none;
+    transition: all 0.3s ease;
+  }
+
+  .admin-nav-tab.active {
+    color: var(--black);
+    background: var(--accent);
+    font-weight: 700;
+  }
+
+  .admin-coaches-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 180px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+
+  .admin-coach-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+  }
+
+  .admin-coach-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .admin-coach-item-name {
+    font-size: 13px;
+    color: var(--off-white);
+    font-weight: 700;
+  }
+
+  .admin-coach-item-bio {
+    font-size: 10px;
+    color: var(--mid-gray);
+  }
+
+  .admin-btn-delete {
+    background: none;
+    border: none;
+    color: #ef4444;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    cursor: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+
+  .admin-btn-delete:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: #ef4444;
+  }
+
+  .admin-earnings-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .admin-stat-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .admin-stat-card {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    text-align: center;
+  }
+
+  .admin-stat-label {
+    font-size: 9px;
+    color: var(--mid-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .admin-stat-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: var(--accent);
+    margin-top: 4px;
+  }
+
+  .admin-table-wrapper {
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10px;
+  }
+
+  .admin-table th, .admin-table td {
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  }
+
+  .admin-table th {
+    background: rgba(0, 0, 0, 0.4);
+    color: var(--mid-gray);
+    font-weight: 700;
+  }
+
+  .admin-table td {
+    color: var(--text-light);
+  }
+
+  .admin-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
   /* mobile */
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
@@ -1124,17 +1805,33 @@
   <div class="locations-inner">
     <div class="section-label reveal">Where We Train</div>
     <h2 class="reveal reveal-delay-1">AVAILABLE LOCATIONS</h2>
-    <div class="location-list">
-      <div class="location-item reveal reveal-delay-2">
-        <div class="location-num">LOC / 01</div>
-        <div class="location-name">Hastings College Courts</div>
-        <div class="location-arrow">📍</div>
-      </div>
-      <div class="location-item reveal reveal-delay-3">
-        <div class="location-num">LOC / 02</div>
-        <div class="location-name">North Park Courts (Holdrege)</div>
-        <div class="location-arrow">📍</div>
-      </div>
+    <div class="locations-cards">
+      <a
+        href="https://maps.google.com/?q=Hastings+College+Tennis+Courts+Hastings+NE"
+        target="_blank"
+        rel="noopener"
+        class="location-card reveal reveal-delay-2"
+      >
+        <span>📍</span>
+        <div>
+          <strong>Hastings College Courts</strong>
+          <span class="loc-note">Primary location · Most availability</span>
+        </div>
+        <span class="loc-arrow">↗</span>
+      </a>
+      <a
+        href="https://maps.google.com/?q=North+Park+Courts+Holdrege+NE"
+        target="_blank"
+        rel="noopener"
+        class="location-card reveal reveal-delay-3"
+      >
+        <span>📍</span>
+        <div>
+          <strong>North Park Courts — Holdrege</strong>
+          <span class="loc-note">Available by request · Note preferred location when booking</span>
+        </div>
+        <span class="loc-arrow">↗</span>
+      </a>
     </div>
   </div>
 </section>
@@ -1150,8 +1847,184 @@
         LOCK IT IN
       </h2>
       <p class="booking-desc reveal reveal-delay-2">
-        Pick a 1-hour slot below. Be sure to drop your name, phone number, email, and <strong>pick your training type (Coaching or Hitting)</strong>.
+        Pick a 1-hour slot below. Be sure to drop your name, phone number, email, and pick your session (<strong style="color: var(--brand);">Coaching or Hitting</strong>).
       </p>
+
+      <!-- User Profile Panel -->
+      <div id="profilePanel" class="profile-panel reveal reveal-delay-3">
+        <!-- Logged Out Container -->
+        <div id="profileLoggedOut">
+          <div class="profile-header">
+            <h3>👤 Member Profiles</h3>
+            <p class="profile-subtitle">Create an account or login to automatically remember details.</p>
+          </div>
+          <div class="profile-tabs">
+            <button type="button" class="profile-tab active" id="tabLogin" onclick="toggleProfileTab('login')">LOGIN</button>
+            <button type="button" class="profile-tab" id="tabRegister" onclick="toggleProfileTab('register')">REGISTER</button>
+          </div>
+          
+          <!-- Login Form -->
+          <form id="formLogin" class="profile-form" onsubmit="handleProfileLogin(event)">
+            <div class="profile-field">
+              <label class="profile-label">Email Address</label>
+              <input type="email" id="loginEmail" required class="profile-input" placeholder="you@example.com">
+            </div>
+            <div class="profile-field">
+              <label class="profile-label">4-Digit PIN</label>
+              <input type="password" id="loginPin" required maxlength="4" pattern="\d{4}" class="profile-input" placeholder="••••" inputmode="numeric">
+            </div>
+            <div id="loginError" class="profile-error-msg">Incorrect email or PIN.</div>
+            <button type="submit" class="profile-btn-submit">Sign In</button>
+          </form>
+
+          <!-- Register Form (Hidden by default) -->
+          <form id="formRegister" class="profile-form" style="display: none;" onsubmit="handleProfileRegister(event)">
+            <div class="profile-field">
+              <label class="profile-label">Full Name</label>
+              <input type="text" id="regName" required class="profile-input" placeholder="Roger Federer">
+            </div>
+            <div class="profile-field">
+              <label class="profile-label">Email Address</label>
+              <input type="email" id="regEmail" required class="profile-input" placeholder="you@example.com">
+            </div>
+            <div class="profile-field">
+              <label class="profile-label">Phone Number</label>
+              <input type="tel" id="regPhone" required class="profile-input" placeholder="(308) 555-0123">
+            </div>
+            <div class="profile-field">
+              <label class="profile-label">Create 4-Digit PIN</label>
+              <input type="password" id="regPin" required maxlength="4" pattern="\d{4}" class="profile-input" placeholder="••••" inputmode="numeric">
+            </div>
+            <div id="registerError" class="profile-error-msg">Email is already registered.</div>
+            <button type="submit" class="profile-btn-submit">Create Account</button>
+          </form>
+        </div>
+
+        <!-- Logged In Container (Hidden by default) -->
+        <div id="profileLoggedIn" style="display: none;" class="profile-logged-in">
+          <div class="profile-user-info">
+            <div class="profile-avatar">🎾</div>
+            <div class="profile-welcome-text">
+              <h4 id="userWelcomeName">Welcome, Player</h4>
+              <p>✓ Details saved &amp; ready to auto-book!</p>
+            </div>
+          </div>
+          <div class="profile-details-list">
+            <div class="profile-detail-item">
+              <span class="profile-detail-label">Email:</span>
+              <span class="profile-detail-val" id="profileValEmail">---</span>
+            </div>
+            <div class="profile-detail-item">
+              <span class="profile-detail-label">Phone:</span>
+              <span class="profile-detail-val" id="profileValPhone">---</span>
+            </div>
+          </div>
+          <button type="button" class="profile-logout-btn" onclick="handleProfileLogout()">Sign Out</button>
+
+          <!-- Admin Dashboard View (Shown ONLY to Aden) -->
+          <div id="adminDashboardView" style="display: none;" class="admin-dashboard">
+            <div class="admin-header">
+              <h4 class="admin-title">ADMIN CONTROL PANEL</h4>
+              <div class="admin-nav-tabs">
+                <button type="button" class="admin-nav-tab active" id="adminTabCoaches" onclick="toggleAdminTab('coaches')">COACHES</button>
+                <button type="button" class="admin-nav-tab" id="adminTabEarnings" onclick="toggleAdminTab('earnings')">EARNINGS</button>
+              </div>
+            </div>
+            
+            <!-- Coaches Management Tab -->
+            <div id="adminPanelCoaches" class="profile-form">
+              <p class="admin-subtitle">Add other coaches to route their calendar & payments.</p>
+              
+              <div class="admin-coaches-list" id="adminCoachesList">
+                <!-- Dynamically populated -->
+              </div>
+              
+              <!-- Add Coach Form inside Admin -->
+              <div class="profile-field">
+                <label class="profile-label">Coach Name</label>
+                <input type="text" id="addCoachName" class="profile-input" placeholder="Sarah Tennis">
+              </div>
+              <div class="profile-field">
+                <label class="profile-label">Short Bio</label>
+                <input type="text" id="addCoachBio" class="profile-input" placeholder="Former collegiate star">
+              </div>
+              <div class="admin-form-row">
+                <div class="profile-field">
+                  <label class="profile-label">Phone Number</label>
+                  <input type="text" id="addCoachPhone" class="profile-input" placeholder="(308) 555-1234">
+                </div>
+                <div class="profile-field">
+                  <label class="profile-label">Venmo Handle</label>
+                  <input type="text" id="addCoachVenmo" class="profile-input" placeholder="@Sarah-Tennis">
+                </div>
+              </div>
+              <div class="profile-field">
+                <label class="profile-label">Google Calendar Schedule Link</label>
+                <input type="url" id="addCoachCalendar" class="profile-input" placeholder="https://calendar.google.com/calendar/appointments/schedules/...">
+              </div>
+              <div class="profile-field">
+                <label class="profile-label">Stripe Coaching Link ($25)</label>
+                <input type="url" id="addCoachStripeCoaching" class="profile-input" placeholder="https://buy.stripe.com/...">
+              </div>
+              <div class="profile-field">
+                <label class="profile-label">Stripe Hitting Link ($18)</label>
+                <input type="url" id="addCoachStripeHitting" class="profile-input" placeholder="https://buy.stripe.com/...">
+              </div>
+              <button type="button" class="profile-btn-submit" style="background:var(--accent); color:var(--black);" onclick="handleAddCoachSubmit()">Add New Coach</button>
+            </div>
+
+            <!-- Earnings / Booking Logs Tab -->
+            <div id="adminPanelEarnings" class="admin-earnings-panel" style="display: none;">
+              <p class="admin-subtitle">Track payments collected through Stripe.</p>
+              
+              <div class="admin-stat-cards">
+                <div class="admin-stat-card">
+                  <span class="admin-stat-label">Total Volume</span>
+                  <div class="admin-stat-value" id="adminTotalVolume">$0.00</div>
+                </div>
+                <div class="admin-stat-card">
+                  <span class="admin-stat-label">Your Cut (6.5%)</span>
+                  <div class="admin-stat-value" id="adminYourCut">$0.00</div>
+                </div>
+              </div>
+
+              <!-- Log New Booking Form -->
+              <div class="profile-form" style="margin-top: 10px;">
+                <div class="admin-form-row">
+                  <div class="profile-field">
+                    <label class="profile-label">Select Coach</label>
+                    <select id="logBookingCoach" class="profile-input" style="color:var(--off-white);">
+                      <!-- Dynamically populated -->
+                    </select>
+                  </div>
+                  <div class="profile-field">
+                    <label class="profile-label">Session Fee ($)</label>
+                    <input type="number" id="logBookingFee" class="profile-input" placeholder="25" min="0">
+                  </div>
+                </div>
+                <button type="button" class="profile-btn-submit" onclick="handleLogBookingSubmit()">Log Transaction</button>
+              </div>
+
+              <!-- Transactions Table -->
+              <div class="admin-table-wrapper" style="margin-top: 10px;">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Coach</th>
+                      <th>Fee</th>
+                      <th>Your Cut (6.5%)</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adminEarningsTableBody">
+                    <!-- Dynamically populated -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="payment-options reveal reveal-delay-3">
         <h3>Payment Options</h3>
@@ -1182,16 +2055,80 @@
         </div>
       </div>
       
-      <div class="contact-info reveal reveal-delay-4">
-        <span>📱 <strong>Questions? Text:</strong> <a href="tel:3089910173">(308) 991-0173</a></span>
+      <!-- Contact & Venmo Action Buttons -->
+      <div class="contact-actions reveal reveal-delay-4">
+        <a
+          href="venmo://paycharge?txn=pay&recipients=Aden-Ingwerson&note=Tennis+Session"
+          class="btn btn-venmo"
+        >
+          💵 Pay on Venmo
+        </a>
+        <a
+          href="sms:3089910173&body=Hey+Aden%2C+I+just+booked+a+session!"
+          class="btn btn-text"
+        >
+          📱 Text Aden
+        </a>
       </div>
     </div>
 
-    <!-- Calendar Embed -->
-    <div class="reveal reveal-delay-2 booking-embed-container">
-        <!-- Google Calendar Appointment Scheduling begin -->
-        <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1aMaYFfS5CqV2J442kfd7Qd_VNECRxVGSW_XQJOGh5tMOrCtPhbN5Ep_k7aBCegbI0wrsis1m2?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
-        <!-- end Google Calendar Appointment Scheduling -->
+    <!-- Calendar Embed with Pricing Bar & After You Book Guide -->
+    <div class="reveal reveal-delay-2">
+      <!-- Coach Selector Widget -->
+      <div class="coach-selector-container">
+        <h4 class="coach-selector-title">Select Your Tennis T-Mate</h4>
+        <div class="coach-grid" id="publicCoachGrid">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- Pricing Bar directly above calendar -->
+      <div class="pricing-bar">
+        <div class="price-item">
+          <span>🎾 Coaching (Technique/Drills)</span>
+          <strong>$25 / hr</strong>
+        </div>
+        <div class="price-item">
+          <span>🏃 Hitting Partner (Sets/Rallies)</span>
+          <strong>$18 / hr</strong>
+        </div>
+        <div class="price-item price-item--extra">
+          <span>➕ Add 30 min</span>
+          <strong>+$5</strong>
+        </div>
+      </div>
+
+      <!-- Booking Wrap -->
+      <div class="booking-wrap">
+        <iframe
+          id="cal-frame"
+          src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1aMaYFfS5CqV2J442kfd7Qd_VNECRxVGSW_XQJOGh5tMOrCtPhbN5Ep_k7aBCegbI0wrsis1m2?gv=true"
+          title="Book a Tennis Session"
+          loading="lazy"
+        ></iframe>
+        <!-- Shown if iframe fails or on mobile -->
+        <div id="cal-fallback" style="display:none; text-align:center; padding:24px; background:var(--off-white); color:var(--black);">
+          <p style="font-size:15px; font-weight:bold; margin-bottom:12px; font-family:'DM Mono', monospace;">Tap below to pick your time slot.</p>
+          <a
+            href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1aMaYFfS5CqV2J442kfd7Qd_VNECRxVGSW_XQJOGh5tMOrCtPhbN5Ep_k7aBCegbI0wrsis1m2?gv=true"
+            target="_blank"
+            rel="noopener"
+            style="display:inline-block; background:#2d6a4f; color:#fff; padding:14px 28px; border-radius:10px; font-size:16px; font-weight:700; text-decoration:none; box-shadow: 0 4px 12px rgba(45, 106, 79, 0.3); font-family:'DM Mono', monospace;"
+          >
+            📅 Book a Session
+          </a>
+        </div>
+      </div>
+
+      <!-- After You Book Guide -->
+      <div class="next-steps">
+        <h3>After You Book</h3>
+        <ol>
+          <li>You'll get a Google Calendar confirmation email. Check spam if you don't see it.</li>
+          <li>Pay before or at the session via <a href="https://venmo.com/u/Aden-Ingwerson" target="_blank">Venmo @Aden-Ingwerson</a> or cash at the court.</li>
+          <li>Questions? Text Aden at <a href="sms:3089910173">(308) 991-0173</a>.</li>
+        </ol>
+      </div>
     </div>
 
   </div>
@@ -1234,6 +2171,465 @@
     });
   }, { threshold: 0.12 });
   revealEls.forEach(el => observer.observe(el));
+
+  // Show fallback on mobile or if iframe errors
+  const frame = document.getElementById('cal-frame');
+  const fallback = document.getElementById('cal-fallback');
+
+  if (frame && fallback) {
+    // Mobile: skip iframe entirely
+    if (window.innerWidth < 640) {
+      frame.style.display = 'none';
+      fallback.style.display = 'block';
+    }
+
+    // Desktop: show fallback if iframe errors
+    frame.addEventListener('error', () => {
+      frame.style.display = 'none';
+      fallback.style.display = 'block';
+    });
+  }
+
+  // Profile system handlers
+  function toggleProfileTab(tab) {
+    const tabLogin = document.getElementById('tabLogin');
+    const tabRegister = document.getElementById('tabRegister');
+    const formLogin = document.getElementById('formLogin');
+    const formRegister = document.getElementById('formRegister');
+    
+    if (tab === 'login') {
+      tabLogin.classList.add('active');
+      tabRegister.classList.remove('active');
+      formLogin.style.display = 'flex';
+      formRegister.style.display = 'none';
+    } else {
+      tabRegister.classList.add('active');
+      tabLogin.classList.remove('active');
+      formRegister.style.display = 'flex';
+      formLogin.style.display = 'none';
+    }
+  }
+
+  function handleProfileRegister(e) {
+    e.preventDefault();
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim().toLowerCase();
+    const phone = document.getElementById('regPhone').value.trim();
+    const pin = document.getElementById('regPin').value;
+    const registerError = document.getElementById('registerError');
+
+    const users = JSON.parse(localStorage.getItem('tm_users') || '{}');
+    if (users[email]) {
+      registerError.style.display = 'block';
+      return;
+    }
+
+    registerError.style.display = 'none';
+    users[email] = { name, email, phone, pin };
+    localStorage.setItem('tm_users', JSON.stringify(users));
+    localStorage.setItem('tm_active_user', email);
+
+    // Reset forms
+    document.getElementById('formRegister').reset();
+    showLoggedInState(users[email]);
+  }
+
+  function handleProfileLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+    const pin = document.getElementById('loginPin').value;
+    const loginError = document.getElementById('loginError');
+
+    const users = JSON.parse(localStorage.getItem('tm_users') || '{}');
+    const user = users[email];
+
+    if (user && user.pin === pin) {
+      loginError.style.display = 'none';
+      localStorage.setItem('tm_active_user', email);
+      document.getElementById('formLogin').reset();
+      showLoggedInState(user);
+    } else {
+      loginError.style.display = 'block';
+    }
+  }
+
+  function handleProfileLogout() {
+    localStorage.removeItem('tm_active_user');
+    showLoggedOutState();
+  }
+
+  // Default master coach registry
+  const DEFAULT_COACHES = {
+    "aden": {
+      id: "aden",
+      name: "Aden Ingwerson",
+      bio: "Hastings College Varsity Player · Primary Coach",
+      phone: "3089910173",
+      venmo: "Aden-Ingwerson",
+      calendar: "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1aMaYFfS5CqV2J442kfd7Qd_VNECRxVGSW_XQJOGh5tMOrCtPhbN5Ep_k7aBCegbI0wrsis1m2?gv=true",
+      stripeCoaching: "https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01",
+      stripeHitting: "https://buy.stripe.com/4gMeV59v42Z89Gc9zhaZi02",
+      stripeAddon: "https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00",
+      coachingPrice: "25",
+      hittingPrice: "18"
+    }
+  };
+
+  function getCoaches() {
+    const customCoaches = JSON.parse(localStorage.getItem('tm_coaches') || '{}');
+    return { ...DEFAULT_COACHES, ...customCoaches };
+  }
+
+  function saveCoaches(coaches) {
+    const custom = {};
+    for (const [id, coach] of Object.entries(coaches)) {
+      if (id !== "aden") custom[id] = coach;
+    }
+    localStorage.setItem('tm_coaches', JSON.stringify(custom));
+  }
+
+  // Active Selected Coach
+  let activeCoachId = localStorage.getItem('tm_selected_coach') || 'aden';
+
+  function renderPublicCoachGrid() {
+    const coaches = getCoaches();
+    const grid = document.getElementById('publicCoachGrid');
+    if (!grid) return;
+
+    grid.innerHTML = '';
+    
+    // Check if activeCoachId exists, otherwise fallback to default
+    if (!coaches[activeCoachId]) {
+      activeCoachId = 'aden';
+    }
+
+    Object.values(coaches).forEach(coach => {
+      const isActive = coach.id === activeCoachId;
+      const card = document.createElement('div');
+      card.className = `coach-card ${isActive ? 'active' : ''}`;
+      card.onclick = () => selectCoach(coach.id);
+      
+      // Setup cursor expand on hover dynamically
+      card.addEventListener('mouseenter', () => {
+        const cursor = document.getElementById('cursor');
+        if (cursor) cursor.classList.add('expand');
+      });
+      card.addEventListener('mouseleave', () => {
+        const cursor = document.getElementById('cursor');
+        if (cursor) cursor.classList.remove('expand');
+      });
+
+      card.innerHTML = `
+        <div class="coach-card-name">${coach.name}</div>
+        <div class="coach-card-bio">${coach.bio}</div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function selectCoach(coachId) {
+    activeCoachId = coachId;
+    localStorage.setItem('tm_selected_coach', coachId);
+    renderPublicCoachGrid();
+    updateSelectedCoachUI();
+  }
+
+  function updateSelectedCoachUI() {
+    const coaches = getCoaches();
+    const coach = coaches[activeCoachId] || coaches['aden'];
+    
+    // Update Pricing Bar
+    const pricingBar = document.querySelector('.pricing-bar');
+    if (pricingBar) {
+      pricingBar.innerHTML = `
+        <div class="price-item">
+          <span>🎾 Coaching (Technique/Drills)</span>
+          <strong>$${coach.coachingPrice || '25'} / hr</strong>
+        </div>
+        <div class="price-item">
+          <span>🏃 Hitting Partner (Sets/Rallies)</span>
+          <strong>$${coach.hittingPrice || '18'} / hr</strong>
+        </div>
+        <div class="price-item price-item--extra">
+          <span>➕ Add 30 min</span>
+          <strong>+$5</strong>
+        </div>
+      `;
+    }
+
+    // Update Calendar Embed Frame
+    const frame = document.getElementById('cal-frame');
+    const fallbackLink = document.querySelector('#cal-fallback a');
+    
+    let calendarUrl = coach.calendar;
+    
+    // Pre-fill user details into Google Calendar link if logged in
+    const activeUserEmail = localStorage.getItem('tm_active_user');
+    if (activeUserEmail) {
+      const users = JSON.parse(localStorage.getItem('tm_users') || '{}');
+      const user = users[activeUserEmail];
+      if (user) {
+        const encodedName = encodeURIComponent(user.name);
+        const encodedEmail = encodeURIComponent(user.email);
+        calendarUrl += `&name=${encodedName}&email=${encodedEmail}`;
+      }
+    }
+
+    if (frame) frame.src = calendarUrl;
+    if (fallbackLink) fallbackLink.href = calendarUrl;
+
+    // Update payment links
+    // Venmo Pay link
+    const venmoBtn = document.querySelector('.btn-venmo');
+    if (venmoBtn) {
+      const coachVenmo = coach.venmo || "Aden-Ingwerson";
+      venmoBtn.href = `venmo://paycharge?txn=pay&recipients=${coachVenmo}&note=Tennis+Session`;
+    }
+
+    // Text Coach link
+    const textBtn = document.querySelector('.btn-text');
+    if (textBtn) {
+      const coachPhone = coach.phone || "3089910173";
+      textBtn.href = `sms:${coachPhone}&body=Hey+I+just+booked+a+session!`;
+      textBtn.innerHTML = `📱 Text ${coach.name.split(' ')[0]}`;
+    }
+
+    // Next Steps Text
+    const nextStepsVenmo = document.querySelector('.next-steps a');
+    if (nextStepsVenmo) {
+      nextStepsVenmo.href = `https://venmo.com/u/${coach.venmo}`;
+      nextStepsVenmo.innerText = `Venmo @${coach.venmo}`;
+    }
+
+    // Stripe checkout links in the main Payment Options section
+    const stripeButtons = document.querySelectorAll('.stripe-btn');
+    if (stripeButtons.length >= 3) {
+      stripeButtons[0].href = coach.stripeCoaching || "https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01";
+      stripeButtons[0].innerText = `Coaching ($${coach.coachingPrice || '25'})`;
+
+      stripeButtons[1].href = coach.stripeHitting || "https://buy.stripe.com/4gMeV59v42Z89Gc9zhaZi02";
+      stripeButtons[1].innerText = `Hitting ($${coach.hittingPrice || '18'})`;
+
+      stripeButtons[2].href = coach.stripeAddon || "https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00";
+    }
+  }
+
+  // Admin Dashboard views and handlers
+  let activeAdminTab = 'coaches';
+
+  function toggleAdminTab(tab) {
+    activeAdminTab = tab;
+    const tabCoaches = document.getElementById('adminTabCoaches');
+    const tabEarnings = document.getElementById('adminTabEarnings');
+    const panelCoaches = document.getElementById('adminPanelCoaches');
+    const panelEarnings = document.getElementById('adminPanelEarnings');
+
+    if (tab === 'coaches') {
+      tabCoaches.classList.add('active');
+      tabEarnings.classList.remove('active');
+      panelCoaches.style.display = 'flex';
+      panelEarnings.style.display = 'none';
+    } else {
+      tabEarnings.classList.add('active');
+      tabCoaches.classList.remove('active');
+      panelEarnings.style.display = 'flex';
+      panelCoaches.style.display = 'none';
+      renderEarningsDashboard();
+    }
+  }
+
+  function initAdminPanel() {
+    renderAdminCoachesList();
+    populateLogBookingCoachSelect();
+  }
+
+  function renderAdminCoachesList() {
+    const coaches = getCoaches();
+    const list = document.getElementById('adminCoachesList');
+    if (!list) return;
+
+    list.innerHTML = '';
+    Object.values(coaches).forEach(coach => {
+      const item = document.createElement('div');
+      item.className = 'admin-coach-item';
+      
+      const isDefault = coach.id === "aden";
+      const deleteBtn = isDefault ? '' : `<button type="button" class="admin-btn-delete" onclick="handleDeleteCoach('${coach.id}')">Delete</button>`;
+
+      item.innerHTML = `
+        <div class="admin-coach-item-info">
+          <span class="admin-coach-item-name">${coach.name} ${isDefault ? '(You)' : ''}</span>
+          <span class="admin-coach-item-bio">${coach.bio}</span>
+        </div>
+        ${deleteBtn}
+      `;
+      list.appendChild(item);
+    });
+  }
+
+  function handleAddCoachSubmit() {
+    const name = document.getElementById('addCoachName').value.trim();
+    const bio = document.getElementById('addCoachBio').value.trim();
+    const phone = document.getElementById('addCoachPhone').value.trim().replace(/\D/g, '');
+    const venmo = document.getElementById('addCoachVenmo').value.trim().replace('@', '');
+    const calendar = document.getElementById('addCoachCalendar').value.trim();
+    const stripeCoaching = document.getElementById('addCoachStripeCoaching').value.trim();
+    const stripeHitting = document.getElementById('addCoachStripeHitting').value.trim();
+
+    if (!name || !calendar) {
+      alert("Please fill out Coach Name and Calendar link.");
+      return;
+    }
+
+    const id = name.toLowerCase().replace(/\s+/g, '-');
+    const coaches = getCoaches();
+    coaches[id] = {
+      id,
+      name,
+      bio: bio || "TennisTmate Coach",
+      phone: phone || "3089910173",
+      venmo: venmo || "Aden-Ingwerson",
+      calendar,
+      stripeCoaching: stripeCoaching || "https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01",
+      stripeHitting: stripeHitting || "https://buy.stripe.com/4gMeV59v42Z89Gc9zhaZi02",
+      stripeAddon: "https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00",
+      coachingPrice: "25",
+      hittingPrice: "18"
+    };
+
+    saveCoaches(coaches);
+    initAdminPanel();
+    renderPublicCoachGrid();
+
+    // Clear inputs
+    document.getElementById('addCoachName').value = '';
+    document.getElementById('addCoachBio').value = '';
+    document.getElementById('addCoachPhone').value = '';
+    document.getElementById('addCoachVenmo').value = '';
+    document.getElementById('addCoachCalendar').value = '';
+    document.getElementById('addCoachStripeCoaching').value = '';
+    document.getElementById('addCoachStripeHitting').value = '';
+  }
+
+  function handleDeleteCoach(id) {
+    if (confirm("Are you sure you want to remove this coach?")) {
+      const coaches = getCoaches();
+      delete coaches[id];
+      saveCoaches(coaches);
+      initAdminPanel();
+      renderPublicCoachGrid();
+      if (activeCoachId === id) {
+        selectCoach('aden');
+      }
+    }
+  }
+
+  function populateLogBookingCoachSelect() {
+    const coaches = getCoaches();
+    const select = document.getElementById('logBookingCoach');
+    if (!select) return;
+
+    select.innerHTML = '';
+    Object.values(coaches).forEach(coach => {
+      const option = document.createElement('option');
+      option.value = coach.id;
+      option.text = coach.name;
+      select.appendChild(option);
+    });
+  }
+
+  function handleLogBookingSubmit() {
+    const coachId = document.getElementById('logBookingCoach').value;
+    const feeInput = document.getElementById('logBookingFee');
+    const fee = parseFloat(feeInput.value) || 25;
+
+    const transactions = JSON.parse(localStorage.getItem('tm_transactions') || '[]');
+    const newTx = {
+      coachId,
+      fee,
+      date: new Date().toLocaleDateString()
+    };
+    transactions.push(newTx);
+    localStorage.setItem('tm_transactions', JSON.stringify(transactions));
+
+    feeInput.value = '';
+    renderEarningsDashboard();
+  }
+
+  function renderEarningsDashboard() {
+    const transactions = JSON.parse(localStorage.getItem('tm_transactions') || '[]');
+    const coaches = getCoaches();
+    const tableBody = document.getElementById('adminEarningsTableBody');
+    if (!tableBody) return;
+
+    tableBody.innerHTML = '';
+    let totalVolume = 0;
+    
+    transactions.slice().reverse().forEach(tx => {
+      const coach = coaches[tx.coachId] || { name: "Unknown Coach" };
+      const cut = tx.fee * 0.065;
+      totalVolume += tx.fee;
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${coach.name}</td>
+        <td>$${tx.fee.toFixed(2)}</td>
+        <td>$${cut.toFixed(2)}</td>
+        <td>${tx.date}</td>
+      `;
+      tableBody.appendChild(row);
+    });
+
+    document.getElementById('adminTotalVolume').innerText = `$${totalVolume.toFixed(2)}`;
+    document.getElementById('adminYourCut').innerText = `$${(totalVolume * 0.065).toFixed(2)}`;
+  }
+
+  function showLoggedInState(user) {
+    document.getElementById('profileLoggedOut').style.display = 'none';
+    document.getElementById('profileLoggedIn').style.display = 'flex';
+    document.getElementById('userWelcomeName').innerText = `Welcome, ${user.name}!`;
+    document.getElementById('profileValEmail').innerText = user.email;
+    document.getElementById('profileValPhone').innerText = user.phone;
+
+    // Check if admin (your primary gmail)
+    if (user.email === 'aden.f.ingwerson@gmail.com') {
+      document.getElementById('adminDashboardView').style.display = 'flex';
+      initAdminPanel();
+    } else {
+      document.getElementById('adminDashboardView').style.display = 'none';
+    }
+
+    updateSelectedCoachUI();
+  }
+
+  function showLoggedOutState() {
+    document.getElementById('profileLoggedIn').style.display = 'none';
+    document.getElementById('profileLoggedOut').style.display = 'block';
+    document.getElementById('adminDashboardView').style.display = 'none';
+    toggleProfileTab('login');
+    updateSelectedCoachUI();
+  }
+
+  // Check login state on page load
+  function checkLoginState() {
+    const activeUserEmail = localStorage.getItem('tm_active_user');
+    if (activeUserEmail) {
+      const users = JSON.parse(localStorage.getItem('tm_users') || '{}');
+      const user = users[activeUserEmail];
+      if (user) {
+        showLoggedInState(user);
+      } else {
+        showLoggedOutState();
+      }
+    } else {
+      showLoggedOutState();
+    }
+  }
+
+  // Initialize
+  renderPublicCoachGrid();
+  updateSelectedCoachUI();
+  checkLoginState();
 </script>
 </body>
 </html>
