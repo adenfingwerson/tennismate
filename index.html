@@ -4,44 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tennis T-Mate &mdash; Book Tennis Coaching in Holdrege & Hastings</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* ===== Retro Palette & Fonts ===== */
+        /* ===== Friendly Palette & Fonts ===== */
         :root {
-            --black: #0f172a; 
-            --off-white: #f8fafc;
-            --accent: #ccff00; /* Optic Yellow */
-            --accent-dim: rgba(204, 255, 0, 0.2);
-            --warm-gray: #1e293b;
-            --mid-gray: #94a3b8;
-            --border-color: #334155;
+            --green: #2e7d32;
+            --green-light: #e8f5e9;
+            --green-dark: #1b5e20;
+            --cta: #ff8c00; /* Friendly Orange */
+            --cta-hover: #e67e00;
+            --text-main: #2c3e50;
+            --text-muted: #64748b;
+            --bg-main: #ffffff;
+            --bg-alt: #f8fafc;
+            --border-color: #e2e8f0;
         }
 
         body {
             margin: 0;
             padding: 0;
-            font-family: 'DM Mono', monospace;
-            color: var(--off-white);
-            background-color: var(--black);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-main);
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
         h1, h2, h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            letter-spacing: 1px;
             margin: 0 0 1rem 0;
-            font-weight: normal;
+            color: var(--green-dark);
+            font-weight: 800;
+            letter-spacing: -0.5px;
         }
-        
+
         p {
             margin: 0 0 1rem 0;
         }
 
         a {
-            color: var(--accent);
+            color: var(--green);
             text-decoration: none;
         }
 
@@ -51,39 +50,36 @@
             padding: 0 20px;
         }
 
-        /* ===== Retro Buttons ===== */
+        /* ===== Buttons ===== */
         .btn {
             display: inline-block;
-            background-color: var(--accent);
-            color: var(--black);
-            padding: 12px 24px;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.4rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border: 2px solid var(--accent);
+            background-color: var(--cta);
+            color: #fff;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
             text-align: center;
             transition: all 0.2s ease;
-            box-shadow: 5px 5px 0px rgba(204, 255, 0, 0.4);
+            box-shadow: 0 4px 6px rgba(255, 140, 0, 0.2);
+            border: none;
             cursor: pointer;
         }
 
         .btn:hover {
-            transform: translate(2px, 2px);
-            box-shadow: 3px 3px 0px rgba(204, 255, 0, 0.4);
-            background-color: transparent;
-            color: var(--accent);
+            background-color: var(--cta-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 140, 0, 0.3);
         }
 
         /* ===== Navigation ===== */
         nav {
-            background-color: rgba(15, 23, 42, 0.95);
+            background-color: var(--bg-main);
             border-bottom: 1px solid var(--border-color);
             padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            backdrop-filter: blur(5px);
         }
 
         nav .container {
@@ -93,84 +89,60 @@
         }
 
         .logo {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.8rem;
-            color: var(--off-white);
-            letter-spacing: 2px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
         }
 
         .logo span {
-            color: var(--accent);
+            color: var(--cta);
         }
 
         /* ===== Sections ===== */
         section {
-            padding: 80px 0;
-            position: relative;
+            padding: 70px 0;
         }
 
-        /* ===== Hero (CRT Effect) ===== */
+        /* ===== Hero ===== */
         .hero {
+            background: linear-gradient(135deg, var(--green-light) 0%, var(--bg-main) 100%);
             text-align: center;
-            padding: 120px 0 80px;
-            position: relative;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-            background-size: 100% 4px;
-            pointer-events: none;
-            z-index: 2;
-            opacity: 0.3;
+            padding: 90px 0 70px;
         }
 
         .hero h1 {
-            font-size: clamp(4rem, 10vw, 6rem);
-            color: var(--off-white);
-            line-height: 0.9;
+            font-size: 3rem;
+            color: var(--green-dark);
+            line-height: 1.1;
             margin-bottom: 1.5rem;
-            text-shadow: 0 0 20px rgba(204, 255, 0, 0.2);
-        }
-
-        .hero h1 .highlight {
-            color: var(--accent);
         }
 
         .hero p {
-            font-size: 1.1rem;
-            color: var(--mid-gray);
+            font-size: 1.25rem;
+            color: var(--text-muted);
             max-width: 600px;
-            margin: 0 auto 2.5rem auto;
+            margin: 0 auto 2rem auto;
         }
 
         .hero .sub-note {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--accent);
-            margin-bottom: 2.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border: 1px solid var(--accent-dim);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--green);
+            margin-bottom: 2rem;
+            background: rgba(46, 125, 50, 0.1);
             display: inline-block;
-            padding: 8px 16px;
-            background: rgba(204, 255, 0, 0.05);
+            padding: 6px 16px;
+            border-radius: 20px;
         }
 
         /* ===== How It Works ===== */
         .how-it-works {
-            background-color: var(--warm-gray);
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-alt);
         }
 
         .how-it-works h2, .locations h2, .expect h2, .contact h2 {
             text-align: center;
-            color: var(--accent);
-            font-size: 3rem;
-            margin-bottom: 3rem;
         }
 
         .steps {
@@ -180,35 +152,33 @@
         }
 
         .step {
-            background: var(--black);
+            background: var(--bg-main);
             padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
             border: 1px solid var(--border-color);
             display: flex;
             align-items: flex-start;
             gap: 20px;
-            transition: border-color 0.3s;
-        }
-
-        .step:hover {
-            border-color: var(--accent);
         }
 
         .step-number {
-            font-family: 'Bebas Neue', sans-serif;
-            color: var(--accent);
-            font-size: 2.5rem;
-            line-height: 1;
+            background: var(--green-light);
+            color: var(--green-dark);
+            font-weight: 800;
+            font-size: 1.2rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
             flex-shrink: 0;
-            text-shadow: 0 0 10px rgba(204, 255, 0, 0.3);
         }
 
         .step-content p {
             margin: 0;
-            color: var(--off-white);
-            font-size: 1rem;
-        }
-        .step-content strong {
-            color: var(--accent);
+            font-size: 1.05rem;
         }
 
         /* ===== Schedule & Locations ===== */
@@ -220,25 +190,33 @@
         }
 
         .location-card {
-            border: 1px solid var(--border-color);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
             padding: 30px;
-            background: var(--warm-gray);
-            transition: transform 0.2s, box-shadow 0.2s;
+            background: var(--bg-main);
+            transition: transform 0.2s;
+        }
+        
+        .location-card.hastings {
+            border-color: var(--cta);
+            background: #fffcf5;
         }
 
         .location-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-            border-color: var(--accent-dim);
+            transform: translateY(-3px);
         }
 
         .location-card h3 {
-            color: var(--off-white);
-            font-size: 2.2rem;
-            border-bottom: 2px solid var(--accent);
+            color: var(--green);
+            border-bottom: 2px solid var(--green-light);
             padding-bottom: 10px;
-            margin-bottom: 20px;
-            display: inline-block;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+        }
+        
+        .location-card.hastings h3 {
+            color: var(--cta);
+            border-bottom-color: rgba(255, 140, 0, 0.2);
         }
 
         .location-card ul {
@@ -251,40 +229,59 @@
             margin-bottom: 15px;
             padding-left: 25px;
             position: relative;
-            color: var(--mid-gray);
-            font-size: 0.95rem;
+            color: var(--text-main);
         }
 
         .location-card li strong {
-            color: var(--off-white);
-            display: block;
-            margin-bottom: 2px;
-            font-size: 1.05rem;
+            color: var(--green-dark);
         }
 
         .location-card li::before {
-            content: "►";
-            color: var(--accent);
+            content: "✓";
+            color: var(--green);
+            font-weight: bold;
             position: absolute;
             left: 0;
-            top: 2px;
-            font-size: 0.8rem;
+        }
+        
+        .location-card.hastings li::before {
+            color: var(--cta);
         }
 
         .calendar-note {
             text-align: center;
-            color: var(--accent);
+            color: var(--text-muted);
             font-size: 0.95rem;
-            background: rgba(204, 255, 0, 0.05);
+            background: var(--bg-alt);
             padding: 20px;
-            border: 1px dashed var(--accent-dim);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* ===== Embed Booking Widget ===== */
+        .booking-widget {
+            background-color: var(--bg-alt);
+            border-top: 1px solid var(--border-color);
+            padding: 50px 0;
+        }
+        .widget-container {
+            background: var(--bg-main);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            height: 700px; /* Tall enough for Setmore */
+            width: 100%;
+        }
+        .widget-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
         /* ===== What to Expect ===== */
         .expect {
-            background-color: var(--warm-gray);
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
+            background-color: var(--green-light);
         }
 
         .expect ul {
@@ -294,18 +291,12 @@
         }
 
         .expect li {
-            margin-bottom: 20px;
-            background: var(--black);
+            margin-bottom: 15px;
+            background: var(--bg-main);
             padding: 20px;
-            border-left: 4px solid var(--accent);
-            color: var(--mid-gray);
-        }
-
-        .expect li strong {
-            color: var(--off-white);
-            font-size: 1.1rem;
-            display: inline-block;
-            margin-bottom: 5px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+            border-left: 5px solid var(--green);
         }
 
         /* ===== Contact ===== */
@@ -315,46 +306,42 @@
 
         .contact p {
             font-size: 1.1rem;
-            color: var(--mid-gray);
+            color: var(--text-muted);
         }
 
         .contact-number {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 4rem;
-            color: var(--off-white);
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-main);
             display: block;
             margin: 1rem 0;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
         }
         
         .contact-number:hover {
-            color: var(--accent);
+            color: var(--cta);
         }
 
         .contact-note {
             font-size: 0.95rem;
             max-width: 500px;
-            margin: 0 auto 3rem auto;
-            color: var(--mid-gray);
+            margin: 0 auto 2rem auto;
         }
 
         /* ===== Footer ===== */
         footer {
-            background-color: var(--warm-gray);
-            border-top: 1px solid var(--border-color);
+            background-color: var(--text-main);
+            color: #ffffff;
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px 20px;
             font-size: 0.9rem;
-            color: var(--mid-gray);
-            font-family: 'Bebas Neue', sans-serif;
-            letter-spacing: 2px;
         }
 
         /* ===== Responsive ===== */
         @media (max-width: 600px) {
+            .hero h1 { font-size: 2.2rem; }
             .location-cards { grid-template-columns: 1fr; }
             .btn { width: 100%; display: block; box-sizing: border-box; }
-            .contact-number { font-size: 3rem; }
+            .widget-container { height: 600px; }
         }
     </style>
 </head>
@@ -363,19 +350,31 @@
     <!-- NAV -->
     <nav>
         <div class="container">
-            <div class="logo">Tennis <span class="highlight">T-Mate</span></div>
-            <a href="https://tennistmate.setmore.com" class="btn" style="padding: 8px 16px; font-size: 1.2rem; box-shadow: 3px 3px 0px rgba(204, 255, 0, 0.4);">Book</a>
+            <div class="logo">Tennis <span>T-Mate</span></div>
+            <a href="#book" class="btn" style="padding: 10px 20px; font-size: 1rem;">Book Now</a>
         </div>
     </nav>
 
     <!-- HERO -->
     <section class="hero">
         <div class="container">
-            <h1>YOUR TENNIS<br><span class="highlight">T-MATE</span></h1>
-            <p>Affordable, flexible coaching and hitting sessions in Holdrege and Hastings. Designed for all levels—beginners, high school players, and casual competitors.</p>
+            <h1>Book 1-on-1 Tennis Sessions</h1>
+            <p>Friendly, affordable coaching and hitting sessions in Holdrege and Hastings. Designed for all levels—beginners, high schoolers, and casual competitors.</p>
             <div class="sub-note">1-hour sessions &bull; $25 &bull; Holdrege &amp; Hastings</div>
             <br>
-            <a href="https://tennistmate.setmore.com" class="btn">Book Your Session</a>
+            <a href="#book" class="btn">Pick Your Time</a>
+        </div>
+    </section>
+
+    <!-- BOOKING WIDGET (Embedded so they don't leave the site) -->
+    <section class="booking-widget" id="book">
+        <div class="container">
+            <h2>Book Your Slot Below</h2>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Select your location and time directly on our page. Secure your spot in seconds.</p>
+            <div class="widget-container">
+                <!-- Using Setmore iframe embed so grandmas don't have to leave the page -->
+                <iframe src="https://tennistmate.setmore.com" title="Tennis T-Mate Booking"></iframe>
+            </div>
         </div>
     </section>
 
@@ -385,27 +384,27 @@
             <h2>How It Works</h2>
             <div class="steps">
                 <div class="step">
-                    <div class="step-number">01</div>
+                    <div class="step-number">1</div>
                     <div class="step-content">
-                        <p><strong>Choose your town and time</strong> in the Setmore calendar.</p>
+                        <p><strong>Choose your town and time</strong> in the calendar above.</p>
                     </div>
                 </div>
                 <div class="step">
-                    <div class="step-number">02</div>
+                    <div class="step-number">2</div>
                     <div class="step-content">
-                        <p><strong>Add your details:</strong> name, phone number, email, and the exact court/location.</p>
+                        <p><strong>Add your details:</strong> name, phone number, email, and the exact court.</p>
                     </div>
                 </div>
                 <div class="step">
-                    <div class="step-number">03</div>
+                    <div class="step-number">3</div>
                     <div class="step-content">
-                        <p><strong>Pay to confirm</strong> your session via Setmore.</p>
+                        <p><strong>Pay to confirm</strong> your session via Setmore (Stripe).</p>
                     </div>
                 </div>
                 <div class="step">
-                    <div class="step-number">04</div>
+                    <div class="step-number">4</div>
                     <div class="step-content">
-                        <p><strong>Verification:</strong> Receive a text message from the coach on the day of your session to verify the court and details. <br><span style="color: var(--mid-gray); font-size: 0.9rem;">(If the court/location is not confirmed by text, the session may be rescheduled.)</span></p>
+                        <p><strong>Verification:</strong> Receive a text message from me on the day of your session to verify the court and details. <br><span style="color: var(--text-muted); font-size: 0.9rem;">(If the court/location is not confirmed by text, the session may be rescheduled.)</span></p>
                     </div>
                 </div>
             </div>
@@ -427,18 +426,17 @@
                         <li><strong>Buffer:</strong> 30 minutes between bookings.</li>
                     </ul>
                 </div>
-                <div class="location-card" style="border-color: var(--accent);">
+                <div class="location-card hastings">
                     <h3>Hastings, NE</h3>
                     <ul>
                         <li><strong>Availability:</strong> Thursdays ONLY</li>
-                        <li><strong>Location:</strong> Varies (e.g., Hastings College or public courts).<br>Exact court confirmed by text on the day of the session.</li>
+                        <li><strong>Location:</strong> Varies (e.g., Hastings College or public).<br>Exact court confirmed by text day-of.</li>
                         <li><strong>Details:</strong> 1-hour sessions, $25. Limited slots.</li>
                         <li><strong>Note:</strong> Travel time prevents back-to-back town changes on the same day.</li>
                     </ul>
                 </div>
             </div>
-
-            <p class="calendar-note">NOTE: The Setmore calendar will always show the most accurate current availability and automatically enforce buffers and travel rules.</p>
+            <p class="calendar-note">The calendar automatically enforces travel rules and buffers so you can book with confidence.</p>
         </div>
     </section>
 
@@ -447,10 +445,10 @@
         <div class="container">
             <h2>What to Expect</h2>
             <ul>
-                <li><strong>Coaching vs Hitting:</strong><br>We can focus on instruction, or just have a solid hitting session—it's up to you.</li>
-                <li><strong>Activities:</strong><br>Typical drills, match play, or specific technical/hitting focus.</li>
-                <li><strong>Gear:</strong><br>Please bring your own racquet, water, and appropriate tennis shoes.</li>
-                <li><strong>Who:</strong><br>All levels are welcome, from beginners to competitive players.</li>
+                <li><strong>Coaching vs Hitting:</strong> We can focus on instruction, or just have a solid hitting session—it's up to you.</li>
+                <li><strong>Activities:</strong> Typical drills, match play, or specific technical/hitting focus.</li>
+                <li><strong>Gear:</strong> Please bring your own racquet, water, and appropriate tennis shoes.</li>
+                <li><strong>Who:</strong> All levels are welcome, from complete beginners to competitive players.</li>
             </ul>
         </div>
     </section>
@@ -459,19 +457,19 @@
     <section class="contact">
         <div class="container">
             <h2>Questions?</h2>
-            <p>For quick questions before booking, feel free to reach out:</p>
+            <p>For quick questions before booking, feel free to text or call me:</p>
             
             <a href="tel:3089910173" class="contact-number">(308) 991-0173</a>
-            <p class="contact-note">For quick questions, call or text this number. For bookings, please use the Setmore calendar so that time, location, and payment are handled correctly.</p>
+            <p class="contact-note">All bookings must go through the calendar above so time, location, and payment are handled correctly.</p>
 
-            <a href="https://tennistmate.setmore.com" class="btn">Book Now via Setmore</a>
+            <a href="#book" class="btn">Scroll up to Book</a>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
         <div class="container">
-            &copy; 2026 TENNIS T-MATE &bull; HOLDREGE &amp; HASTINGS, NE
+            &copy; 2026 Tennis T-Mate &bull; Holdrege &amp; Hastings, NE
         </div>
     </footer>
 
