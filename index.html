@@ -288,12 +288,15 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            background-color: var(--bg-primary);
         }
 
         .map-bg {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            z-index: -2;
+            z-index: 0;
             overflow: hidden;
             background-color: var(--bg-primary);
         }
@@ -310,17 +313,18 @@
         .map-overlay {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to top, rgba(10,10,10,0.98) 0%, rgba(10,10,10,0.6) 50%, rgba(10,10,10,0.3) 100%);
-            z-index: -1;
+            background: linear-gradient(to top, rgba(10,10,10,1) 0%, rgba(10,10,10,0.7) 40%, rgba(10,10,10,0.2) 100%);
+            z-index: 1;
         }
 
         .card-content {
             position: relative;
-            z-index: 2;
+            z-index: 3;
         }
 
         .logistics-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-8px) translateZ(0);
+            -webkit-transform: translateY(-8px) translateZ(0);
             border-color: rgba(225, 255, 0, 0.2);
             box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 40px rgba(225, 255, 0, 0.05);
         }
@@ -336,7 +340,7 @@
             background: radial-gradient(circle at center, rgba(225, 255, 0, 0.08) 0%, transparent 40%);
             opacity: 0;
             transition: opacity 0.5s ease;
-            z-index: -1;
+            z-index: 2;
             pointer-events: none;
         }
 
