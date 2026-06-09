@@ -113,6 +113,24 @@
     background: var(--off-white); 
     box-shadow: 0 0 12px rgba(248, 250, 252, 0.6);
   }
+  .nav-schedule-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    background: rgba(204, 255, 0, 0.08);
+    border: 1px solid var(--accent);
+    padding: 0.55rem 1.4rem;
+    text-transform: uppercase;
+    cursor: none;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    margin-right: 12px;
+  }
+  .nav-schedule-btn:hover {
+    background: var(--accent);
+    color: var(--black);
+    box-shadow: 0 0 12px rgba(204, 255, 0, 0.6);
+  }
 
   /* HERO */
   .hero {
@@ -163,7 +181,8 @@
     height: 420px;
     will-change: transform;
     z-index: 1;
-    filter: drop-shadow(0 0 20px rgba(204, 255, 0, 0.2));
+    filter: drop-shadow(0 0 55px rgba(204, 255, 0, 0.45));
+    pointer-events: none;
   }
 
   .ball-svg {
@@ -835,20 +854,46 @@
     color: var(--mid-gray);
   }
 
-  /* REVEAL ANIMATIONS */
+  /* REVEAL ANIMATIONS - Premium Scrollytelling bezier curves */
   .reveal {
     opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transform: translateY(50px) scale(0.97);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    filter: blur(4px);
   }
   .reveal.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
   }
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.2s; }
-  .reveal-delay-3 { transition-delay: 0.35s; }
-  .reveal-delay-4 { transition-delay: 0.5s; }
+  .reveal-delay-1 { transition-delay: 0.08s; }
+  .reveal-delay-2 { transition-delay: 0.16s; }
+  .reveal-delay-3 { transition-delay: 0.28s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* Dynamic Magnetic Card scroll state */
+  .magnetic-card {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  .magnetic-card.active-center {
+    transform: scale(1.05) translateY(-5px) !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 15px 40px rgba(204, 255, 0, 0.25) !important;
+  }
+
+  /* Interactive Neon Scroll Progress Bar */
+  .scroll-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+    z-index: 20000;
+    pointer-events: none;
+    transition: width 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
 
   /* TICKER */
   .ticker-section {
@@ -1088,7 +1133,7 @@
     }
   }
 
-  /* Profile/Login Panel Styles */
+  /* Profile/Login Panel Styles with Internal Scrollbar */
   .profile-panel {
     background: rgba(15, 23, 42, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.05);
@@ -1098,7 +1143,26 @@
     -webkit-backdrop-filter: blur(8px);
     margin-bottom: 2rem;
     position: relative;
-    overflow: hidden;
+    overflow-y: auto !important;
+    max-height: 480px !important;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.1) rgba(0, 0, 0, 0.2);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .profile-panel::-webkit-scrollbar {
+    width: 6px;
+  }
+  .profile-panel::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+  .profile-panel::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+  }
+  .profile-panel::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
   }
 
   .profile-panel::before {
@@ -1572,9 +1636,231 @@
     .services-subtitle { text-align: left; }
     footer { flex-direction: column; gap: 1rem; text-align: center; }
   }
+
+  /* DRAWER OPEN CURSOR RULES & RESPONSIVE LIVE SCHEDULE */
+  body.drawer-open,
+  body.drawer-open * {
+    cursor: default !important;
+  }
+  body.drawer-open button,
+  body.drawer-open a,
+  body.drawer-open .nav-schedule-btn,
+  body.drawer-open [role="button"] {
+    cursor: pointer !important;
+  }
+  body.drawer-open #live-schedule-times-overlay {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size:24px'%3E%3Ctext y='24'%3E🔒%3C/text%3E%3C/svg%3E") 8 8, pointer !important;
+  }
+
+  @media (max-width: 768px) {
+    #availabilityDrawer {
+      padding: 0 !important;
+    }
+    #availabilityDrawerInner {
+      width: 100vw !important;
+      height: 100vh !important;
+      max-height: 100vh !important;
+      border-radius: 0 !important;
+      border: none !important;
+    }
+    #availabilityDrawerInner > div:first-child {
+      padding: 12px 15px !important;
+    }
+    #availabilityDrawerInner h3 {
+      font-size: 1.1rem !important;
+    }
+    #availabilityDrawerInner button {
+      padding: 6px 12px !important;
+      font-size: 0.75rem !important;
+    }
+    #live-schedule-times-overlay {
+      width: 100% !important;
+      left: 0 !important;
+      right: auto !important;
+    }
+    #lockExplanationCard {
+      max-width: 85vw !important;
+      padding: 20px 15px !important;
+      border-radius: 12px !important;
+    }
+    #lockExplanationCard div:first-child {
+      font-size: 1.6rem !important;
+      margin-bottom: 8px !important;
+    }
+    #lockExplanationCard h4 {
+      font-size: 1.1rem !important;
+      margin-bottom: 6px !important;
+    }
+    #lockExplanationCard p {
+      font-size: 0.7rem !important;
+      margin-bottom: 10px !important;
+      line-height: 1.4 !important;
+    }
+    #btnToggleTranslucency {
+      padding: 5px 10px !important;
+      font-size: 0.65rem !important;
+    }
+  }
+
+  /* IMMERSIVE BOOKING STUDIO AND CTA STYLES */
+  .btn-book-now-massive {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-book-now-massive:hover {
+    transform: scale(1.04) translateY(-3px);
+    box-shadow: 0 0 55px rgba(204, 255, 0, 0.7) !important;
+  }
+  .btn-book-now-massive:active {
+    transform: scale(0.98) translateY(0);
+  }
+  
+  #bookingStudio {
+    box-sizing: border-box;
+  }
+  
+  #bookingStudio * {
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 1024px) {
+    .studio-main-grid {
+      grid-template-columns: 1fr !important;
+      grid-template-rows: auto 1fr !important;
+      height: calc(100vh - 120px) !important;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+    .studio-left-column {
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: wrap !important;
+      gap: 15px !important;
+      padding-right: 0 !important;
+      overflow-y: visible !important;
+    }
+    .studio-left-column > div {
+      flex: 1 1 300px !important;
+    }
+    .studio-right-column {
+      height: 60vh !important;
+      min-height: 400px !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    #bookingStudio {
+      padding: 10px !important;
+    }
+    .studio-top-bar {
+      padding: 10px 15px !important;
+      flex-direction: column !important;
+      gap: 10px !important;
+      align-items: stretch !important;
+      text-align: center !important;
+    }
+    .studio-top-bar > div {
+      justify-content: center !important;
+    }
+    .studio-progress {
+      justify-content: center !important;
+      font-size: 0.7rem !important;
+      gap: 15px !important;
+    }
+    .studio-left-column {
+      flex-direction: column !important;
+    }
+    .studio-left-column > div {
+      width: 100% !important;
+    }
+    .studio-right-column {
+      height: 50vh !important;
+    }
+  }
+
+  /* Custom scrollbar and overflow fixes for Left Column inside Studio */
+  .studio-left-column {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.1) rgba(0, 0, 0, 0.2);
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .studio-left-column::-webkit-scrollbar {
+    width: 6px;
+  }
+  .studio-left-column::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+  .studio-left-column::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+  }
+  .studio-left-column::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+  }
+
+  /* Blinking & pulsing register guiding elements */
+  .pulse-arrow-indicator {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    animation: bounceSide 1.2s infinite alternate;
+    text-shadow: 0 0 8px rgba(204, 255, 0, 0.5);
+    pointer-events: none;
+    z-index: 10;
+  }
+  
+  @keyframes bounceSide {
+    0% { transform: translateY(-50%) translateX(0); opacity: 0.7; }
+    100% { transform: translateY(-50%) translateX(-6px); opacity: 1; }
+  }
+
+  /* Flash animation for REGISTER tab button if user is not registered */
+  #tabRegister:not(.active) {
+    animation: flashRegisterBtn 2s infinite;
+    border: 1px solid rgba(204, 255, 0, 0.15);
+  }
+  
+  @keyframes flashRegisterBtn {
+    0%, 100% { background: transparent; color: var(--mid-gray); box-shadow: none; }
+    50% { background: rgba(204, 255, 0, 0.12); color: var(--accent); box-shadow: 0 0 10px rgba(204, 255, 0, 0.2); border-color: var(--accent); }
+  }
+
+  /* Shimmering gradient register submit button */
+  #formRegister .profile-btn-submit {
+    background: linear-gradient(90deg, #ccff00, #b8d44a, #ccff00);
+    background-size: 200% auto;
+    color: var(--black) !important;
+    font-weight: bold;
+    font-size: 0.85rem;
+    border: none;
+    animation: gradientShimmer 2s infinite linear, pulseButton 1.8s infinite ease-in-out;
+    box-shadow: 0 4px 15px rgba(204, 255, 0, 0.25);
+  }
+  
+  @keyframes gradientShimmer {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+  }
+  
+  @keyframes pulseButton {
+    0%, 100% { transform: scale(1); box-shadow: 0 4px 15px rgba(204, 255, 0, 0.25); }
+    50% { transform: scale(1.02); box-shadow: 0 4px 25px rgba(204, 255, 0, 0.5); }
+  }
 </style>
 </head>
 <body>
+
+<!-- Interactive Scroll Progress Bar -->
+<div class="scroll-progress-bar" id="scrollProgressBar"></div>
 
 <div class="cursor" id="cursor"></div>
 
@@ -1602,7 +1888,10 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">T-MATE</a>
-  <a href="#booking" class="nav-cta">Book Now</a>
+  <div style="display: flex; align-items: center;">
+    <button type="button" class="nav-schedule-btn" onclick="toggleAvailabilityDrawer()">🟢 Live Schedule</button>
+    <a href="#booking" class="nav-cta">Book Now</a>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -1764,39 +2053,27 @@
   </div>
 
   <div class="services-header reveal">
-    <h2>HOW IT WORKS</h2>
-    <p class="services-subtitle">Book an Hour. I'll focus on whatever you need.</p>
+    <h2>LOCK IN YOUR SESSIONS. SHOW UP AND PLAY.</h2>
+    <p class="services-subtitle" style="max-width: 750px; margin: 0 auto;">Book customized coaching sessions. Pick your preferred day & time, pay securely via Stripe, and show up ready to play.</p>
   </div>
 
-  <div class="service-cards">
-    <div class="service-card reveal">
+  <div class="service-cards" style="grid-template-columns: 1fr; max-width: 400px; margin: 0 auto 40px auto;">
+    <div class="service-card reveal" style="width: 100%;">
       <div class="service-num">01</div>
-      <div class="service-type">Session Type</div>
-      <div class="service-name">Coaching</div>
-      <p class="service-desc">Technique &amp; Drills</p>
-      <div class="service-price">
+      <div class="service-type">Standard Session</div>
+      <div class="service-name">1-Hour Lesson</div>
+      <p class="service-desc">Complete customized instruction: coaching, hitting drills, match play, or technical adjustments tailored fully to your goals.</p>
+      <div class="service-price" style="margin-bottom: 1.5rem;">
         <span class="price-amount">$25</span>
         <span class="price-unit">per hour</span>
       </div>
+      <ul style="list-style: none; padding: 0; font-size: 0.85rem; color: var(--mid-gray); line-height: 1.8; text-align: left; margin-top: 15px;">
+        <li style="margin-bottom: 8px;">🎾 Tailored drills & match play</li>
+        <li style="margin-bottom: 8px;">📅 Flexible online scheduling</li>
+        <li style="margin-bottom: 8px;">🔒 Paid securely via Stripe</li>
+        <li>👤 Account required to secure slot</li>
+      </ul>
     </div>
-
-    <div class="service-card reveal reveal-delay-1">
-      <div class="service-num">02</div>
-      <div class="service-type">Session Type</div>
-      <div class="service-name">Hitting Partner</div>
-      <p class="service-desc">Sets &amp; Rallies</p>
-      <div class="service-price">
-        <span class="price-amount">$18</span>
-        <span class="price-unit">per hour</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="service-add-on reveal">
-    <div class="add-on-text">
-      <strong>Want to keep going?</strong> Add 30 minutes at the end of any session.
-    </div>
-    <div class="add-on-price">+ $5 / HALF HOUR</div>
   </div>
 </section>
 
@@ -1807,60 +2084,160 @@
     <h2 class="reveal reveal-delay-1">AVAILABLE LOCATIONS</h2>
     <div class="locations-cards">
       <a
-        href="https://maps.google.com/?q=Hastings+College+Tennis+Courts+Hastings+NE"
-        target="_blank"
-        rel="noopener"
-        class="location-card reveal reveal-delay-2"
-      >
-        <span>📍</span>
-        <div>
-          <strong>Hastings College Courts</strong>
-          <span class="loc-note">Primary location · Most availability</span>
-        </div>
-        <span class="loc-arrow">↗</span>
-      </a>
-      <a
         href="https://maps.google.com/?q=North+Park+Courts+Holdrege+NE"
         target="_blank"
         rel="noopener"
-        class="location-card reveal reveal-delay-3"
+        class="location-card magnetic-card reveal reveal-delay-2"
       >
         <span>📍</span>
         <div>
           <strong>North Park Courts — Holdrege</strong>
-          <span class="loc-note">Available by request · Note preferred location when booking</span>
         </div>
         <span class="loc-arrow">↗</span>
       </a>
+      <a
+        href="https://maps.google.com/?q=Hastings+College+Tennis+Courts+Hastings+NE"
+        target="_blank"
+        rel="noopener"
+        class="location-card magnetic-card reveal reveal-delay-3"
+      >
+        <span>📍</span>
+        <div>
+          <strong>Hastings College Courts</strong>
+        </div>
+        <span class="loc-arrow">↗</span>
+      </a>
+    </div>
+
+    <div class="locations-guide reveal reveal-delay-4" style="margin-top: 40px; text-align: center; background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 12px; max-width: 700px; margin-left: auto; margin-right: auto;">
+      <h3 style="font-family: 'DM Serif Display', serif; color: var(--accent); font-size: 1.3rem; margin-bottom: 12px; letter-spacing: 0.03em;">HOW BOOKING WORKS</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: left; color: var(--mid-gray); font-size: 0.85rem; line-height: 1.6;">
+        <div>
+          <strong style="color: var(--off-white); display: block; margin-bottom: 5px;">1. CHOOSE TIME SLOT</strong>
+          Select any available coaching slot in the Google Calendar below that fits your schedule.
+        </div>
+        <div>
+          <strong style="color: var(--off-white); display: block; margin-bottom: 5px;">2. INTEGRATED CHECKOUT</strong>
+          Fill out your details and pay securely via Stripe <strong>directly inside the calendar widget</strong> at the exact same time.
+        </div>
+        <div>
+          <strong style="color: var(--off-white); display: block; margin-bottom: 5px;">3. INSTANTLY CONFIRMED</strong>
+          The slot is locked for you immediately. You'll get an email confirmation. Simply show up and play!
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- BOOKING -->
-<section class="booking" id="booking">
-  <div class="booking-bg-text">BOOK IT</div>
+<section class="booking" id="booking" style="padding: 100px 0; text-align: center; position: relative; min-height: 70vh;">
+  <div class="booking-bg-text" style="bottom: -2rem;">BOOK IT</div>
+  <div class="booking-inner-cta" style="max-width: 800px; margin: 0 auto; padding: 0 20px; z-index: 2; position: relative;">
+    <div class="section-label reveal" style="color: var(--mid-gray);">Take Action</div>
+    <h2 class="reveal reveal-delay-1" style="font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 7vw, 6.5rem); color: var(--off-white); line-height: 0.9; margin-bottom: 20px; text-transform: uppercase;">
+      READY TO HIT THE COURT?
+    </h2>
+    <p class="booking-desc reveal reveal-delay-2" style="font-size: 1.1rem; color: var(--mid-gray); line-height: 1.8; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; font-family: 'DM Mono', monospace;">
+      Open our distraction-free Booking Studio. Pick your coach, choose your preferred day & time, and pay securely via Stripe at your own pace. Fully integrated & 100% secure.
+    </p>
+    
+    <div class="reveal reveal-delay-3" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+      <button type="button" onclick="openBookingStudio()" class="btn-book-now-massive" style="background: var(--accent); color: var(--black); font-size: clamp(1.2rem, 3vw, 1.8rem); font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em; padding: 20px 50px; border-radius: 50px; border: none; cursor: pointer; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 0 35px rgba(204, 255, 0, 0.4); display: flex; align-items: center; gap: 15px; text-transform: uppercase;">
+        <span>🎾</span> BOOK YOUR SESSION NOW
+      </button>
+      <span style="font-size: 0.8rem; color: var(--mid-gray); font-family: 'DM Mono', monospace;">✓ Confirmed instantly via email</span>
+    </div>
+  </div>
+</section>
 
-  <div class="booking-inner">
-    <div>
-      <div class="section-label reveal" style="color: var(--mid-gray);">Lock It In</div>
-      <h2 class="reveal reveal-delay-1">
-        LOCK IT IN
-      </h2>
-      <p class="booking-desc reveal reveal-delay-2">
-        Pick a 1-hour slot below. Be sure to drop your name, phone number, email, and pick your session (<strong style="color: var(--brand);">Coaching or Hitting</strong>).
-      </p>
+<!-- IMMERSIVE FULL-SCREEN BOOKING STUDIO -->
+<div id="bookingStudio" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10, 15, 30, 0.96); backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px); z-index: 100000; opacity: 0; visibility: hidden; transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; overflow: hidden; padding: 20px;">
+  
+  <!-- Studio Top Bar -->
+  <div class="studio-top-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 15px; backdrop-filter: blur(10px);">
+    <div style="display: flex; align-items: center; gap: 15px;">
+      <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); animation: pulse 2s infinite;"></div>
+      <span style="font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.05em; color: var(--off-white);">TENNIS-MATE BOOKING STUDIO</span>
+    </div>
+    
+    <!-- Progress Indicator -->
+    <div class="studio-progress" style="display: flex; gap: 30px; font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--mid-gray); text-transform: uppercase;">
+      <span id="step1" style="color: var(--accent); font-weight: bold;">📅 Step 1: Select Day & Time</span>
+      <span style="color: rgba(255,255,255,0.2);">→</span>
+      <span id="step2" style="color: var(--off-white);">💳 Step 2: Secure Pay & Confirm</span>
+    </div>
 
-      <!-- User Profile Panel -->
-      <div id="profilePanel" class="profile-panel reveal reveal-delay-3">
+    <!-- Close Button -->
+    <button type="button" onclick="closeBookingStudio()" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--off-white); padding: 8px 20px; border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 0.8rem; font-weight: bold; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase;">
+      ✕ CLOSE STUDIO
+    </button>
+  </div>
+
+  <!-- Studio Main Content Area -->
+  <div id="studioMainGrid" class="studio-main-grid" style="display: grid; grid-template-columns: 340px 1fr; gap: 20px; flex-grow: 1; height: calc(100vh - 120px);">
+    
+    <!-- Left Column: Coach Selector & Member Profiles / Packages -->
+    <div class="studio-left-column" style="display: flex; flex-direction: column; gap: 15px; overflow-y: auto; padding-right: 5px;">
+      
+      <!-- Login Wall Notice (shown when logged out) -->
+      <div id="loginWallNotice" style="display: none; background: rgba(239, 68, 68, 0.08); border: 2px dashed #ef4444; border-radius: 12px; padding: 25px; text-align: center; margin-bottom: 5px; box-shadow: 0 4px 20px rgba(239, 68, 68, 0.15);">
+        <div style="font-size: 2.2rem; margin-bottom: 10px;">🔒</div>
+        <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: #f8fafc; letter-spacing: 0.05em; margin: 0 0 8px 0;">ACCOUNT REQUIRED TO BOOK</h4>
+        <p style="font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--mid-gray); line-height: 1.5; margin: 0;">
+          You must register a free account or log in first to view our live schedule, pick a slot, and secure your session.
+        </p>
+      </div>
+
+      <!-- Coach Selector Widget inside Studio -->
+      <div class="coach-selector-container" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; backdrop-filter: blur(8px);">
+        <h4 class="coach-selector-title" style="margin-top: 0; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.05em; color: var(--accent);">Select Your Coach</h4>
+        <div class="coach-grid" id="publicCoachGrid" style="display: grid; grid-template-columns: 1fr; gap: 10px;">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </div>
+
+      <!-- Member Profile Panel inside Studio -->
+      <div id="profilePanel" class="profile-panel" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; backdrop-filter: blur(8px); margin-bottom: 0; position: relative;">
+        
+        <!-- Grandma-Proof Booking Guide Overlay inside Profile Panel -->
+        <div id="grandmaBookingGuide" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 15, 30, 0.98); border-radius: 12px; z-index: 100; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 25px; box-sizing: border-box; transition: opacity 0.4s ease; text-align: center; opacity: 0;">
+          <div style="font-size: 3rem; margin-bottom: 12px; filter: drop-shadow(0 0 10px var(--accent));">🎉</div>
+          <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--accent); letter-spacing: 0.05em; margin-bottom: 4px; text-transform: uppercase;">ACCOUNT CREATED!</h3>
+          <p style="font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--mid-gray); margin-bottom: 20px; line-height: 1.3;">Let's get you on the court in 3 simple steps:</p>
+          
+          <div style="display: flex; flex-direction: column; gap: 12px; width: 100%; text-align: left; margin-bottom: 22px;">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <span style="font-size: 1rem; background: rgba(204,255,0,0.1); border: 1px solid var(--accent); color: var(--accent); width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: 'DM Mono', monospace; font-weight: bold;">1</span>
+              <div>
+                <strong style="color: var(--off-white); font-size: 0.8rem; display: block; margin-bottom: 1px;">Pick Day & Time</strong>
+                <span style="color: var(--mid-gray); font-size: 0.7rem; line-height: 1.2; display: block;">Click on any day on the calendar, then select an open time slot.</span>
+              </div>
+            </div>
+            
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <span style="font-size: 1rem; background: rgba(204,255,0,0.1); border: 1px solid var(--accent); color: var(--accent); width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: 'DM Mono', monospace; font-weight: bold;">2</span>
+              <div>
+                <strong style="color: var(--off-white); font-size: 0.8rem; display: block; margin-bottom: 1px;">Confirm & Book</strong>
+                <span style="color: var(--mid-gray); font-size: 0.7rem; line-height: 1.2; display: block;">Enter your details inside the calendar form. Once paid, your slot is secured!</span>
+              </div>
+            </div>
+          </div>
+          
+          <button type="button" onclick="closeGrandmaGuide()" style="background: var(--accent); color: var(--black); font-weight: bold; width: 100%; padding: 12px; font-size: 0.8rem; text-transform: uppercase; border-radius: 6px; border: none; cursor: pointer; box-shadow: 0 0 15px rgba(204,255,0,0.3); transition: all 0.3s ease; font-family: 'DM Mono', monospace; letter-spacing: 0.05em;">
+            👉 GOT IT, LET'S BOOK!
+          </button>
+        </div>
+
         <!-- Logged Out Container -->
         <div id="profileLoggedOut">
           <div class="profile-header">
             <h3>👤 Member Profiles</h3>
             <p class="profile-subtitle">Create an account or login to automatically remember details.</p>
           </div>
-          <div class="profile-tabs">
-            <button type="button" class="profile-tab active" id="tabLogin" onclick="toggleProfileTab('login')">LOGIN</button>
-            <button type="button" class="profile-tab" id="tabRegister" onclick="toggleProfileTab('register')">REGISTER</button>
+          <div class="profile-tabs" style="position: relative; display: flex; gap: 12px; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+            <button type="button" class="profile-tab active" id="tabLogin" onclick="toggleProfileTab('login')" style="font-size: 0.9rem; padding: 8px 16px; border-radius: 6px; letter-spacing: 0.05em; font-family: 'DM Mono', monospace;">LOGIN</button>
+            <button type="button" class="profile-tab" id="tabRegister" onclick="toggleProfileTab('register')" style="font-size: 0.95rem; padding: 10px 20px; border-radius: 6px; font-weight: bold; letter-spacing: 0.08em; font-family: 'DM Mono', monospace; text-shadow: 0 0 5px rgba(0,0,0,0.5); position: relative; border: 2px solid var(--accent); cursor: pointer; transition: all 0.3s ease;">⚡ REGISTER FREE</button>
+            <div id="registerArrowIndicator" class="pulse-arrow-indicator" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--accent); font-weight: bold; display: flex; align-items: center; gap: 6px; animation: bounceSide 1s infinite alternate; text-shadow: 0 0 15px var(--accent); pointer-events: none; z-index: 10; letter-spacing: 0.05em;">🔥 NEW? CLICK HERE! ➔</div>
           </div>
           
           <!-- Login Form -->
@@ -1928,6 +2305,7 @@
               <div class="admin-nav-tabs">
                 <button type="button" class="admin-nav-tab active" id="adminTabCoaches" onclick="toggleAdminTab('coaches')">COACHES</button>
                 <button type="button" class="admin-nav-tab" id="adminTabEarnings" onclick="toggleAdminTab('earnings')">EARNINGS</button>
+                <button type="button" class="admin-nav-tab" id="adminTabPlayers" onclick="toggleAdminTab('players')">PLAYERS</button>
               </div>
             </div>
             
@@ -1969,37 +2347,17 @@
                 </div>
               </div>
               <div class="profile-field">
-                <label class="profile-label">Google Calendar Schedule Link</label>
-                <input type="url" id="addCoachCalendar" class="profile-input" placeholder="https://calendar.google.com/calendar/appointments/schedules/...">
+                <label class="profile-label">Setmore Booking Link</label>
+                <input type="url" id="addCoachCalendar" class="profile-input" placeholder="https://tennistmate.setmore.com">
               </div>
               <div class="admin-form-row">
                 <div class="profile-field">
-                  <label class="profile-label">Stripe Coaching Link</label>
+                  <label class="profile-label">Stripe 1-Hour Lesson Link</label>
                   <input type="url" id="addCoachStripeCoaching" class="profile-input" placeholder="https://buy.stripe.com/...">
                 </div>
                 <div class="profile-field">
-                  <label class="profile-label">Coaching Hourly Price ($)</label>
+                  <label class="profile-label">1-Hour Lesson Price ($)</label>
                   <input type="number" id="addCoachPriceCoaching" class="profile-input" placeholder="25" min="0">
-                </div>
-              </div>
-              <div class="admin-form-row">
-                <div class="profile-field">
-                  <label class="profile-label">Stripe Hitting Link</label>
-                  <input type="url" id="addCoachStripeHitting" class="profile-input" placeholder="https://buy.stripe.com/...">
-                </div>
-                <div class="profile-field">
-                  <label class="profile-label">Hitting Hourly Price ($)</label>
-                  <input type="number" id="addCoachPriceHitting" class="profile-input" placeholder="18" min="0">
-                </div>
-              </div>
-              <div class="admin-form-row">
-                <div class="profile-field">
-                  <label class="profile-label">Stripe Weekly Package Link</label>
-                  <input type="url" id="addCoachStripeWeekly" class="profile-input" placeholder="https://buy.stripe.com/...">
-                </div>
-                <div class="profile-field">
-                  <label class="profile-label">Weekly Package Price ($)</label>
-                  <input type="number" id="addCoachPriceWeekly" class="profile-input" placeholder="60" min="0">
                 </div>
               </div>
               <button type="button" class="profile-btn-submit" style="background:var(--accent); color:var(--black);" onclick="handleAddCoachSubmit()">Add New Coach</button>
@@ -2054,6 +2412,15 @@
                 </table>
               </div>
             </div>
+
+            <!-- Players Management Tab -->
+            <div id="adminPanelPlayers" class="profile-form" style="display: none; flex-direction: column;">
+              <p class="admin-subtitle">View registered players and adjust their lesson credits (ammo).</p>
+              
+              <div class="admin-coaches-list" id="adminPlayersList" style="display: flex; flex-direction: column; gap: 10px;">
+                <!-- Dynamically populated players list with ammo -->
+              </div>
+            </div>
           </div>
 
           <!-- Coach Dashboard View (Shown ONLY to coaches) -->
@@ -2079,8 +2446,12 @@
                 </div>
               </div>
               <div class="profile-field">
-                <label class="profile-label">Google Calendar Schedule Link</label>
-                <input type="url" id="coachMyCalendar" class="profile-input">
+                <label class="profile-label">Google Calendar Schedule Link (Public, $25 required)</label>
+                <input type="url" id="coachMyCalendar" class="profile-input" required>
+              </div>
+              <div class="profile-field" style="margin-top: 10px;">
+                <label class="profile-label">Members Calendar Link (Free, for Prepaid Session redemptions)</label>
+                <input type="url" id="coachMyCalendarMembers" class="profile-input" placeholder="Optional members-only calendar link...">
               </div>
               <button type="submit" class="profile-btn-submit">Update Profile</button>
             </form>
@@ -2096,114 +2467,77 @@
         </div>
       </div>
 
-      <div class="payment-options reveal reveal-delay-3">
-        <h3>Payment Options</h3>
-        <p class="pay-note">Pay when you're ready—either right after you book, or after the session.</p>
-        
-        <div class="pay-methods">
-          <div class="pay-method cash">
-            <span class="pay-label">Cash</span>
-            <span class="pay-value" style="color: var(--off-white); text-shadow: none;">In person</span>
-          </div>
 
-          <div class="pay-method venmo">
-            <span class="pay-label">
-              Venmo 
-              <span class="preferred-badge">Preferred</span>
-            </span>
-            <a href="https://venmo.com/u/Aden-Ingwerson" target="_blank" class="pay-value venmo-link">@Aden-Ingwerson ↗</a>
-          </div>
-          
-          <div class="pay-method stripe">
-            <span class="pay-label">Pay with Card (Stripe)</span>
-            <div class="stripe-buttons">
-              <a href="https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01" class="stripe-btn" target="_blank">Coaching ($25)</a>
-              <a href="https://buy.stripe.com/4gMeV59v42Z89Gc9zhaZi02" class="stripe-btn" target="_blank">Hitting ($18)</a>
-              <a href="https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00" class="stripe-btn" target="_blank">Weekly Pkg ($60)</a>
-              <a href="https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00" class="stripe-btn" target="_blank">+ 30 Mins ($5)</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Contact & Venmo Action Buttons -->
-      <div class="contact-actions reveal reveal-delay-4">
+
+      <!-- Contact Button -->
+      <div class="contact-actions" style="margin-top: 15px;">
         <a
-          href="venmo://paycharge?txn=pay&recipients=Aden-Ingwerson&note=Tennis+Session"
-          class="btn btn-venmo"
-        >
-          💵 Pay on Venmo
-        </a>
-        <a
-          href="sms:3089910173&body=Hey+Aden%2C+I+just+booked+a+session!"
+          href="sms:3089910173&body=Hey+Aden%2C+I+just+booked+and+paid+for+a+session!"
           class="btn btn-text"
+          style="width: 100%; text-align: center; justify-content: center; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 12px; border-radius: 8px; color: var(--off-white); display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: 'DM Mono', monospace; font-size: 0.8rem; text-transform: uppercase;"
         >
           📱 Text Aden
         </a>
       </div>
+
     </div>
 
-    <!-- Calendar Embed with Pricing Bar & After You Book Guide -->
-    <div class="reveal reveal-delay-2">
-      <!-- Coach Selector Widget -->
-      <div class="coach-selector-container">
-        <h4 class="coach-selector-title">Select Your Tennis T-Mate</h4>
-        <div class="coach-grid" id="publicCoachGrid">
-          <!-- Dynamically populated -->
-        </div>
-      </div>
-
+    <!-- Right Column: Interactive Full-Screen Calendar Embed -->
+    <div class="studio-right-column" style="display: flex; flex-direction: column; overflow: hidden; background: rgba(0,0,0,0.3); border: 2px solid var(--accent); border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
+      
       <!-- Pricing Bar directly above calendar -->
-      <div class="pricing-bar">
-        <div class="price-item">
-          <span>🎾 Coaching (Technique/Drills)</span>
-          <strong>$25 / hr</strong>
-        </div>
-        <div class="price-item">
-          <span>🏃 Hitting Partner (Sets/Rallies)</span>
-          <strong>$18 / hr</strong>
-        </div>
-        <div class="price-item price-item--extra">
-          <span>➕ Add 30 min</span>
-          <strong>+$5</strong>
+      <div class="pricing-bar" style="display: grid; grid-template-columns: 1fr; border-radius: 12px 12px 0 0; border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.2);">
+        <div class="price-item" style="padding: 12px; text-align: center; border-right: none;">
+          <span style="font-size: 0.75rem; color: var(--mid-gray); display: block;">🎾 Single 1-Hour Lesson</span>
+          <strong id="singleLessonPriceDisplay" style="color: var(--accent); font-family: 'DM Mono', monospace; font-size: 1.1rem;">$25 / hr</strong>
         </div>
       </div>
 
       <!-- Booking Wrap -->
-      <div class="booking-wrap">
+      <div class="booking-wrap" style="position: relative; flex-grow: 1; display: flex; flex-direction: column;">
+        <div id="calendarLockOverlay" style="display: none !important;"></div>
+        
         <iframe
           id="cal-frame"
-          src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1aMaYFfS5CqV2J442kfd7Qd_VNECRxVGSW_XQJOGh5tMOrCtPhbN5Ep_k7aBCegbI0wrsis1m2?gv=true"
+          src="https://tennistmate.setmore.com"
           title="Book a Tennis Session"
           loading="lazy"
+          style="width: 100%; flex-grow: 1; border: none; background: white;"
         ></iframe>
+        
         <!-- Shown if iframe fails or on mobile -->
-        <div id="cal-fallback" style="display:none; text-align:center; padding:24px; background:var(--off-white); color:var(--black);">
-          <p style="font-size:15px; font-weight:bold; margin-bottom:12px; font-family:'DM Mono', monospace;">Tap below to pick your time slot.</p>
+        <div id="cal-fallback" style="display:none; text-align:center; padding:40px 24px; background:rgba(15, 23, 42, 0.6); border: 1px dashed rgba(255,255,255,0.1); border-radius: 12px; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box; width: 100%; height: 100%;">
+          <div style="font-size: 3rem; margin-bottom: 15px; filter: drop-shadow(0 0 10px rgba(204, 255, 0, 0.25));">📅</div>
+          <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--accent); letter-spacing: 0.05em; margin-bottom: 10px;">LIVE MOBILE BOOKING</h4>
+          <p style="font-size: 0.85rem; color: var(--mid-gray); line-height: 1.5; max-width: 290px; margin-bottom: 25px; font-family: 'DM Mono', monospace; margin-left: auto; margin-right: auto;">
+            Setmore handles mobile screens best in a fresh tab. Tap below to select your slot and checkout at your own pace!
+          </p>
           <a
-            href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1aMaYFfS5CqV2J442kfd7Qd_VNECRxVGSW_XQJOGh5tMOrCtPhbN5Ep_k7aBCegbI0wrsis1m2?gv=true"
+            href="https://tennistmate.setmore.com"
             target="_blank"
             rel="noopener"
-            style="display:inline-block; background:#2d6a4f; color:#fff; padding:14px 28px; border-radius:10px; font-size:16px; font-weight:700; text-decoration:none; box-shadow: 0 4px 12px rgba(45, 106, 79, 0.3); font-family:'DM Mono', monospace;"
+            style="display:inline-block; background: var(--accent); color: var(--black); padding: 14px 28px; border-radius: 8px; font-size: 0.9rem; font-weight: bold; text-decoration: none; font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 0.05em; box-shadow: 0 4px 15px rgba(204, 255, 0, 0.3); transition: transform 0.2s;"
+            onmouseenter="this.style.transform='scale(1.03)'"
+            onmouseleave="this.style.transform='scale(1)'"
           >
-            📅 Book a Session
+            🚀 Open Booking Calendar
           </a>
         </div>
       </div>
 
       <!-- After You Book Guide -->
-      <div class="next-steps">
-        <h3>After You Book</h3>
-        <ol>
-          <li>You'll get a Google Calendar confirmation email. Check spam if you don't see it.</li>
-          <li>Pay before or at the session via <a href="https://venmo.com/u/Aden-Ingwerson" target="_blank">Venmo @Aden-Ingwerson</a> or cash at the court.</li>
-          <li>Questions? Text Aden at <a href="sms:3089910173">(308) 991-0173</a>.</li>
+      <div class="next-steps" style="border-radius: 0 0 12px 12px; padding: 20px; background: rgba(0,0,0,0.2); border-top: 1px solid rgba(255,255,255,0.05);">
+        <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.05em; color: var(--off-white); margin-bottom: 10px;">Integrated Booking Flow</h3>
+        <ol style="margin: 0; padding-left: 20px; color: var(--mid-gray); font-size: 0.8rem; line-height: 1.5; display: flex; justify-content: space-between; gap: 20px; list-style-position: inside;">
+          <li style="flex: 1;"><strong>Select a Slot:</strong> Pick any available time slot on the calendar.</li>
+          <li style="flex: 1;"><strong>Stripe Checkout:</strong> Fill out the form and enter your payment details directly inside the calendar widget.</li>
+          <li style="flex: 1;"><strong>Instant Lock:</strong> The slot is booked and confirmed the exact second your secure payment succeeds!</li>
         </ol>
       </div>
     </div>
 
   </div>
-</section>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -2211,7 +2545,274 @@
   <div class="footer-copy">© 2026 Aden Ingwerson.</div>
 </footer>
 
+<!-- SLIDING LIVE SCHEDULE DRAWER (GLASS EFFECT) -->
+<div id="availabilityDrawer" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.45); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); z-index: 10000; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease; display: flex; align-items: center; justify-content: center; padding: 20px; cursor: default;">
+  <div id="availabilityDrawerInner" style="background: var(--primary-color); border: 2px solid var(--accent); width: 90%; max-width: 1000px; height: 85vh; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); display: flex; flex-direction: column; overflow: hidden; position: relative;">
+    
+    <!-- Drawer Header -->
+    <div style="background: rgba(0,0,0,0.3); padding: 20px 30px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; gap: 15px;">
+      <div style="text-align: left;">
+        <span style="font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); font-weight: bold; display: block; margin-bottom: 4px;">🟢 Live Schedule</span>
+        <h3 style="font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--off-white); margin: 0; letter-spacing: 0.02em;">LIVE SUMMER AVAILABILITY</h3>
+      </div>
+      <button type="button" onclick="toggleAvailabilityDrawer()" style="background: var(--accent); border: none; color: var(--black); font-family: 'DM Mono', monospace; font-size: 0.85rem; font-weight: 700; padding: 10px 20px; border-radius: 8px; cursor: pointer; transition: transform 0.2s, background 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(204, 255, 0, 0.3);" onmouseenter="this.style.transform='scale(1.05)'; this.style.background='var(--off-white)';" onmouseleave="this.style.transform='scale(1)'; this.style.background='var(--accent)';">
+        ✕ CLOSE VIEW
+      </button>
+    </div>
+    
+    <!-- Info Banner -->
+    <div style="background: rgba(204, 255, 0, 0.03); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 12px 30px; font-size: 0.8rem; color: var(--mid-gray); display: flex; align-items: center; gap: 8px; text-align: left; line-height: 1.4;">
+      <span>💡</span>
+      <span>This is a <strong>read-only live view</strong> of my current availability. To book and reserve a slot, open the Booking Studio to log in and secure your lesson!</span>
+    </div>
+
+    <!-- Live Calendar Frame (Protected & Cursor Maintained) -->
+    <div style="flex: 1; width: 100%; background: #ffffff; position: relative;">
+      <!-- Times protection overlay (covers the right-hand weekly times grid but leaves left mini-calendar clickable) -->
+      <div id="live-schedule-times-overlay" style="position: absolute; top: 0; right: 0; width: 70%; height: 100%; background: rgba(15, 23, 42, 0.05); z-index: 5;"
+           title="Click to unlock booking & log in!"
+           onclick="handleTimesOverlayClick()">
+        <div style="position: absolute; top: 15px; right: 15px; background: #ef4444; color: white; padding: 6px 12px; border-radius: 20px; font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: bold; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); display: flex; align-items: center; gap: 6px; pointer-events: none; user-select: none; z-index: 10;">
+          <span>🔒</span> VIEW ONLY (CLICK TO BOOK)
+        </div>
+        <!-- Centered explanatory lock banner -->
+        <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 20px; pointer-events: none;">
+          <div id="lockExplanationCard" style="background: rgba(15, 23, 42, 0.9); border: 2px solid #ef4444; box-shadow: 0 15px 50px rgba(0,0,0,0.7), 0 0 15px rgba(239, 68, 68, 0.2); padding: 25px 30px; border-radius: 16px; max-width: 340px; text-align: center; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); user-select: none; transition: opacity 0.3s ease;">
+            <div style="font-size: 2.2rem; margin-bottom: 12px; filter: drop-shadow(0 0 8px #ef4444);">🔒</div>
+            <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: #f8fafc; letter-spacing: 0.05em; margin-bottom: 8px;">CALENDAR TIMES VIEW-ONLY</h4>
+            <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5; margin-bottom: 14px; font-family: 'DM Mono', monospace;">
+              This shows my real-time summer schedule. Selectable time slots are locked until you log in or register inside our Booking Studio!
+            </p>
+            <div style="background: rgba(204, 255, 0, 0.08); border: 1px dashed var(--accent); color: var(--accent); padding: 8px 12px; border-radius: 8px; font-size: 0.7rem; font-weight: bold; font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 0.05em; display: inline-block;">
+              🖱️ CLICK TIMES TO BOOK INSTANTLY
+            </div>
+            <!-- Translucency control button -->
+            <div style="margin-top: 14px; pointer-events: auto;">
+              <button type="button" onclick="toggleLockTranslucency(event)" id="btnToggleTranslucency" style="background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2); color: #f8fafc; font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: bold; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: background 0.2s, border-color 0.2s;" onmouseenter="this.style.background='rgba(255,255,255,0.2)'; this.style.borderColor='var(--accent)';" onmouseleave="this.style.background='rgba(255,255,255,0.12)'; this.style.borderColor='rgba(255,255,255,0.2)';">
+                👁️ DIM LOCK TO VIEW TIMES
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="view-only-cal-fallback" style="display: none; height: 100%; background: var(--black); padding: 40px 20px; flex-direction: column; align-items: center; justify-content: center; text-align: center; box-sizing: border-box; overflow-y: auto;">
+        <div style="font-size: 3rem; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(204, 255, 0, 0.25));">🎾</div>
+        <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--accent); letter-spacing: 0.05em; margin-bottom: 12px;">LIVE SUMMER AVAILABILITY</h4>
+        <p style="font-size: 0.85rem; color: var(--mid-gray); line-height: 1.6; max-width: 320px; margin-bottom: 25px; font-family: 'DM Mono', monospace;">
+          This is a view-only schedule. To check today's available open slots, tap below to view the schedule in a clean, full-screen tab!
+        </p>
+        <a
+          href="https://tennistmate.setmore.com"
+          target="_blank"
+          rel="noopener"
+          style="display: inline-block; background: var(--accent); color: var(--black); padding: 14px 28px; border-radius: 8px; font-size: 0.9rem; font-weight: bold; text-decoration: none; font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 0.05em; box-shadow: 0 4px 15px rgba(204, 255, 0, 0.3);"
+        >
+          🔍 View Live Times (Free)
+        </a>
+        <p style="font-size: 0.75rem; color: var(--mid-gray); margin-top: 25px; max-width: 280px; line-height: 1.4;">
+          Once you find a slot, close this view and open the Booking Studio to log in and reserve your time!
+        </p>
+      </div>
+      <iframe
+        id="view-only-cal-frame"
+        src="https://tennistmate.setmore.com"
+        style="border: 0; width: 100%; height: 100%;"
+        loading="lazy"
+      ></iframe>
+    </div>
+  </div>
+</div>
+
 <script>
+  // Immersive Booking Studio State and Handlers
+  let bookingStudioOpen = false;
+
+  function openBookingStudio() {
+    bookingStudioOpen = true;
+    const studio = document.getElementById('bookingStudio');
+    const customCursor = document.getElementById('cursor');
+    if (studio) {
+      studio.style.visibility = 'visible';
+      studio.style.opacity = '1';
+      document.body.classList.add('no-scroll');
+      document.body.classList.add('drawer-open');
+      if (customCursor) customCursor.style.display = 'none';
+      
+      // Auto-trigger layout checks for embedded elements inside studio
+      updateSelectedCoachUI();
+    }
+  }
+
+  function closeBookingStudio() {
+    bookingStudioOpen = false;
+    const studio = document.getElementById('bookingStudio');
+    const customCursor = document.getElementById('cursor');
+    if (studio) {
+      studio.style.opacity = '0';
+      studio.style.visibility = 'hidden';
+      document.body.classList.remove('no-scroll');
+      document.body.classList.remove('drawer-open');
+      if (customCursor) customCursor.style.display = 'block';
+    }
+  }
+
+  // Grandma-Proof Booking Guide
+  function showGrandmaGuide() {
+    const guide = document.getElementById('grandmaBookingGuide');
+    if (guide) {
+      guide.style.display = 'flex';
+      // Smooth fade-in
+      setTimeout(() => { guide.style.opacity = '1'; }, 50);
+    }
+  }
+
+  function closeGrandmaGuide() {
+    const guide = document.getElementById('grandmaBookingGuide');
+    if (guide) {
+      guide.style.opacity = '0';
+      setTimeout(() => { guide.style.display = 'none'; }, 400);
+      
+      // Flash a neon highlight on the calendar right column to guide their eyes!
+      const calendarCol = document.querySelector('.studio-right-column');
+      if (calendarCol) {
+        calendarCol.style.boxShadow = '0 0 35px var(--accent)';
+        calendarCol.style.borderColor = 'var(--accent)';
+        setTimeout(() => {
+          calendarCol.style.boxShadow = '0 10px 40px rgba(0,0,0,0.5)';
+          calendarCol.style.borderColor = 'var(--accent)';
+        }, 2000);
+      }
+    }
+  }
+
+  // Availability Drawer State and Handler
+  let availabilityDrawerOpen = false;
+
+  function toggleAvailabilityDrawer() {
+    availabilityDrawerOpen = !availabilityDrawerOpen;
+    const drawer = document.getElementById('availabilityDrawer');
+    const customCursor = document.getElementById('cursor');
+    const frame = document.getElementById('view-only-cal-frame');
+    const overlay = document.getElementById('live-schedule-times-overlay');
+    const fallback = document.getElementById('view-only-cal-fallback');
+    
+    if (drawer) {
+      if (availabilityDrawerOpen) {
+        drawer.style.visibility = 'visible';
+        drawer.style.opacity = '1';
+        document.body.classList.add('no-scroll');
+        document.body.classList.add('drawer-open'); // Restore normal cursor for navigation/closing
+        if (customCursor) customCursor.style.display = 'none'; // Hide custom cursor
+        
+        // Handle responsive display inside drawer
+        if (window.innerWidth < 768) {
+          if (frame) frame.style.display = 'none';
+          if (overlay) overlay.style.display = 'none';
+          if (fallback) fallback.style.display = 'flex';
+        } else {
+          if (frame) frame.style.display = 'block';
+          if (overlay) overlay.style.display = 'block';
+          if (fallback) fallback.style.display = 'none';
+        }
+      } else {
+        drawer.style.visibility = 'hidden';
+        drawer.style.opacity = '0';
+        document.body.classList.remove('no-scroll');
+        document.body.classList.remove('drawer-open'); // Hide normal cursor, back to custom cursor
+        if (customCursor) customCursor.style.display = 'block'; // Show custom cursor
+        
+        // Reset lock translucency on close
+        const card = document.getElementById('lockExplanationCard');
+        const btn = document.getElementById('btnToggleTranslucency');
+        if (card) {
+          card.classList.remove('dimmed');
+          card.style.opacity = '1';
+        }
+        if (btn) {
+          btn.innerText = '👁️ DIM LOCK TO VIEW TIMES';
+        }
+      }
+    }
+  }
+
+  function toggleLockTranslucency(e) {
+    if (e) e.stopPropagation(); // Avoid closing/navigating drawer on click
+    const card = document.getElementById('lockExplanationCard');
+    const btn = document.getElementById('btnToggleTranslucency');
+    if (card && btn) {
+      const isDimmed = card.classList.contains('dimmed');
+      if (isDimmed) {
+        card.classList.remove('dimmed');
+        card.style.opacity = '1';
+        btn.innerText = '👁️ DIM LOCK TO VIEW TIMES';
+      } else {
+        card.classList.add('dimmed');
+        card.style.opacity = '0.12'; // Make it super translucent
+        btn.innerText = '🔒 SHOW LOCK DETAILS';
+      }
+    }
+  }
+
+  function handleTimesOverlayClick() {
+    // Close the live schedule drawer
+    toggleAvailabilityDrawer();
+    
+    const activeUserEmail = localStorage.getItem('tm_active_user');
+    
+    if (activeUserEmail) {
+      // User has an account! Take them to the purchasing section (#services)
+      const servicesSection = document.getElementById('services');
+      if (servicesSection) {
+        servicesSection.scrollIntoView({ behavior: 'smooth' });
+        
+        // Highlight the pricing/service cards
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach(card => {
+          card.style.transform = 'scale(1.02)';
+          card.style.borderColor = 'var(--accent)';
+          card.style.boxShadow = '0 0 30px rgba(204, 255, 0, 0.5)';
+          card.style.transition = 'all 0.4s cubic-bezier(0.2, 1, 0.3, 1)';
+          
+          setTimeout(() => {
+            card.style.transform = '';
+            card.style.borderColor = '';
+            card.style.boxShadow = '';
+          }, 2500);
+        });
+      }
+    } else {
+      // User DOES NOT have an account! Toggle to register tab and take them to the register section in booking
+      toggleProfileTab('register');
+      
+      const bookingSection = document.getElementById('booking');
+      if (bookingSection) {
+        bookingSection.scrollIntoView({ behavior: 'smooth' });
+        
+        // Highlight the registration/profile panel
+        const profilePanel = document.getElementById('profilePanel');
+        if (profilePanel) {
+          profilePanel.style.transform = 'scale(1.02)';
+          profilePanel.style.borderColor = 'var(--accent)';
+          profilePanel.style.boxShadow = '0 0 30px rgba(204, 255, 0, 0.6)';
+          profilePanel.style.transition = 'all 0.4s cubic-bezier(0.2, 1, 0.3, 1)';
+          
+          setTimeout(() => {
+            profilePanel.style.transform = '';
+            profilePanel.style.borderColor = '';
+            profilePanel.style.boxShadow = '';
+          }, 2500);
+        }
+      }
+    }
+  }
+
+  // Close drawer on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && availabilityDrawerOpen) {
+      toggleAvailabilityDrawer();
+    }
+  });
+
   // Cursor
   const cursor = document.getElementById('cursor');
   document.addEventListener('mousemove', e => {
@@ -2223,14 +2824,60 @@
     el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
   });
 
-  // Parallax
+  // ==========================================
+  // UNRESISTABLE SCROLLYTELLING ENGINE
+  // (Simply comment out this block to undo)
+  // ==========================================
+  const scrollBar = document.getElementById('scrollProgressBar');
   window.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
+    
+    // 1. Parallax (Court lines and rotating/scaling neon ball)
     const courtLines = document.getElementById('courtLines');
     const heroBall = document.getElementById('heroBall');
-    if (courtLines) courtLines.style.transform = `translateY(${scrollY * 0.4}px)`;
-    if (heroBall) heroBall.style.transform = `translateY(calc(-50% + ${scrollY * 0.25}px))`;
+    if (courtLines) {
+      courtLines.style.transform = `translateY(${scrollY * 0.4}px)`;
+    }
+    if (heroBall) {
+      // Ball scales up slightly and blurs slightly as it moves behind sections on scroll
+      const scaleValue = 1 + (scrollY * 0.0003);
+      const blurValue = Math.min(scrollY * 0.015, 8);
+      const rotation = scrollY * 0.15;
+      heroBall.style.transform = `translateY(calc(-50% + ${scrollY * 0.25}px)) scale(${scaleValue})`;
+      heroBall.style.filter = `drop-shadow(0 0 55px rgba(204, 255, 0, 0.45)) blur(${blurValue}px)`;
+      const ballSvg = heroBall.querySelector('.ball-svg');
+      if (ballSvg) {
+        ballSvg.style.transform = `rotate(${rotation}deg)`;
+      }
+    }
+    
+    // 2. Dynamic Scroll progress indicator bar (0% to 100%)
+    if (scrollBar) {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0) {
+        const scrolled = (scrollY / docHeight) * 100;
+        scrollBar.style.width = scrolled + '%';
+      }
+    }
+
+    // 3. Magnetic Card Scroll-Focus Effect
+    // Automatically highlights cards as they scroll through the exact center of the screen
+    const magneticCards = document.querySelectorAll('.magnetic-card');
+    const centerY = window.innerHeight / 2;
+    magneticCards.forEach(card => {
+      const rect = card.getBoundingClientRect();
+      const cardCenter = rect.top + (rect.height / 2);
+      const distanceFromCenter = Math.abs(centerY - cardCenter);
+      
+      // If card is close to the vertical center of the screen, light it up!
+      if (distanceFromCenter < 200) {
+        card.classList.add('active-center');
+      } else {
+        card.classList.remove('active-center');
+      }
+    });
   });
+  // ==========================================
 
   // Scroll reveal
   const revealEls = document.querySelectorAll('.reveal');
@@ -2303,6 +2950,7 @@
     // Reset forms
     document.getElementById('formRegister').reset();
     showLoggedInState(users[email]);
+    showGrandmaGuide();
   }
 
   function handleProfileLogin(e) {
@@ -2367,31 +3015,9 @@
       bio: "Hastings College Varsity Player · Primary Coach",
       phone: "3089910173",
       venmo: "Aden-Ingwerson",
-      calendar: "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1aMaYFfS5CqV2J442kfd7Qd_VNECRxVGSW_XQJOGh5tMOrCtPhbN5Ep_k7aBCegbI0wrsis1m2?gv=true",
+      calendar: "https://tennistmate.setmore.com", // REPLACE WITH YOUR SETMORE BOOKING LINK
       stripeCoaching: "https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01",
-      stripeHitting: "https://buy.stripe.com/4gMeV59v42Z89Gc9zhaZi02",
-      stripeWeekly: "https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00", // Generic link, user will replace
-      stripeAddon: "https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00",
-      coachingPrice: "25",
-      hittingPrice: "18",
-      weeklyPrice: "60"
-    },
-    "rylan": {
-      id: "rylan",
-      name: "Rylan",
-      email: "rylan@tennistmate.com",
-      pin: "1234",
-      bio: "TennisTmate Coach",
-      phone: "3089910173", // Aden's backup or custom
-      venmo: "Rylan-Venmo",
-      calendar: "https://calendar.app.google/TtUNYzcSqthnaCgH7",
-      stripeCoaching: "https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01", // Shared checkout links or customizable
-      stripeHitting: "https://buy.stripe.com/4gMeV59v42Z89Gc9zhaZi02",
-      stripeWeekly: "https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00",
-      stripeAddon: "https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00",
-      coachingPrice: "25",
-      hittingPrice: "18",
-      weeklyPrice: "60"
+      coachingPrice: "25"
     }
   };
 
@@ -2403,7 +3029,7 @@
   function saveCoaches(coaches) {
     const custom = {};
     for (const [id, coach] of Object.entries(coaches)) {
-      if (id !== "aden" && id !== "rylan") custom[id] = coach;
+      if (id !== "aden") custom[id] = coach;
     }
     localStorage.setItem('tm_coaches', JSON.stringify(custom));
   }
@@ -2418,6 +3044,16 @@
 
     grid.innerHTML = '';
     
+    // Fix a dumb mishap: If there is only 1 coach in the registry, hide the coach selector container entirely!
+    const container = document.querySelector('.coach-selector-container');
+    if (container) {
+      if (Object.keys(coaches).length <= 1) {
+        container.style.display = 'none';
+      } else {
+        container.style.display = 'block';
+      }
+    }
+
     // Check if activeCoachId exists, otherwise fallback to default
     if (!coaches[activeCoachId]) {
       activeCoachId = 'aden';
@@ -2462,17 +3098,9 @@
     const pricingBar = document.querySelector('.pricing-bar');
     if (pricingBar) {
       pricingBar.innerHTML = `
-        <div class="price-item">
-          <span>🎾 Coaching (Technique/Drills)</span>
-          <strong>$${coach.coachingPrice || '25'} / hr</strong>
-        </div>
-        <div class="price-item">
-          <span>🏃 Hitting Partner (Sets/Rallies)</span>
-          <strong>$${coach.hittingPrice || '18'} / hr</strong>
-        </div>
-        <div class="price-item price-item--extra">
-          <span>➕ Add 30 min</span>
-          <strong>+$5</strong>
+        <div class="price-item" style="padding: 12px; text-align: center; border-right: none;">
+          <span style="font-size: 0.75rem; color: var(--mid-gray); display: block;">🎾 Single 1-Hour Lesson</span>
+          <strong id="singleLessonPriceDisplay" style="color: var(--accent); font-family: 'DM Mono', monospace; font-size: 1.1rem;">$${coach.coachingPrice || '25'} / hr</strong>
         </div>
       `;
     }
@@ -2483,7 +3111,7 @@
     
     let calendarUrl = coach.calendar;
     
-    // Pre-fill user details into Google Calendar link if logged in
+    // Pre-fill user details into Setmore link if logged in
     const activeUserEmail = localStorage.getItem('tm_active_user');
     if (activeUserEmail) {
       const users = JSON.parse(localStorage.getItem('tm_users') || '{}');
@@ -2491,49 +3119,25 @@
       if (user) {
         const encodedName = encodeURIComponent(user.name);
         const encodedEmail = encodeURIComponent(user.email);
-        calendarUrl += `&name=${encodedName}&email=${encodedEmail}`;
+        calendarUrl += (calendarUrl.includes('?') ? '&' : '?') + `name=${encodedName}&email=${encodedEmail}`;
       }
     }
 
     if (frame) frame.src = calendarUrl;
     if (fallbackLink) fallbackLink.href = calendarUrl;
 
-    // Update payment links
-    // Venmo Pay link
-    const venmoBtn = document.querySelector('.btn-venmo');
-    if (venmoBtn) {
-      const coachVenmo = coach.venmo || "Aden-Ingwerson";
-      venmoBtn.href = `venmo://paycharge?txn=pay&recipients=${coachVenmo}&note=Tennis+Session`;
-    }
-
     // Text Coach link
     const textBtn = document.querySelector('.btn-text');
     if (textBtn) {
       const coachPhone = coach.phone || "3089910173";
-      textBtn.href = `sms:${coachPhone}&body=Hey+I+just+booked+a+session!`;
+      textBtn.href = `sms:${coachPhone}&body=Hey+${coach.name.split(' ')[0]}%2C+I+just+booked+and+paid+for+a+session!`;
       textBtn.innerHTML = `📱 Text ${coach.name.split(' ')[0]}`;
     }
 
-    // Next Steps Text
-    const nextStepsVenmo = document.querySelector('.next-steps a');
-    if (nextStepsVenmo) {
-      nextStepsVenmo.href = `https://venmo.com/u/${coach.venmo}`;
-      nextStepsVenmo.innerText = `Venmo @${coach.venmo}`;
-    }
-
     // Stripe checkout links in the main Payment Options section
-    const stripeButtons = document.querySelectorAll('.stripe-btn');
-    if (stripeButtons.length >= 4) {
-      stripeButtons[0].href = coach.stripeCoaching || "https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01";
-      stripeButtons[0].innerText = `Coaching ($${coach.coachingPrice || '25'})`;
-
-      stripeButtons[1].href = coach.stripeHitting || "https://buy.stripe.com/4gMeV59v42Z89Gc9zhaZi02";
-      stripeButtons[1].innerText = `Hitting ($${coach.hittingPrice || '18'})`;
-
-      stripeButtons[2].href = coach.stripeWeekly || "https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00";
-      stripeButtons[2].innerText = `Weekly Pkg ($${coach.weeklyPrice || '60'})`;
-
-      stripeButtons[3].href = coach.stripeAddon || "https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00";
+    const singlePriceText = document.getElementById('singleLessonPriceText');
+    if (singlePriceText) {
+      singlePriceText.innerText = `$${coach.coachingPrice || '25'}`;
     }
   }
 
@@ -2544,26 +3148,37 @@
     activeAdminTab = tab;
     const tabCoaches = document.getElementById('adminTabCoaches');
     const tabEarnings = document.getElementById('adminTabEarnings');
+    const tabPlayers = document.getElementById('adminTabPlayers');
     const panelCoaches = document.getElementById('adminPanelCoaches');
     const panelEarnings = document.getElementById('adminPanelEarnings');
+    const panelPlayers = document.getElementById('adminPanelPlayers');
+
+    // Deactivate all first
+    tabCoaches.classList.remove('active');
+    tabEarnings.classList.remove('active');
+    tabPlayers.classList.remove('active');
+    panelCoaches.style.display = 'none';
+    panelEarnings.style.display = 'none';
+    panelPlayers.style.display = 'none';
 
     if (tab === 'coaches') {
       tabCoaches.classList.add('active');
-      tabEarnings.classList.remove('active');
       panelCoaches.style.display = 'flex';
-      panelEarnings.style.display = 'none';
-    } else {
+    } else if (tab === 'earnings') {
       tabEarnings.classList.add('active');
-      tabCoaches.classList.remove('active');
       panelEarnings.style.display = 'flex';
-      panelCoaches.style.display = 'none';
       renderEarningsDashboard();
+    } else if (tab === 'players') {
+      tabPlayers.classList.add('active');
+      panelPlayers.style.display = 'flex';
+      renderAdminPlayersList();
     }
   }
 
   function initAdminPanel() {
     renderAdminCoachesList();
     populateLogBookingCoachSelect();
+    renderAdminPlayersList();
   }
 
   function renderAdminCoachesList() {
@@ -2599,13 +3214,11 @@
     const venmo = document.getElementById('addCoachVenmo').value.trim().replace('@', '');
     const calendar = document.getElementById('addCoachCalendar').value.trim();
     const stripeCoaching = document.getElementById('addCoachStripeCoaching').value.trim();
-    const stripeHitting = document.getElementById('addCoachStripeHitting').value.trim();
     const stripeWeekly = document.getElementById('addCoachStripeWeekly').value.trim();
 
     // Capturing custom prices
     const coachingPrice = document.getElementById('addCoachPriceCoaching').value.trim() || "25";
-    const hittingPrice = document.getElementById('addCoachPriceHitting').value.trim() || "18";
-    const weeklyPrice = document.getElementById('addCoachPriceWeekly').value.trim() || "60";
+    const weeklyPrice = document.getElementById('addCoachPriceWeekly').value.trim() || "115";
 
     if (!name || !calendar) {
       alert("Please fill out Coach Name and Calendar link.");
@@ -2624,11 +3237,8 @@
       venmo: venmo || "Aden-Ingwerson",
       calendar,
       stripeCoaching: stripeCoaching || "https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01",
-      stripeHitting: stripeHitting || "https://buy.stripe.com/4gMeV59v42Z89Gc9zhaZi02",
-      stripeWeekly: stripeWeekly || "https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00",
-      stripeAddon: "https://buy.stripe.com/14A9AL8r043c2dKcLtaZi00",
+      stripeWeekly: stripeWeekly || "https://buy.stripe.com/aFa3cnaz81V4dWscLtaZi05",
       coachingPrice,
-      hittingPrice,
       weeklyPrice
     };
 
@@ -2645,10 +3255,8 @@
     document.getElementById('addCoachVenmo').value = '';
     document.getElementById('addCoachCalendar').value = '';
     document.getElementById('addCoachStripeCoaching').value = '';
-    document.getElementById('addCoachStripeHitting').value = '';
     document.getElementById('addCoachStripeWeekly').value = '';
     document.getElementById('addCoachPriceCoaching').value = '';
-    document.getElementById('addCoachPriceHitting').value = '';
     document.getElementById('addCoachPriceWeekly').value = '';
   }
 
@@ -2744,6 +3352,7 @@
       coaches[coachKey].phone = document.getElementById('coachMyPhone').value.trim().replace(/\D/g, '');
       coaches[coachKey].venmo = document.getElementById('coachMyVenmo').value.trim().replace('@', '');
       coaches[coachKey].calendar = document.getElementById('coachMyCalendar').value.trim();
+      coaches[coachKey].calendarMembers = document.getElementById('coachMyCalendarMembers').value.trim() || coaches[coachKey].calendar;
 
       saveCoaches(coaches);
       alert("Profile updated successfully!");
@@ -2757,6 +3366,9 @@
     document.getElementById('userWelcomeName').innerText = `Welcome, ${user.name}!`;
     document.getElementById('profileValEmail').innerText = user.email;
     document.getElementById('profileValPhone').innerText = user.phone;
+
+    const arrow = document.getElementById('registerArrowIndicator');
+    if (arrow) arrow.style.display = 'none';
 
     const userType = localStorage.getItem('tm_active_user_type');
 
@@ -2786,6 +3398,7 @@
         document.getElementById('coachMyPhone').value = matchedCoach.phone || '';
         document.getElementById('coachMyVenmo').value = matchedCoach.venmo || '';
         document.getElementById('coachMyCalendar').value = matchedCoach.calendar || '';
+        document.getElementById('coachMyCalendarMembers').value = matchedCoach.calendarMembers || matchedCoach.calendar || '';
 
         // Calculate and render coach's logged earnings
         const transactions = JSON.parse(localStorage.getItem('tm_transactions') || '[]');
@@ -2806,6 +3419,7 @@
     }
 
     updateSelectedCoachUI();
+    updateStudioLayout();
   }
 
   function showLoggedOutState() {
@@ -2813,8 +3427,127 @@
     document.getElementById('profileLoggedOut').style.display = 'block';
     document.getElementById('adminDashboardView').style.display = 'none';
     document.getElementById('coachDashboardView').style.display = 'none';
+    
+    const arrow = document.getElementById('registerArrowIndicator');
+    if (arrow) arrow.style.display = 'flex';
+
     toggleProfileTab('login');
     updateSelectedCoachUI();
+    updateStudioLayout();
+  }
+
+  // --- STUDIO LAYOUT & LOGIN WALL TOGGLE ---
+
+  function updateStudioLayout() {
+    const mainGrid = document.getElementById('studioMainGrid');
+    const leftCol = document.querySelector('.studio-left-column');
+    const rightCol = document.querySelector('.studio-right-column');
+    const coachSelector = document.querySelector('.coach-selector-container');
+    const activeUserEmail = localStorage.getItem('tm_active_user');
+    
+    const loginNotice = document.getElementById('loginWallNotice');
+
+    if (!activeUserEmail) {
+      // LOGGED OUT - SHOW DEDICATED LOGIN WALL
+      if (mainGrid) {
+        mainGrid.style.gridTemplateColumns = '1fr';
+        mainGrid.style.maxWidth = '480px';
+        mainGrid.style.margin = '0 auto';
+      }
+      if (rightCol) {
+        rightCol.style.display = 'none';
+      }
+      if (coachSelector) {
+        coachSelector.style.display = 'none';
+      }
+      if (loginNotice) {
+        loginNotice.style.display = 'block';
+      }
+    } else {
+      // LOGGED IN - SHOW ACTIVE CALENDAR
+      if (mainGrid) {
+        mainGrid.style.gridTemplateColumns = '340px 1fr';
+        mainGrid.style.maxWidth = 'none';
+        mainGrid.style.margin = '0';
+      }
+      if (rightCol) {
+        rightCol.style.display = 'flex';
+      }
+      if (coachSelector) {
+        const coaches = getCoaches();
+        if (Object.keys(coaches).length > 1) {
+          coachSelector.style.display = 'block';
+        } else {
+          coachSelector.style.display = 'none';
+        }
+      }
+      if (loginNotice) {
+        loginNotice.style.display = 'none';
+      }
+    }
+  }
+
+  function updateCalendarLockState(user) {
+    updateStudioLayout();
+  }
+
+  function scrollToPricing() {
+    const el = document.getElementById('services');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+
+
+
+  // --- ADMIN PANEL PLAYER LIST HELPERS ---
+
+  function renderAdminPlayersList() {
+    const list = document.getElementById('adminPlayersList');
+    if (!list) return;
+
+    const users = JSON.parse(localStorage.getItem('tm_users') || '{}');
+    list.innerHTML = '';
+
+    const playerKeys = Object.keys(users);
+    if (playerKeys.length === 0) {
+      list.innerHTML = `<div style="text-align: center; color: var(--mid-gray); font-size: 0.85rem; padding: 20px;">No registered players yet.</div>`;
+      return;
+    }
+
+    playerKeys.forEach(email => {
+      const user = users[email];
+      const item = document.createElement('div');
+      item.className = 'admin-coach-item';
+      item.style.display = 'flex';
+      item.style.justifyContent = 'space-between';
+      item.style.alignItems = 'center';
+      item.style.background = 'rgba(255,255,255,0.02)';
+      item.style.padding = '12px 15px';
+      item.style.borderRadius = '8px';
+      item.style.border = '1px solid rgba(255,255,255,0.03)';
+
+      item.innerHTML = `
+        <div class="admin-coach-item-info" style="display: flex; flex-direction: column; gap: 4px; text-align: left;">
+          <span class="admin-coach-item-name" style="font-weight: bold; color: var(--off-white); font-size: 0.95rem;">${user.name}</span>
+          <span class="admin-coach-item-bio" style="font-size: 0.75rem; color: var(--mid-gray);">${user.email} · ${user.phone || 'No phone'}</span>
+        </div>
+      `;
+      list.appendChild(item);
+    });
+  }
+
+  function adjustPlayerAmmo(email, change) {
+    const users = JSON.parse(localStorage.getItem('tm_users') || '{}');
+    if (users[email]) {
+      users[email].ammo = Math.max(0, (users[email].ammo || 0) + change);
+      localStorage.setItem('tm_users', JSON.stringify(users));
+      renderAdminPlayersList();
+      
+      // Update customer dashboard live if the adjusted player is currently signed in
+      const activeUserEmail = localStorage.getItem('tm_active_user');
+      if (activeUserEmail === email) {
+        showLoggedInState(users[email]);
+      }
+    }
   }
 
   // Check login state on page load
@@ -2861,6 +3594,44 @@
   renderPublicCoachGrid();
   updateSelectedCoachUI();
   checkLoginState();
+
+  // Persistent Floating Scroll Banner Listener
+  const scrollBanner = document.getElementById('floatingScrollBanner');
+  window.addEventListener('scroll', () => {
+    const bookingSec = document.getElementById('booking');
+    if (bookingSec && scrollBanner) {
+      const rect = bookingSec.getBoundingClientRect();
+      // Hide banner if they have scrolled down to the Booking CTA panel
+      if (rect.top < window.innerHeight - 100) {
+        scrollBanner.style.opacity = '0';
+        scrollBanner.style.visibility = 'hidden';
+        scrollBanner.style.pointerEvents = 'none';
+      } else {
+        scrollBanner.style.opacity = '1';
+        scrollBanner.style.visibility = 'visible';
+        scrollBanner.style.pointerEvents = 'auto';
+      }
+    }
+  });
 </script>
+
+<!-- Persistent Floating Scroll to Book Banner -->
+<div id="floatingScrollBanner" style="position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: rgba(15, 23, 42, 0.9); border: 2px solid var(--accent); box-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 25px rgba(204, 255, 0, 0.45); padding: 14px 35px; border-radius: 50px; z-index: 9999; display: flex; align-items: center; gap: 15px; font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: 0.05em; color: var(--off-white); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; text-transform: uppercase;" onclick="document.getElementById('booking').scrollIntoView({ behavior: 'smooth' })">
+  <span style="font-size: 1.3rem; animation: rotateBall 3s infinite linear; display: inline-block; filter: drop-shadow(0 0 5px var(--accent));">🎾</span>
+  <span>SUMMER 2026 SCHEDULE IS OPEN! SCROLL OR TAP HERE TO BOOK INSTANTLY</span>
+  <span style="font-size: 1.1rem; color: var(--accent); animation: pulseArrow 1s infinite alternate; display: inline-block; text-shadow: 0 0 8px var(--accent);">➔</span>
+</div>
+
+<style>
+  @keyframes rotateBall {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes pulseArrow {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(8px); }
+  }
+</style>
+
 </body>
 </html>
