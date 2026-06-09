@@ -603,7 +603,7 @@
                 </svg>
                 TENNIS <span>T-MATE</span>
             </div>
-            <a href="https://tennistmate.setmore.com" target="_blank" class="btn anywhere-book-now-button" data-booking-url="https://tennistmate.setmore.com" style="padding: 8px 20px; font-size: 0.85rem;">Book Session</a>
+            <button data-cal-link="tennis-t-mate-hcmfls" data-cal-config=\'{"theme":"dark"}\' class="btn" style="padding: 8px 20px; font-size: 0.85rem; cursor: pointer; font-family: inherit; font-weight: 500; border: 1px solid var(--text-primary); background: transparent; color: var(--text-primary); border-radius: 4px;">Book Session</button>
         </div>
     </nav>
 
@@ -613,7 +613,7 @@
             <h1>Elevate<br>Your Game.</h1>
             <p>One-on-one tennis coaching tailored to your exact level. Simple booking, zero hassle.</p>
             
-            <a href="https://tennistmate.setmore.com" target="_blank" class="btn btn-accent anywhere-book-now-button" data-booking-url="https://tennistmate.setmore.com">Book Session</a>
+            <button data-cal-link="tennis-t-mate-hcmfls" data-cal-config=\'{"theme":"dark"}\' class="btn btn-accent" style="cursor: pointer; font-family: inherit; border: none;">Book Session</button>
 
             <div class="hero-stats">
                 <div class="stat">
@@ -678,7 +678,7 @@
             </div>
             
             <div style="text-align: center; margin-top: 4rem;">
-                <a href="https://tennistmate.setmore.com" target="_blank" class="btn btn-green anywhere-book-now-button" data-booking-url="https://tennistmate.setmore.com">Book Session</a>
+                <button data-cal-link="tennis-t-mate-hcmfls" data-cal-config=\'{"theme":"dark"}\' class="btn btn-green" style="cursor: pointer; font-family: inherit; border: none;">Book Session</button>
             </div>
         </div>
     </section>
@@ -689,7 +689,7 @@
             <div class="section-header">
                 <span class="section-subtitle">Personnel</span>
                 <h2>The Roster.</h2>
-                <p style="color: var(--text-secondary); max-width: 600px; margin-top: 1.5rem; font-size: 1.05rem; font-weight: 300;">Founded by two lifelong friends and active collegiate athletes. We built TennisMate simply because we love the sport and want to help the next generation of local players level up.</p>
+                <p style="color: var(--text-secondary); max-width: 600px; margin-top: 1.5rem; font-size: 1.05rem; font-weight: 300;">Founded by two lifelong friends and active collegiate athletes. We built Tennis-T Mate out of a pure obsession for the game, driven to help the next generation of local players level up.</p>
             </div>
             
             <div class="roster-grid">
@@ -736,7 +736,7 @@
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Location</span>
-                            <span class="detail-value">North Park Courts</span>
+                            <span class="detail-value">North Park Courts<br><span style="font-size: 0.85em; opacity: 0.8;">301 W 14th Ave, Holdrege, NE 68949</span></span>
                         </div>
                     </div>
                 </div>
@@ -756,7 +756,7 @@
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Location</span>
-                            <span class="detail-value">Hastings College Courts</span>
+                            <span class="detail-value">Hastings College Courts<br><span style="font-size: 0.85em; opacity: 0.8;">903 E 9th St, Hastings, NE 68901</span></span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Availability</span>
@@ -780,7 +780,7 @@
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Location</span>
-                            <span class="detail-value">Gretna East High School</span>
+                            <span class="detail-value">Gretna East High School<br><span style="font-size: 0.85em; opacity: 0.8;">11501 S 204th St, Gretna, NE 68028</span></span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Coach</span>
@@ -843,5 +843,13 @@
             });
         }, { passive: true });
     </script>
+
+    <!-- Cal.com Embed -->
+    <script>
+      (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; typeof namespace === "string" ? (cal.ns[namespace] = cal.ns[namespace] || api) : p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+      Cal("init", {origin:"https://cal.com"});
+      Cal("ui", {"theme":"dark","styles":{"branding":{"brandColor":"#E1FF00"}},"hideEventTypeDetails":false,"layout":"month_view"});
+    </script>
 </body>
+
 </html>
