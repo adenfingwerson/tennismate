@@ -337,11 +337,13 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle at center, rgba(225, 255, 0, 0.08) 0%, transparent 40%);
+            background: conic-gradient(from 0deg, rgba(225, 255, 0, 0.05) 0%, rgba(201, 106, 79, 0.05) 25%, rgba(17, 48, 36, 0.1) 50%, rgba(201, 106, 79, 0.05) 75%, rgba(225, 255, 0, 0.05) 100%);
             opacity: 0;
             transition: opacity 0.5s ease;
             z-index: 2;
             pointer-events: none;
+            border-radius: 50%;
+            filter: blur(40px);
         }
 
         .logistics-card:hover::after {
