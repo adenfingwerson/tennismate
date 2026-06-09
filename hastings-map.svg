@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+    <rect width="800" height="600" fill="#0a0a0a"/>
+    <path d="M 0 600 L 400 300 L 800 400 M 400 300 L 500 0" stroke="#1a1a1a" stroke-width="20" fill="none"/>
+    <path d="M 100 600 L 450 320 L 800 420" stroke="#111111" stroke-width="10" fill="none"/>
+    <g transform="translate(200, 250) rotate(-20)">
+        <rect width="320" height="150" fill="#113024" rx="4"/>
+        <rect x="10" y="10" width="40" height="130" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.3"/>
+        <rect x="60" y="10" width="40" height="130" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.3"/>
+        <rect x="110" y="10" width="40" height="130" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.3"/>
+        <rect x="160" y="10" width="40" height="130" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.3"/>
+        <rect x="210" y="10" width="40" height="130" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.3"/>
+        <rect x="260" y="10" width="40" height="130" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.3"/>
+        <line x1="10" y1="75" x2="310" y2="75" stroke="#ffffff" stroke-width="1" opacity="0.5"/>
+    </g>
+    <circle cx="360" cy="325" r="4" fill="#a1a1aa"/>
+    <circle cx="360" cy="325" r="30" fill="none" stroke="#a1a1aa" stroke-width="1" opacity="0.5" stroke-dasharray="4 4"/>
+    <line x1="360" y1="285" x2="360" y2="365" stroke="#a1a1aa" stroke-width="1" opacity="0.2"/>
+    <line x1="320" y1="325" x2="400" y2="325" stroke="#a1a1aa" stroke-width="1" opacity="0.2"/>
+</svg>

@@ -278,19 +278,51 @@
 
         .logistics-card {
             padding: 3rem;
-            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
             border-radius: 16px;
             border: 1px solid var(--border);
             position: relative;
             overflow: hidden;
             transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
             z-index: 1;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .map-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: -2;
+            overflow: hidden;
+            background-color: var(--bg-primary);
+        }
+
+        .map-zoom {
+            width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            transform: scale(1.6);
+            transition: transform 0.1s linear;
+            will-change: transform;
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top, rgba(10,10,10,0.98) 0%, rgba(10,10,10,0.6) 50%, rgba(10,10,10,0.3) 100%);
+            z-index: -1;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
         }
 
         .logistics-card:hover {
             transform: translateY(-8px);
             border-color: rgba(225, 255, 0, 0.2);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 40px rgba(225, 255, 0, 0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 40px rgba(225, 255, 0, 0.05);
         }
 
         /* Ambient rotating glow inside the card */
@@ -506,33 +538,45 @@
             <div class="logistics-grid">
                 <!-- Holdrege -->
                 <div class="logistics-card">
-                    <h3>Holdrege, NE <span class="live-dot"></span></h3>
-                    
-                    <div class="detail-row">
-                        <span class="detail-label">Schedule</span>
-                        <span class="detail-value">Mon, Tue, Wed, Fri, Sat, Sun</span>
+                    <div class="map-bg">
+                        <div class="map-zoom" style="background-image: url('holdrege-map.svg');"></div>
+                        <div class="map-overlay"></div>
                     </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Location</span>
-                        <span class="detail-value">North Park Courts</span>
+                    <div class="card-content">
+                        <h3>Holdrege, NE <span class="live-dot"></span></h3>
+                        
+                        <div class="detail-row">
+                            <span class="detail-label">Schedule</span>
+                            <span class="detail-value">Mon, Tue, Wed, Fri, Sat, Sun</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Location</span>
+                            <span class="detail-value">North Park Courts</span>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Hastings -->
                 <div class="logistics-card">
-                    <h3>Hastings, NE <span class="live-dot" style="background-color: var(--text-secondary); box-shadow: none; animation: none;"></span></h3>
-                    
-                    <div class="detail-row">
-                        <span class="detail-label">Schedule</span>
-                        <span class="detail-value" style="color: var(--accent);">Thursdays Only</span>
+                    <div class="map-bg">
+                        <div class="map-zoom" style="background-image: url('hastings-map.svg');"></div>
+                        <div class="map-overlay"></div>
                     </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Location</span>
-                        <span class="detail-value">Hastings College Courts</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Availability</span>
-                        <span class="detail-value">Limited Sessions</span>
+                    <div class="card-content">
+                        <h3>Hastings, NE <span class="live-dot" style="background-color: var(--text-secondary); box-shadow: none; animation: none;"></span></h3>
+                        
+                        <div class="detail-row">
+                            <span class="detail-label">Schedule</span>
+                            <span class="detail-value" style="color: var(--accent);">Thursdays Only</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Location</span>
+                            <span class="detail-value">Hastings College Courts</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Availability</span>
+                            <span class="detail-value">Limited Sessions</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -567,5 +611,30 @@
     <script id="anywhere_book_now_script" src="https://assets.setmore.com/integration/book-now/live/v1/anywhere-book-now.js"></script> 
     <button id="Anywhere_button_iframe" class="anywhere-book-now-button" style="background-color: #E1FF00; color: #113024; border: none; padding: 16px 32px; font-size: 16px; font-weight: 900; letter-spacing: 0.05em; text-transform: uppercase; border-radius: 50px; cursor: pointer; position: fixed; right: 30px; bottom: 30px; z-index: 9999; box-shadow: 0 8px 24px rgba(225, 255, 0, 0.4); transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" data-booking-url="https://tennistmate.setmore.com" data-new-tab="false"> BOOK NOW </button>
 
+    <script>
+        // Rose Island-style smooth scroll map zoom effect
+        window.addEventListener('scroll', () => {
+            const cards = document.querySelectorAll('.logistics-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const viewHeight = window.innerHeight;
+                
+                // If card is in viewport
+                if(rect.top < viewHeight && rect.bottom > 0) {
+                    // Calculate scroll percentage through the element (0 to 1)
+                    let progress = 1 - (rect.bottom / (viewHeight + rect.height));
+                    progress = Math.max(0, Math.min(1, progress));
+                    
+                    // Zoom from 1.6 down to 1.0 as you scroll past it
+                    const scale = 1.6 - (progress * 0.6);
+                    
+                    const mapZoom = card.querySelector('.map-zoom');
+                    if(mapZoom) {
+                        mapZoom.style.transform = `scale(${scale})`;
+                    }
+                }
+            });
+        }, { passive: true });
+    </script>
 </body>
 </html>
