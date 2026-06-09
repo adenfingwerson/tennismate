@@ -229,40 +229,86 @@
             background-color: var(--bg-primary);
         }
 
-        .process-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        .linear-stepper {
+            display: flex;
+            position: relative;
             gap: 2rem;
+            margin-top: 4rem;
         }
 
-        .process-card {
-            padding: 2.5rem;
+        .linear-stepper::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border);
+            z-index: 0;
+        }
+
+        .step {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-node {
+            width: 24px;
+            height: 24px;
+            background: var(--bg-primary);
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover .step-node {
+            border-color: var(--accent);
+            box-shadow: 0 0 12px rgba(225, 255, 0, 0.4);
             background: var(--bg-secondary);
-            border-radius: 16px;
-            border: 1px solid transparent;
-            transition: border-color 0.3s ease;
         }
 
-        .process-card:hover {
-            border-color: var(--border);
+        .step-content {
+            position: relative;
+            padding: 1.5rem;
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, transparent 100%);
+            border-top: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
         }
 
-        .process-num {
-            font-size: 3rem;
+        .step:hover .step-content {
+            transform: translateY(-4px);
+            border-color: rgba(225, 255, 0, 0.2);
+        }
+
+        .ghost-num {
+            position: absolute;
+            top: -15px;
+            right: -10px;
+            font-size: 8rem;
             font-weight: 900;
-            color: var(--border);
-            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.02);
             line-height: 1;
+            pointer-events: none;
+            z-index: 0;
         }
 
-        .process-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.75rem;
+        .step-content h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+            color: var(--text-primary);
         }
 
-        .process-card p {
-            color: var(--text-secondary);
+        .step-content p {
             font-size: 0.95rem;
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 1;
         }
 
         /* ===== Locations / Logistics ===== */
@@ -448,7 +494,32 @@
             }
             .footer-content {
                 flex-direction: column;
-                align-items: flex-start;
+                gap: 3rem;
+            }
+            .linear-stepper {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .linear-stepper::before {
+                top: 0;
+                bottom: 0;
+                left: 11px;
+                width: 1px;
+                height: auto;
+            }
+            .step {
+                display: flex;
+                gap: 1.5rem;
+            }
+            .step-node {
+                flex-shrink: 0;
+                margin-bottom: 0;
+                margin-top: 1.25rem;
+            }
+            .step-content {
+                flex-grow: 1;
+            }
+        }
                 gap: 2rem;
             }
             section {
@@ -508,26 +579,38 @@
                 <h2>How it works.</h2>
             </div>
             
-            <div class="process-grid">
-                <div class="process-card">
-                    <div class="process-num">01</div>
-                    <h3>Select your lesson and location</h3>
-                    <p>Choose the session type and city that works best for you.</p>
+            <div class="linear-stepper">
+                <div class="step">
+                    <div class="step-node"></div>
+                    <div class="step-content">
+                        <div class="ghost-num">01</div>
+                        <h3>Select your lesson and location</h3>
+                        <p>Choose the session type and city that works best for you.</p>
+                    </div>
                 </div>
-                <div class="process-card">
-                    <div class="process-num">02</div>
-                    <h3>Provide Details</h3>
-                    <p>Enter required contact information.</p>
+                <div class="step">
+                    <div class="step-node"></div>
+                    <div class="step-content">
+                        <div class="ghost-num">02</div>
+                        <h3>Provide Details</h3>
+                        <p>Enter required contact information.</p>
+                    </div>
                 </div>
-                <div class="process-card">
-                    <div class="process-num">03</div>
-                    <h3>Secure Payment & Confirm Booking</h3>
-                    <p>Lock in your time slot to finalize the session.</p>
+                <div class="step">
+                    <div class="step-node"></div>
+                    <div class="step-content">
+                        <div class="ghost-num">03</div>
+                        <h3>Secure Payment & Confirm Booking</h3>
+                        <p>Lock in your time slot to finalize the session.</p>
+                    </div>
                 </div>
-                <div class="process-card">
-                    <div class="process-num">04</div>
-                    <h3>Ready to Play</h3>
-                    <p>Show up on time and ready to play at your selected court. Sessions start exactly on schedule.</p>
+                <div class="step">
+                    <div class="step-node"></div>
+                    <div class="step-content">
+                        <div class="ghost-num">04</div>
+                        <h3>Ready to Play</h3>
+                        <p>Show up on time and ready to play at your selected court. Sessions start exactly on schedule.</p>
+                    </div>
                 </div>
             </div>
         </div>
