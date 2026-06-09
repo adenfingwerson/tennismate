@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tennis T-Mate &mdash; Book Tennis Coaching in Holdrege & Hastings</title>
     <style>
-        /* ===== Friendly Palette & Fonts ===== */
+        /* ===== Sleek Blue, White & Green Palette ===== */
         :root {
-            --green: #2e7d32;
-            --green-light: #e8f5e9;
-            --green-dark: #1b5e20;
-            --cta: #ff8c00; /* Friendly Orange */
-            --cta-hover: #e67e00;
-            --text-main: #2c3e50;
+            --blue-dark: #0f172a; /* Deep Slate */
+            --blue-main: #1e3a8a; /* Royal Blue */
+            --blue-light: #eff6ff; /* Very Light Blue */
+            --green: #22c55e; /* Crisp Tennis Green */
+            --green-hover: #16a34a; 
+            --text-main: #334155; 
             --text-muted: #64748b;
             --bg-main: #ffffff;
             --bg-alt: #f8fafc;
@@ -30,7 +30,7 @@
 
         h1, h2, h3 {
             margin: 0 0 1rem 0;
-            color: var(--green-dark);
+            color: var(--blue-dark);
             font-weight: 800;
             letter-spacing: -0.5px;
         }
@@ -40,7 +40,7 @@
         }
 
         a {
-            color: var(--green);
+            color: var(--blue-main);
             text-decoration: none;
         }
 
@@ -53,7 +53,7 @@
         /* ===== Buttons ===== */
         .btn {
             display: inline-block;
-            background-color: var(--cta);
+            background-color: var(--green);
             color: #fff;
             padding: 14px 28px;
             font-size: 1.1rem;
@@ -61,15 +61,15 @@
             border-radius: 8px;
             text-align: center;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 6px rgba(255, 140, 0, 0.2);
+            box-shadow: 0 4px 6px rgba(34, 197, 94, 0.2);
             border: none;
             cursor: pointer;
         }
 
         .btn:hover {
-            background-color: var(--cta-hover);
+            background-color: var(--green-hover);
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(255, 140, 0, 0.3);
+            box-shadow: 0 6px 12px rgba(34, 197, 94, 0.3);
         }
 
         /* ===== Navigation ===== */
@@ -89,14 +89,8 @@
         }
 
         .logo {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--text-main);
-            letter-spacing: -0.5px;
-        }
-
-        .logo span {
-            color: var(--cta);
+            display: flex;
+            align-items: center;
         }
 
         /* ===== Sections ===== */
@@ -106,14 +100,20 @@
 
         /* ===== Hero ===== */
         .hero {
-            background: linear-gradient(135deg, var(--green-light) 0%, var(--bg-main) 100%);
+            background: linear-gradient(135deg, var(--blue-light) 0%, var(--bg-main) 100%);
             text-align: center;
-            padding: 90px 0 70px;
+            padding: 70px 0 70px;
+        }
+        
+        .hero-logo-container {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: center;
         }
 
         .hero h1 {
             font-size: 3rem;
-            color: var(--green-dark);
+            color: var(--blue-dark);
             line-height: 1.1;
             margin-bottom: 1.5rem;
         }
@@ -128,17 +128,39 @@
         .hero .sub-note {
             font-size: 1rem;
             font-weight: 700;
-            color: var(--green);
+            color: var(--blue-main);
             margin-bottom: 2rem;
-            background: rgba(46, 125, 50, 0.1);
+            background: rgba(30, 58, 138, 0.08);
             display: inline-block;
             padding: 6px 16px;
             border-radius: 20px;
         }
 
+        /* ===== Embed Booking Widget ===== */
+        .booking-widget {
+            background-color: var(--bg-alt);
+            border-top: 1px solid var(--border-color);
+            padding: 50px 0;
+        }
+        .widget-container {
+            background: var(--bg-main);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            height: 700px; /* Tall enough for Setmore */
+            width: 100%;
+        }
+        .widget-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         /* ===== How It Works ===== */
         .how-it-works {
-            background-color: var(--bg-alt);
+            background-color: var(--bg-main);
+            border-top: 1px solid var(--border-color);
         }
 
         .how-it-works h2, .locations h2, .expect h2, .contact h2 {
@@ -152,7 +174,7 @@
         }
 
         .step {
-            background: var(--bg-main);
+            background: var(--bg-alt);
             padding: 25px;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.02);
@@ -163,8 +185,8 @@
         }
 
         .step-number {
-            background: var(--green-light);
-            color: var(--green-dark);
+            background: var(--blue-light);
+            color: var(--blue-main);
             font-weight: 800;
             font-size: 1.2rem;
             width: 40px;
@@ -174,6 +196,7 @@
             justify-content: center;
             border-radius: 50%;
             flex-shrink: 0;
+            border: 2px solid rgba(30, 58, 138, 0.1);
         }
 
         .step-content p {
@@ -182,6 +205,11 @@
         }
 
         /* ===== Schedule & Locations ===== */
+        .locations {
+            background-color: var(--bg-alt);
+            border-top: 1px solid var(--border-color);
+        }
+        
         .location-cards {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -195,11 +223,13 @@
             padding: 30px;
             background: var(--bg-main);
             transition: transform 0.2s;
+            position: relative;
         }
         
-        .location-card.hastings {
-            border-color: var(--cta);
-            background: #fffcf5;
+        .location-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
         }
 
         .location-card:hover {
@@ -207,16 +237,12 @@
         }
 
         .location-card h3 {
-            color: var(--green);
-            border-bottom: 2px solid var(--green-light);
+            color: var(--blue-main);
+            border-bottom: 2px solid var(--blue-light);
             padding-bottom: 10px;
             margin-bottom: 15px;
             font-size: 1.6rem;
-        }
-        
-        .location-card.hastings h3 {
-            color: var(--cta);
-            border-bottom-color: rgba(255, 140, 0, 0.2);
+            padding-right: 70px; /* Space for icon */
         }
 
         .location-card ul {
@@ -233,7 +259,7 @@
         }
 
         .location-card li strong {
-            color: var(--green-dark);
+            color: var(--blue-dark);
         }
 
         .location-card li::before {
@@ -243,45 +269,20 @@
             position: absolute;
             left: 0;
         }
-        
-        .location-card.hastings li::before {
-            color: var(--cta);
-        }
 
         .calendar-note {
             text-align: center;
             color: var(--text-muted);
             font-size: 0.95rem;
-            background: var(--bg-alt);
+            background: var(--bg-main);
             padding: 20px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
         }
 
-        /* ===== Embed Booking Widget ===== */
-        .booking-widget {
-            background-color: var(--bg-alt);
-            border-top: 1px solid var(--border-color);
-            padding: 50px 0;
-        }
-        .widget-container {
-            background: var(--bg-main);
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            height: 700px; /* Tall enough for Setmore */
-            width: 100%;
-        }
-        .widget-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
         /* ===== What to Expect ===== */
         .expect {
-            background-color: var(--green-light);
+            background-color: var(--blue-light);
         }
 
         .expect ul {
@@ -296,7 +297,7 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.03);
-            border-left: 5px solid var(--green);
+            border-left: 5px solid var(--blue-main);
         }
 
         /* ===== Contact ===== */
@@ -312,13 +313,13 @@
         .contact-number {
             font-size: 2.5rem;
             font-weight: 800;
-            color: var(--text-main);
+            color: var(--blue-dark);
             display: block;
             margin: 1rem 0;
         }
         
         .contact-number:hover {
-            color: var(--cta);
+            color: var(--blue-main);
         }
 
         .contact-note {
@@ -329,7 +330,7 @@
 
         /* ===== Footer ===== */
         footer {
-            background-color: var(--text-main);
+            background-color: var(--blue-dark);
             color: #ffffff;
             text-align: center;
             padding: 30px 20px;
@@ -350,7 +351,14 @@
     <!-- NAV -->
     <nav>
         <div class="container">
-            <div class="logo">Tennis <span>T-Mate</span></div>
+            <div class="logo">
+                <!-- LOGO 1: Nav Bar Branding -->
+                <svg width="180" height="40" viewBox="0 0 180 40" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="20" cy="20" r="14" fill="#22c55e"/>
+                    <path d="M12 28 L28 12 M12 12 L28 28" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+                    <text x="44" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="22" fill="#0f172a" letter-spacing="-0.5">TENNIS <tspan fill="#1e3a8a">T-MATE</tspan></text>
+                </svg>
+            </div>
             <a href="#book" class="btn" style="padding: 10px 20px; font-size: 1rem;">Book Now</a>
         </div>
     </nav>
@@ -358,8 +366,20 @@
     <!-- HERO -->
     <section class="hero">
         <div class="container">
+            <div class="hero-logo-container">
+                <!-- LOGO 2: Premium Coaching Badge -->
+                <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="60" cy="60" r="54" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+                    <circle cx="60" cy="60" r="42" fill="#1e3a8a"/>
+                    <circle cx="60" cy="60" r="22" fill="#22c55e"/>
+                    <path d="M46 60 Q60 46 74 60 Q60 74 46 60" fill="none" stroke="#ffffff" stroke-width="2.5"/>
+                    <text x="60" y="32" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" font-weight="800" fill="#1e3a8a" letter-spacing="1.5">PREMIUM</text>
+                    <text x="60" y="96" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" font-weight="800" fill="#1e3a8a" letter-spacing="1.5">COACHING</text>
+                </svg>
+            </div>
+            
             <h1>Book 1-on-1 Tennis Sessions</h1>
-            <p>Friendly, affordable coaching and hitting sessions in Holdrege and Hastings. Designed for all levels—beginners, high schoolers, and casual competitors.</p>
+            <p>Sleek, professional coaching and hitting sessions in Holdrege and Hastings. Designed for all levels—beginners, high schoolers, and casual competitors.</p>
             <div class="sub-note">1-hour sessions &bull; $25 &bull; Holdrege &amp; Hastings</div>
             <br>
             <a href="#book" class="btn">Pick Your Time</a>
@@ -418,6 +438,17 @@
             
             <div class="location-cards">
                 <div class="location-card">
+                    <!-- LOGO 3: Holdrege Location Icon -->
+                    <div class="location-icon">
+                        <svg width="60" height="60" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="80" height="80" rx="16" fill="#1e3a8a"/>
+                            <path d="M20 40 L60 40 M40 20 L40 60" stroke="#3b82f6" stroke-width="1.5" opacity="0.4"/>
+                            <circle cx="40" cy="35" r="16" fill="none" stroke="#22c55e" stroke-width="3.5"/>
+                            <rect x="36.5" y="51" width="7" height="16" fill="#22c55e" rx="2"/>
+                            <text x="40" y="73" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" fill="#ffffff" font-weight="bold" letter-spacing="1">HOLDREGE</text>
+                        </svg>
+                    </div>
+                    
                     <h3>Holdrege, NE</h3>
                     <ul>
                         <li><strong>Availability:</strong> Mon, Tue, Wed, Fri, Sat, Sun<br>(Every day except Thursday)</li>
@@ -426,7 +457,18 @@
                         <li><strong>Buffer:</strong> 30 minutes between bookings.</li>
                     </ul>
                 </div>
-                <div class="location-card hastings">
+                <div class="location-card">
+                    <!-- LOGO 4: Hastings Location Icon -->
+                    <div class="location-icon">
+                        <svg width="60" height="60" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="80" height="80" rx="16" fill="#0f172a"/>
+                            <path d="M20 40 L60 40 M40 20 L40 60" stroke="#334155" stroke-width="1.5" opacity="0.4"/>
+                            <circle cx="40" cy="35" r="16" fill="none" stroke="#22c55e" stroke-width="3.5"/>
+                            <rect x="36.5" y="51" width="7" height="16" fill="#22c55e" rx="2"/>
+                            <text x="40" y="73" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" fill="#ffffff" font-weight="bold" letter-spacing="1">HASTINGS</text>
+                        </svg>
+                    </div>
+                    
                     <h3>Hastings, NE</h3>
                     <ul>
                         <li><strong>Availability:</strong> Thursdays ONLY</li>
