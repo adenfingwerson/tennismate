@@ -13,7 +13,7 @@ To convert our `r/tennis` and `r/10s` national traffic into direct revenue, we w
 - *Payout*: ~5-8% commission on any strings, racquets, or shoes purchased through the links.
 
 ## Phase 3: Digital Products (Next 60 Days)
-- **The Product**: "The 6 UTR Playbook: Surviving Pushers & Heavy Wind"
+- **The Product**: "The Competitive Blueprint: Surviving Pushers & Heavy Wind"
 - **Format**: A $15 PDF or unlisted YouTube video series linked via Gumroad/Stripe.
 - **Integration**: At the bottom of tactics articles, offer the digital product instead of just local lessons for out-of-state visitors.
 
