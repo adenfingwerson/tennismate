@@ -3,289 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tennis T-Mate Blog — Tennis Coaching & Lessons Insights</title>
-    <meta name="description" content="Stay up to date with professional tennis coaching tips, drills, guides, and lessons from Tennis T-Mate in Holdrege and Hastings, Nebraska.">
+    <title>Blog | Tennis T-Mate</title>
+    <meta name="description" content="Read insights, tactics, and pro breakdowns from the Tennis T-Mate team.">
     <style>
-        /* Minimalist High-Contrast Palette (Sohub Inspired) */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap');
-
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #111111;
-            --bg-tertiary: #1a1a1a;
-            --text-primary: #ffffff;
-            --text-secondary: #a1a1aa;
-            --accent: #E1FF00; /* Optic Yellow */
-            --accent-hover: #cce600;
-            --border: #27272a;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: var(--text-primary);
-            background-color: var(--bg-primary);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        a {
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-        header {
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(12px);
-            z-index: 100;
-        }
-
-        .nav-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 1.25rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-weight: 900;
-            font-size: 1.4rem;
-            letter-spacing: -0.03em;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent);
-            border-radius: 50%;
-            display: inline-block;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        nav a {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-        }
-
-        nav a:hover, nav a.active {
-            color: var(--text-primary);
-        }
-
-        .btn-cta {
-            background-color: var(--accent);
-            color: #000;
-            padding: 0.6rem 1.2rem;
-            border-radius: 4px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .btn-cta:hover {
-            background-color: var(--accent-hover);
-        }
-
-        main {
-            max-width: 800px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
-
-        .blog-header {
-            margin-bottom: 4rem;
-            text-align: center;
-        }
-
-        .blog-header h1 {
-            font-size: 2.8rem;
-            font-weight: 900;
-            letter-spacing: -0.04em;
-            margin-bottom: 1rem;
-        }
-
-        .blog-header p {
-            color: var(--text-secondary);
-            font-size: 1.15rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .post-card {
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .post-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--text-secondary);
-        }
-
-        .post-title {
-            font-size: 1.6rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            margin-bottom: 1rem;
-            line-height: 1.3;
-        }
-
-        .post-title a:hover {
-            color: var(--accent);
-        }
-
-        .post-excerpt {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .read-more {
-            color: var(--accent);
-            font-weight: 700;
-            font-size: 0.95rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        .read-more:hover {
-            text-decoration: underline;
-        }
-
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 3rem 2rem;
-            text-align: center;
-            background-color: var(--bg-secondary);
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-top: 8rem;
-        }
-
-        .footer-logo {
-            font-weight: 900;
-            font-size: 1.2rem;
-            color: #fff;
-            margin-bottom: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            nav {
-                gap: 1.25rem;
-            }
-            .blog-header h1 {
-                font-size: 2.2rem;
-            }
-            .post-card {
-                padding: 1.5rem;
-            }
-        }
+        :root { --bg-primary: #0a0a0a; --bg-secondary: #111111; --text-primary: #ffffff; --text-secondary: #a1a1aa; --accent: #E1FF00; --accent-hover: #cce600; --border: #27272a; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; color: var(--text-primary); background-color: var(--bg-primary); line-height: 1.6; }
+        a { color: inherit; text-decoration: none; }
+        .container { width: 100%; max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        header { border-bottom: 1px solid var(--border); padding: 20px 0; }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: 900; letter-spacing: -0.04em; font-size: 1.25rem; }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; gap: 20px; align-items: center; font-size: 0.95rem; }
+        .nav-links a { color: var(--text-secondary); transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+        .btn { padding: 10px 20px; border-radius: 4px; font-weight: 500; border: 1px solid var(--text-primary); color: var(--text-primary); background: transparent; cursor: pointer; }
+        
+        main { padding: 80px 0; }
+        h1 { font-size: 3rem; margin-bottom: 40px; letter-spacing: -0.04em; }
+        
+        .blog-grid { display: flex; flex-direction: column; gap: 32px; }
+        .blog-card { padding: 32px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; transition: transform 0.2s, border-color 0.2s; }
+        .blog-card:hover { transform: translateY(-2px); border-color: var(--text-secondary); }
+        .blog-card .category { color: var(--accent); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; display: block; }
+        .blog-card h2 { font-size: 1.5rem; margin-bottom: 12px; letter-spacing: -0.02em; }
+        .blog-card p { color: var(--text-secondary); font-size: 1rem; margin-bottom: 20px; }
+        .read-more { color: var(--accent); font-weight: 500; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 4px; }
+        .read-more:hover { color: var(--accent-hover); }
     </style>
 </head>
 <body>
-
     <header>
-        <div class="nav-container">
-            <a href="/index.html" class="logo">
-                Tennis T-Mate<span class="logo-dot"></span>
-            </a>
+        <div class="container">
             <nav>
-                <a href="/index.html">Home</a>
-                <a href="/blog/" class="active">Blog</a>
-                <a href="https://cal.com/tennis-t-mate-hcmfls" class="btn-cta">Book Session</a>
+                <div class="logo"><a href="/">TENNIS <span>T-MATE</span></a></div>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/blog/" class="active">Blog</a>
+                    <button data-cal-link="tennis-t-mate-hcmfls" data-cal-config='{"theme":"dark"}' class="btn">Book Session</button>
+                </div>
             </nav>
         </div>
     </header>
 
     <main>
-        <div class="blog-header">
-            <h1>Our Blog</h1>
-            <p>Tips, guides, and professional advice to elevate your tennis game in Holdrege, Hastings, and Central Nebraska.</p>
+        <div class="container">
+            <h1>The Baseline</h1>
+            <div class="blog-grid">
+                
+                <a href="/blog/nebraska-wind-tennis-tactics.html" class="blog-card">
+                    <span class="category">Tactics & Mindset</span>
+                    <h2>How to Actually Win Matches in 30mph Nebraska Wind</h2>
+                    <p>Playing tennis in Nebraska means playing in the wind. Learn the footwork, spin, and mental tactics to weaponize heavy crosswinds and beat your opponents before the match even starts.</p>
+                    <span class="read-more">Read article &rarr;</span>
+                </a>
+
+                <a href="/blog/college-tennis-pipeline.html" class="blog-card">
+                    <span class="category">The Pipeline</span>
+                    <h2>The Reality of College Tennis: What High School Players Don't Know</h2>
+                    <p>Making the jump from high school varsity to college tennis is brutal. Learn the truth about pace, fitness, and the mental game from a current Hastings College player.</p>
+                    <span class="read-more">Read article &rarr;</span>
+                </a>
+
+                <a href="/blog/pro-drop-shot-breakdown.html" class="blog-card">
+                    <span class="category">Pro Breakdown</span>
+                    <h2>The Drop Shot: Why Yours Gets Punished (And Alcaraz's Doesn't)</h2>
+                    <p>Stop hitting floating drop shots that get crushed. Learn the disguise and spin mechanics the pros use to actually end the point.</p>
+                    <span class="read-more">Read article &rarr;</span>
+                </a>
+
+            </div>
         </div>
-
-        <section class="blog-posts">
-            
-            <article class="post-card">
-                <h2 class="post-title">
-                    <a href="/blog/adult-tennis-lessons-hastings-ne.html">Adult Tennis Lessons in Hastings, NE</a>
-                </h2>
-                <p class="post-excerpt">Thinking about picking up tennis in Hastings, NE? Tennis T-Mate offers one-on-one adult tennis lessons at Hastings College Courts for just $25 a session. No experience needed. Book online today.</p>
-                <a href="/blog/adult-tennis-lessons-hastings-ne.html" class="read-more">Read Article &rarr;</a>
-            </article>
-            
-
-            <article class="post-card">
-                <h2 class="post-title">
-                    <a href="/blog/beginner-tennis-lessons-holdrege-nebraska.html">Beginner Tennis Lessons in Holdrege, Nebraska</a>
-                </h2>
-                <p class="post-excerpt">New to tennis and not sure where to start? Tennis T-Mate offers beginner tennis lessons in Holdrege, NE — one-on-one coaching for $25 a session. Book online in minutes at tennistmate.com.</p>
-                <a href="/blog/beginner-tennis-lessons-holdrege-nebraska.html" class="read-more">Read Article &rarr;</a>
-            </article>
-            
-
-            <article class="post-card">
-                <h2 class="post-title">
-                    <a href="/blog/improve-tennis-serve-central-nebraska.html">How to Improve Your Tennis Serve in Central Nebraska</a>
-                </h2>
-                <p class="post-excerpt">Struggling with your tennis serve in Holdrege or Hastings, NE? Tennis T-Mate coach Aden Ingwerson shares practical tips to fix your toss, grip, and motion — plus how to book a $25 one-on-one session.</p>
-                <a href="/blog/improve-tennis-serve-central-nebraska.html" class="read-more">Read Article &rarr;</a>
-            </article>
-            
-
-            <article class="post-card">
-                <h2 class="post-title">
-                    <a href="/blog/kids-tennis-lessons-holdrege-hastings-ne.html">Kids Tennis Lessons in Holdrege and Hastings, NE</a>
-                </h2>
-                <p class="post-excerpt">Is your kid ready to pick up a racket? Tennis T-Mate offers one-on-one kids tennis lessons in Holdrege and Hastings, NE for just $25 a session. Simple booking, no hassle.</p>
-                <a href="/blog/kids-tennis-lessons-holdrege-hastings-ne.html" class="read-more">Read Article &rarr;</a>
-            </article>
-            
-
-            <article class="post-card">
-                <h2 class="post-title">
-                    <a href="/blog/private-tennis-lessons-central-nebraska.html">Are Private Tennis Lessons Worth It for Local Recreational Players in Central Nebraska?</a>
-                </h2>
-                <p class="post-excerpt">Private tennis lessons in central Nebraska don't have to be expensive or complicated. Tennis T-Mate offers $25 one-on-one coaching in Holdrege and Hastings, NE — here's why it's worth it for everyday players.</p>
-                <a href="/blog/private-tennis-lessons-central-nebraska.html" class="read-more">Read Article &rarr;</a>
-            </article>
-            
-        </section>
     </main>
 
-    <footer>
-        <div class="footer-logo">Tennis T-Mate</div>
-        <p>&copy; 2026 Tennis T-Mate. All rights reserved.</p>
-    </footer>
-
+    <!-- Cal.com Embed -->
+    <script>
+      (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; typeof namespace === "string" ? (cal.ns[namespace] = cal.ns[namespace] || api) : p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+      Cal("init", {origin:"https://cal.com"});
+      Cal("ui", {"theme":"dark","styles":{"branding":{"brandColor":"#E1FF00"}},"hideEventTypeDetails":false,"layout":"month_view"});
+    </script>
 </body>
 </html>
