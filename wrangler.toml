@@ -1,0 +1,7 @@
+name = "tennismate"
+pages_build_output_dir = "."
+
+[[d1_databases]]
+binding = "DB"
+database_name = "tennismate-leads"
+database_id = "acf4c5f9-176b-475c-9d34-9cdbe2d791fb"
