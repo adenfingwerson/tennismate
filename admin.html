@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>God Mode Control Panel | Tennis T-Mate</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&display=swap');
+        
+        :root {
+            --bg: #050505;
+            --surface: #111111;
+            --border: #222222;
+            --text: #eeeeee;
+            --accent: #E1FF00; /* Optic Yellow */
+            --danger: #ff3333;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 800px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        h1 { margin: 0; font-size: 1.5rem; letter-spacing: -0.05em; color: var(--accent); }
+        .status { font-size: 0.8rem; color: #666; display: flex; align-items: center; gap: 8px; }
+        .status-dot { width: 8px; height: 8px; background: #00ff00; border-radius: 50%; box-shadow: 0 0 10px #00ff00; }
+
+        .system-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .card {
+            background: #0a0a0a;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--border); transition: background 0.3s;
+        }
+
+        .card:hover::before { background: var(--accent); }
+
+        h2 { font-size: 1.1rem; margin: 0 0 16px 0; }
+        p { font-size: 0.85rem; color: #888; line-height: 1.5; margin-bottom: 24px; }
+
+        .btn {
+            display: block; width: 100%; background: transparent; border: 1px solid var(--accent);
+            color: var(--accent); padding: 12px; text-align: center; font-family: inherit;
+            font-weight: 700; cursor: pointer; border-radius: 4px; transition: all 0.2s;
+            text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.85rem;
+        }
+
+        .btn:hover { background: var(--accent); color: var(--bg); }
+        .btn:disabled { border-color: var(--border); color: #555; cursor: not-allowed; }
+        
+        .btn-download { background: var(--text); color: var(--bg); border-color: var(--text); margin-top: 12px; }
+        .btn-download:hover { background: transparent; color: var(--text); }
+
+        .log-window {
+            margin-top: 32px; background: #000; border: 1px solid var(--border);
+            border-radius: 6px; padding: 16px; font-size: 0.8rem; color: #00ff00;
+            height: 150px; overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="panel">
+        <div class="header">
+            <h1>GOD MODE :: CONTROL</h1>
+            <div class="status"><div class="status-dot"></div> ADMIN: aden.f.ingwerson</div>
+        </div>
+
+        <div class="system-grid">
+            <!-- System 1: The Brain -->
+            <div class="card">
+                <h2>System 1: The Brain</h2>
+                <p>Inject GOD_MODE_CONTEXT into Twin.so to generate a batch of viral scripts formatted for the Factory.</p>
+                <button class="btn" id="btn-brain" onclick="turnOnBrain()">1. Turn On Brain</button>
+                <button class="btn btn-download" id="btn-activator" style="display:none;" onclick="downloadActivator()">2. Download Activator</button>
+            </div>
+
+            <!-- System 2 & 3: The Factory Key -->
+            <div class="card">
+                <h2>System 2: The Factory Key</h2>
+                <p>Drop the downloaded Activator file into your local <code>Keyhole</code> folder on your Mac. The local daemon will automatically render the videos and push them to Buffer.</p>
+                <button class="btn" disabled>Awaiting Activator Drop...</button>
+            </div>
+        </div>
+
+        <div class="log-window" id="logs">
+            > Welcome, Aden.<br>
+            > Systems online. Waiting for command...<br>
+        </div>
+    </div>
+
+    <script>
+        function log(msg) {
+            const logs = document.getElementById('logs');
+            logs.innerHTML += `> ${msg}<br>`;
+            logs.scrollTop = logs.scrollHeight;
+        }
+
+        function turnOnBrain() {
+            log("Initializing connection to Twin.so Context...");
+            const btn = document.getElementById('btn-brain');
+            btn.innerText = "Processing...";
+            btn.disabled = true;
+
+            // In production, this makes an API call to Twin.so.
+            // For now, we simulate the generation of the Activator Payload.
+            setTimeout(() => {
+                log("Successfully generated 5 viral scripts using God Mode Context.");
+                log("Activator Payload synthesized.");
+                btn.innerText = "Brain Complete";
+                document.getElementById('btn-activator').style.display = 'block';
+            }, 2500);
+        }
+
+        function downloadActivator() {
+            log("Downloading Activator Payload...");
+            
+            // Generate the payload
+            const payload = {
+                "batch_id": "TENNIS_BATCH_" + Date.now(),
+                "scripts": [
+                    {
+                        "filename": "01_String_Trap",
+                        "text": "You're hitting the ball long because your strings are dead. If you play with polyester, it loses its snapback after 15 hours. Switch to a hybrid setup to save your arm and get free spin. Click the link in my bio for the exact setups pros use."
+                    },
+                    {
+                        "filename": "02_Sinner_Forehand",
+                        "text": "Stop trying to hit Jannik Sinner's open stance forehand. Most 4.0 players plant their feet and swing using 100% arm. Look at his chest. His feet are open, but his upper body is completely coiled sideways. Hit the link in my bio to fix your kinetic chain."
+                    },
+                    {
+                        "filename": "03_Erratic_Toss",
+                        "text": "Your serve is inconsistent because your toss is erratic. Stop tossing with your wrist or fingers. Keep your arm straight, release at eye level, and guide the ball up like you're placing it on a shelf. Link in bio for my full serve masterclass."
+                    },
+                    {
+                        "filename": "04_Late_Split_Step",
+                        "text": "Are you always late to the ball? You're probably split-stepping at the wrong time. You need to land your split step right AFTER your opponent makes contact, not before. This loads your legs like springs. Hit the link in my bio for a footwork drill that fixes this."
+                    },
+                    {
+                        "filename": "05_Volley_Punch",
+                        "text": "Stop swinging at your volleys. A volley isn't a swing, it's a catch with your strings. Keep your racket head above your wrist and step into the contact point to use the incoming pace. Click the link in my bio for the ultimate net game cheat sheet."
+                    }
+                ]
+            };
+
+            // Trigger download
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload, null, 2));
+            const dlAnchorElem = document.createElement('a');
+            dlAnchorElem.setAttribute("href", dataStr);
+            dlAnchorElem.setAttribute("download", "ACTIVATOR.json");
+            dlAnchorElem.click();
+
+            log("ACTION REQUIRED: Move ACTIVATOR.json from Downloads to your local Factory Keyhole folder.");
+        }
+    </script>
+</body>
+</html>
