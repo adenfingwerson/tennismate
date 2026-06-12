@@ -64,6 +64,8 @@
             padding: 24px;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .card::before {
@@ -74,13 +76,22 @@
         .card:hover::before { background: var(--accent); }
 
         h2 { font-size: 1.1rem; margin: 0 0 16px 0; }
-        p { font-size: 0.85rem; color: #888; line-height: 1.5; margin-bottom: 24px; }
+        p { font-size: 0.85rem; color: #888; line-height: 1.5; margin-bottom: 16px; }
+
+        textarea {
+            width: 100%; height: 140px; background: #000; border: 1px solid var(--border);
+            color: var(--text); padding: 12px; font-family: inherit; font-size: 0.85rem;
+            margin-bottom: 16px; border-radius: 4px; resize: vertical; box-sizing: border-box;
+        }
+        
+        textarea:focus { outline: none; border-color: var(--accent); }
 
         .btn {
             display: block; width: 100%; background: transparent; border: 1px solid var(--accent);
             color: var(--accent); padding: 12px; text-align: center; font-family: inherit;
             font-weight: 700; cursor: pointer; border-radius: 4px; transition: all 0.2s;
             text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.85rem;
+            margin-top: auto;
         }
 
         .btn:hover { background: var(--accent); color: var(--bg); }
@@ -108,8 +119,9 @@
             <!-- System 1: The Brain -->
             <div class="card">
                 <h2>System 1: The Brain</h2>
-                <p>Inject GOD_MODE_CONTEXT into Twin.so to generate a batch of viral scripts formatted for the Factory.</p>
-                <button class="btn" id="btn-brain" onclick="turnOnBrain()">1. Turn On Brain</button>
+                <p>Paste your viral scripts from Twin.so below. The Brain will format them for the Factory.</p>
+                <textarea id="twin-scripts" placeholder="Paste your Twin.so scripts here (separated by blank lines)..."></textarea>
+                <button class="btn" id="btn-brain" onclick="turnOnBrain()">1. Synthesize Payload</button>
                 <button class="btn btn-download" id="btn-activator" style="display:none;" onclick="downloadActivator()">2. Download Activator</button>
             </div>
 
@@ -128,6 +140,8 @@
     </div>
 
     <script>
+        let generatedScripts = [];
+
         function log(msg) {
             const logs = document.getElementById('logs');
             logs.innerHTML += `> ${msg}<br>`;
@@ -135,52 +149,59 @@
         }
 
         function turnOnBrain() {
-            log("Initializing connection to Twin.so Context...");
+            const input = document.getElementById('twin-scripts').value.trim();
+            if (!input) {
+                log("ERROR: No scripts detected. Please paste Twin.so output first.");
+                return;
+            }
+
+            log("Parsing Twin.so output...");
             const btn = document.getElementById('btn-brain');
             btn.innerText = "Processing...";
             btn.disabled = true;
 
-            // In production, this makes an API call to Twin.so.
-            // For now, we simulate the generation of the Activator Payload.
+            // Split by double newline
+            let chunks = input.split(/
+\s*
+/);
+            
+            // If that didn't work, try splitting by numbers (1., 2., etc)
+            if (chunks.length === 1) {
+                chunks = input.split(/(?:^|
+)\d+\.\s*/).filter(c => c.trim().length > 0);
+            }
+
+            // Clean up and format into the final JSON structure
+            generatedScripts = chunks.map((chunk, index) => {
+                const text = chunk.trim().replace(/^["']|["']$/g, ''); // strip quotes
+                const num = String(index + 1).padStart(2, '0');
+                
+                // Create a filename from the first 3 words
+                let title = text.split(/\s+/).slice(0, 3).join('_').replace(/[^a-zA-Z0-9_]/g, '');
+                if (!title) title = "Script";
+
+                return {
+                    "filename": `${num}_${title}`,
+                    "text": text
+                };
+            }).filter(s => s.text.length > 5);
+
             setTimeout(() => {
-                log("Successfully generated 5 viral scripts using God Mode Context.");
+                log(`Successfully parsed ${generatedScripts.length} scripts from input.`);
                 log("Activator Payload synthesized.");
-                btn.innerText = "Brain Complete";
+                btn.innerText = "Payload Ready";
                 document.getElementById('btn-activator').style.display = 'block';
-            }, 2500);
+            }, 600);
         }
 
         function downloadActivator() {
             log("Downloading Activator Payload...");
             
-            // Generate the payload
             const payload = {
                 "batch_id": "TENNIS_BATCH_" + Date.now(),
-                "scripts": [
-                    {
-                        "filename": "01_String_Trap",
-                        "text": "You're hitting the ball long because your strings are dead. If you play with polyester, it loses its snapback after 15 hours. Switch to a hybrid setup to save your arm and get free spin. Click the link in my bio for the exact setups pros use."
-                    },
-                    {
-                        "filename": "02_Sinner_Forehand",
-                        "text": "Stop trying to hit Jannik Sinner's open stance forehand. Most 4.0 players plant their feet and swing using 100% arm. Look at his chest. His feet are open, but his upper body is completely coiled sideways. Hit the link in my bio to fix your kinetic chain."
-                    },
-                    {
-                        "filename": "03_Erratic_Toss",
-                        "text": "Your serve is inconsistent because your toss is erratic. Stop tossing with your wrist or fingers. Keep your arm straight, release at eye level, and guide the ball up like you're placing it on a shelf. Link in bio for my full serve masterclass."
-                    },
-                    {
-                        "filename": "04_Late_Split_Step",
-                        "text": "Are you always late to the ball? You're probably split-stepping at the wrong time. You need to land your split step right AFTER your opponent makes contact, not before. This loads your legs like springs. Hit the link in my bio for a footwork drill that fixes this."
-                    },
-                    {
-                        "filename": "05_Volley_Punch",
-                        "text": "Stop swinging at your volleys. A volley isn't a swing, it's a catch with your strings. Keep your racket head above your wrist and step into the contact point to use the incoming pace. Click the link in my bio for the ultimate net game cheat sheet."
-                    }
-                ]
+                "scripts": generatedScripts
             };
 
-            // Trigger download
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload, null, 2));
             const dlAnchorElem = document.createElement('a');
             dlAnchorElem.setAttribute("href", dataStr);
@@ -188,6 +209,12 @@
             dlAnchorElem.click();
 
             log("ACTION REQUIRED: Move ACTIVATOR.json from Downloads to your local Factory Keyhole folder.");
+            
+            // Reset state
+            document.getElementById('btn-brain').innerText = "1. Synthesize Payload";
+            document.getElementById('btn-brain').disabled = false;
+            document.getElementById('twin-scripts').value = "";
+            document.getElementById('btn-activator').style.display = "none";
         }
     </script>
 </body>
