@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Why Jannik Sinner's Open Stance is Changing the Game | Tennis T-Mate</title>
-  <meta name="description" content="Jannik Sinner hits the cleanest ball on the ATP tour. Learn how his open stance mechanics generate effortless power, and why 4.0 players mess it up.">
-  <style>
+import os
+import glob
+import re
+
+blog_css = """
     /* ===== Elite Blog Styling (Tennis T-Mate) ===== */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
     
@@ -326,114 +323,52 @@
     article li::marker {
       color: var(--accent);
     }
-</style>
-</head>
-<body>
+"""
 
+js_injection = """
+  <!-- Scroll Progress Script -->
+  <script>
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      const bar = document.getElementById('reading-progress');
+      if(bar) bar.style.width = scrolled + '%';
+    });
+  </script>
+"""
+
+progress_html = """
   <div class="progress-container">
     <div class="progress-bar" id="reading-progress"></div>
   </div>
+"""
 
-  <header>
-    <div class="container">
-      <nav>
-        <div class="logo"><a href="/">TENNIS <span>T-MATE</span></a></div>
-        <div class="nav-links">
-          <a href="/">Home</a>
-          <a href="/blog/">Blog</a>
-          <button data-cal-link="tennis-t-mate-hcmfls" data-cal-config='{"theme":"dark"}' class="btn">Book Session</button>
-        </div>
-      </nav>
-    </div>
-  </header>
+blog_dir = "/Users/adeningwerson/Desktop/Tennis-Landing-Page/blog"
 
-  <main>
-    <div class="container">
-      <span class="eyebrow">Pro Breakdown</span>
-      <h1>Why Jannik Sinner's Open Stance is Changing the Game</h1>
-      <div class="meta">By Aden Ingwerson | Hastings College Men's Tennis</div>
-
-      <article>
-        <p>If you watch the ATP tour right now, Jannik Sinner is arguably hitting the cleanest, heaviest baseline ball in the world. He generates an absurd amount of pace, and he does it looking like he's barely swinging. </p>
+for filename in os.listdir(blog_dir):
+    if filename.endswith(".html") and filename != "index.html":
+        filepath = os.path.join(blog_dir, filename)
+        with open(filepath, 'r') as f:
+            content = f.read()
+            
+        # Replace styles
+        content = re.sub(r'<style>.*?</style>', f'<style>{blog_css}</style>', content, flags=re.DOTALL)
         
-        <p>A lot of amateur players watch Sinner, go to their local courts, and try to replicate his forehand. The result? They shank the ball into the back fence or hit a weak, arm-only shot into the net. Here is the secret to Sinner's mechanics, and why your open stance isn't working.</p>
-
-        <h2>The Coil, Not Just the Stance</h2>
-        <p>When amateur players hit an "open stance" forehand, they usually just stand facing the net, plant their feet, and swing with their shoulder and arm. Because their chest is already facing the net, there is zero rotational energy available. It's 100% arm.</p>
-
-        <p>Watch Sinner closely. Yes, his feet are parallel to the baseline (open), but his <strong>upper body is completely coiled sideways</strong>. His non-dominant shoulder is tucked under his chin, and his back is almost facing the net. The power doesn't come from his arm; it comes from the violent uncoiling of his torso snapping back to face the net.</p>
-
-        <h2>Loading the Outside Leg</h2>
-        <p>The second mistake amateurs make is weighting the wrong foot. Sinner loads 80% of his body weight onto his outside leg (his right leg on a forehand). He bends that knee, drops his center of gravity, and explodes upward and forward. If your weight is evenly distributed on both feet, or worse, falling backward, you will never hit a heavy ball.</p>
-
-        <h2>The Modern Windshield Wiper Finish</h2>
-        <p>Because Sinner is rotating his hips so violently, his arm naturally acts like a whip. He finishes the stroke with a massive "windshield wiper" follow-through across his body, rather than over his shoulder like the old-school technique taught in the 90s. This finish is what rips the back of the ball, imparting the topspin required to keep a 95mph forehand inside the lines.</p>
-
-        <div class="cta-box">
-        <!-- Email Capture Lead Magnet -->
-        <div class="cta-box" style="margin-top: 40px; background: #111; border: 1px solid #333; text-align: left; padding: 32px; border-radius: 8px;">
-          <h3 style="margin-bottom: 12px; font-size: 1.4rem;">The Competitive Blueprint (Coming Soon)</h3>
-          <p style="margin-bottom: 24px; color: #a1a1aa; font-size: 1rem;">Drop your email to get notified when my complete guide to surviving pushers and heavy wind drops. (Plus exclusive local coaching tips).</p>
-          <form id="subscribe-form" style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <input type="email" id="email-input" placeholder="Enter your email" required style="flex: 1; min-width: 200px; padding: 12px 16px; border-radius: 4px; border: 1px solid #333; background: #0a0a0a; color: #fff; font-family: inherit;">
-            <button type="submit" id="submit-btn" style="padding: 12px 24px; border-radius: 4px; border: none; background: #E1FF00; color: #000; font-weight: 700; cursor: pointer; transition: opacity 0.2s;">Join Waitlist</button>
-          </form>
-          <p id="form-message" style="margin-top: 12px; font-size: 0.9rem; display: none;"></p>
-        </div>
-
-        <script>
-          document.getElementById('subscribe-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const emailInput = document.getElementById('email-input');
-            const submitBtn = document.getElementById('submit-btn');
-            const messageEl = document.getElementById('form-message');
+        # Inject progress bar if not exists
+        if 'class="progress-container"' not in content:
+            content = content.replace('<body>', f'<body>\n{progress_html}')
             
-            const email = emailInput.value;
-            submitBtn.disabled = true;
-            submitBtn.style.opacity = '0.7';
-            submitBtn.innerText = 'Subscribing...';
+        # Inject JS if not exists
+        if 'id="reading-progress"' not in content and 'Scroll Progress Script' not in content:
+            content = content.replace('</body>', f'{js_injection}\n</body>')
             
-            try {
-              const res = await fetch('/api/subscribe', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email, source: window.location.pathname })
-              });
-              
-              const data = await res.json();
-              messageEl.style.display = 'block';
-              
-              if (res.ok) {
-                messageEl.style.color = '#E1FF00';
-                messageEl.innerText = 'You are on the list!';
-                emailInput.value = '';
-              } else {
-                messageEl.style.color = '#ff4444';
-                messageEl.innerText = data.error || 'Something went wrong. Try again.';
-              }
-            } catch (err) {
-              messageEl.style.display = 'block';
-              messageEl.style.color = '#ff4444';
-              messageEl.innerText = 'Network error. Try again.';
-            } finally {
-              submitBtn.disabled = false;
-              submitBtn.style.opacity = '1';
-              submitBtn.innerText = 'Join Waitlist';
-            }
-          });
-        </script>
-          <h3>Want to build a modern forehand?</h3>
-          <p>You don't need to be Jannik Sinner to hit a heavy ball, but you do need modern mechanics. If you're tired of arming the ball, book a session with me and let's rebuild your coil and kinetic chain.</p>
-          <a href="https://cal.com/tennis-t-mate-hcmfls" target="_blank" class="btn-primary">Book a Coaching Session</a>
-        </div>
-      </article>
-    </div>
-  </main>
-
-  <script>
-    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; typeof namespace === "string" ? (cal.ns[namespace] = cal.ns[namespace] || api) : p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-    Cal("init", {origin:"https://cal.com"});
-    Cal("ui", {"theme":"dark","styles":{"branding":{"brandColor":"#E1FF00"}},"hideEventTypeDetails":false,"layout":"month_view"});
-  </script>
-</body>
-</html>
+        # Update nav to match new structure
+        nav_pattern = r'<div class="logo"><a href="/"[^>]*>TENNIS <span>T-MATE</span></a></div>'
+        new_nav = '<div class="logo"><a href="/">TENNIS <span>T-MATE</span></a></div>'
+        content = re.sub(nav_pattern, new_nav, content)
+        
+        with open(filepath, 'w') as f:
+            f.write(content)
+            
+print("Successfully upgraded individual blog pages.")

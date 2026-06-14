@@ -1,4 +1,4 @@
-name = "tennismate"
+name = "tennistmate"
 pages_build_output_dir = "."
 
 [[d1_databases]]

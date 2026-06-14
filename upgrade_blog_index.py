@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog | Tennis T-Mate</title>
-    <meta name="description" content="Read insights, tactics, and pro breakdowns from the Tennis T-Mate team.">
-    <link rel="canonical" href="https://tennistmate.com/blog/">
-    <style>
+import re
 
+filepath = "/Users/adeningwerson/Desktop/Tennis-Landing-Page/blog/index.html"
+
+with open(filepath, 'r') as f:
+    content = f.read()
+
+new_css = """
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
         
         :root { 
@@ -234,142 +232,11 @@
             transition: all 0.2s; 
         }
         .newsletter-form button:hover { background: #e4e4e7; transform: translateY(-2px); }
+"""
 
-    </style>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo"><a href="/">TENNIS <span>T-MATE</span></a></div>
-                <div class="nav-links">
-                    <a href="/">Home</a>
-                    <a href="/blog/" class="active">Blog</a>
-                    <button data-cal-link="tennis-t-mate-hcmfls" data-cal-config='{"theme":"dark"}' class="btn">Book Session</button>
-                </div>
-            </nav>
-        </div>
-    </header>
+content = re.sub(r'<style>.*?</style>', f'<style>\n{new_css}\n    </style>', content, flags=re.DOTALL)
 
-    <main>
-        <div class="container">
-            <h1>The Baseline</h1>
-            
-            <div class="blog-layout">
-                
-                <!-- Main Feed -->
-                <div class="main-content">
-                    
-                    <!-- High-CPM Display Ad / Sponsor Slot -->
-                    <div class="sponsor-banner">
-                        <span class="sponsor-label">Official Sponsor</span>
-                        <div class="sponsor-content">
-                            <h3>TopspinPro Training Aid</h3>
-                            <p>Master the exact topspin mechanics the pros use in just 2 minutes a day. The fastest way to learn heavy topspin.</p>
-                            <a href="https://topspinpro.com/" target="_blank" class="sponsor-link">Shop TopspinPro</a>
-                        </div>
-                    </div>
+with open(filepath, 'w') as f:
+    f.write(content)
 
-                    <div class="blog-grid">
-                        <a href="/blog/tennis-strings-poly-vs-synthetic.html" class="blog-card">
-                            <span class="category">Gear & Setup</span>
-                            <h2>Stop Playing with Dead Strings: Poly vs. Synthetic Gut Explained</h2>
-                            <p>Are you still playing with 3-year-old factory strings? Learn the difference between polyester and synthetic gut, and why your string setup is costing you matches.</p>
-                            <span class="read-more">Read article &rarr;</span>
-                        </a>
-
-                        <a href="/blog/jannik-sinner-forehand-mechanics.html" class="blog-card">
-                            <span class="category">Pro Breakdown</span>
-                            <h2>Why Jannik Sinner's Open Stance is Changing the Game</h2>
-                            <p>Jannik Sinner hits the cleanest ball on the ATP tour. Learn how his open stance mechanics generate effortless power, and why 4.0 players mess it up.</p>
-                            <span class="read-more">Read article &rarr;</span>
-                        </a>
-
-                        <a href="/blog/nebraska-wind-tennis-tactics.html" class="blog-card">
-                            <span class="category">Tactics & Mindset</span>
-                            <h2>How to Actually Win Matches in 30mph Nebraska Wind</h2>
-                            <p>Playing tennis in Nebraska means playing in the wind. Learn the footwork, spin, and mental tactics to weaponize heavy crosswinds and beat your opponents before the match even starts.</p>
-                            <span class="read-more">Read article &rarr;</span>
-                        </a>
-
-                        <a href="/blog/college-tennis-pipeline.html" class="blog-card">
-                            <span class="category">The Pipeline</span>
-                            <h2>The Reality of College Tennis: What High School Players Don't Know</h2>
-                            <p>Making the jump from high school varsity to college tennis is brutal. Learn the truth about pace, fitness, and the mental game from a current Hastings College player.</p>
-                            <span class="read-more">Read article &rarr;</span>
-                        </a>
-
-                        <a href="/blog/pro-drop-shot-breakdown.html" class="blog-card">
-                            <span class="category">Pro Breakdown</span>
-                            <h2>The Drop Shot: Why Yours Gets Punished (And Alcaraz's Doesn't)</h2>
-                            <p>Stop hitting floating drop shots that get crushed. Learn the disguise and spin mechanics the pros use to actually end the point.</p>
-                            <span class="read-more">Read article &rarr;</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Monetization Sidebar -->
-                <aside class="sidebar">
-                    
-                    <!-- Subscription / Premium CTA -->
-                    <div class="sidebar-widget premium-cta">
-                        <h3>Tennis T-Mate <span>Plus</span></h3>
-                        <p>Get my exact collegiate training plans, premium 1-on-1 video stroke analysis, and access to the private player Discord.</p>
-                        <a href="#subscribe" class="btn-primary">Join the Inner Circle ($19/mo)</a>
-                    </div>
-
-                    <!-- Affiliate Gear Guide -->
-                    <div class="sidebar-widget gear-guide">
-                        <h3>Aden's Gear Vault</h3>
-                        <ul class="gear-list">
-                            <li>
-                                <a href="https://www.tennis-warehouse.com/" target="_blank">
-                                    <div class="gear-item">
-                                        <strong>Babolat Pure Aero</strong>
-                                        <span>Current Racket</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.tennis-warehouse.com/" target="_blank">
-                                    <div class="gear-item">
-                                        <strong>Solinco Confidential</strong>
-                                        <span>String Setup (52 lbs)</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.tennis-warehouse.com/" target="_blank">
-                                    <div class="gear-item">
-                                        <strong>Tourna Grip</strong>
-                                        <span>Overgrip (The Blue One)</span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                        <a href="/gear/" class="view-all">View full gear guide &rarr;</a>
-                    </div>
-
-                    <!-- Lead Gen / Newsletter -->
-                    <div class="sidebar-widget newsletter">
-                        <h3>Free Tactical Guide</h3>
-                        <p>Drop your email to get my <strong>"3 Tactics to Beat Pushers"</strong> PDF instantly.</p>
-                        <form class="newsletter-form">
-                            <input type="email" placeholder="Email address" required>
-                            <button type="submit">Get It Free</button>
-                        </form>
-                    </div>
-
-                </aside>
-            </div>
-        </div>
-    </main>
-
-    <!-- Cal.com Embed -->
-    <script>
-      (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; typeof namespace === "string" ? (cal.ns[namespace] = cal.ns[namespace] || api) : p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-      Cal("init", {origin:"https://cal.com"});
-      Cal("ui", {"theme":"dark","styles":{"branding":{"brandColor":"#E1FF00"}},"hideEventTypeDetails":false,"layout":"month_view"});
-    </script>
-</body>
-</html>
+print("Updated blog/index.html")

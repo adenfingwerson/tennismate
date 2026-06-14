@@ -3,7 +3,7 @@ from datetime import datetime
 
 def check_weather(lat, lon, location_name):
     print(f"\nFetching NWS weather data for {location_name}...")
-    headers = {"User-Agent": "TennisMate_AutoScheduler/1.0 (aden.f.ingwerson@gmail.com)"}
+    headers = {"User-Agent": "TennisTMate_AutoScheduler/1.0 (aden.f.ingwerson@gmail.com)"}
     
     try:
         # Step 1: Get the exact grid endpoints for these coordinates
