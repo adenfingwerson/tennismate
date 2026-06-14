@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tennis T-Mate &mdash; Coaching</title>
     <link rel="canonical" href="https://tennistmate.com/">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
     <style>
         /* ===== Minimalist Editorial / Brutalist Architecture ===== */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
@@ -395,5 +397,88 @@
         </div>
     </footer>
 
+    <script>
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(err => {
+                    console.log('SW registration failed: ', err);
+                });
+            });
+        }
+
+        // PWA Install Prompt & Custom Onboarding Logic
+        let deferredPrompt;
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+        
+        if (!isStandalone && !localStorage.getItem('tmate_onboarded')) {
+            if (isIOS) {
+                // iOS doesn't fire beforeinstallprompt, so we just show the onboarding
+                setTimeout(showOnboarding, 2500);
+            } else {
+                window.addEventListener('beforeinstallprompt', (e) => {
+                    e.preventDefault();
+                    deferredPrompt = e;
+                    setTimeout(showOnboarding, 2500);
+                });
+            }
+        }
+
+        function showOnboarding() {
+            const overlay = document.createElement('div');
+            overlay.id = 'pwa-onboarding';
+            overlay.innerHTML = `
+                <div style="position:fixed; inset:0; background:rgba(255,255,255,0.95); z-index:9999; display:flex; align-items:center; justify-content:center; padding:24px;">
+                    <div style="background:#fff; width:100%; max-width:400px; padding:32px; border:2px solid #000; box-shadow: 8px 8px 0 rgba(0,0,0,1);">
+                        <h2 style="font-size:2rem; font-weight:900; margin-bottom:1rem; text-transform:uppercase; letter-spacing:-0.04em;">Quick Booking</h2>
+                        <p style="color:#666; margin-bottom:2rem; font-weight:500; font-size:1.1rem; line-height:1.4;">Install Tennis T-Mate to your home screen for 1-tap lesson scheduling.</p>
+                        
+                        <div style="display:flex; flex-direction:column; gap:1.5rem; margin-bottom:2.5rem;">
+                            <div style="border-left:3px solid #000; padding-left:1rem;">
+                                <strong style="font-weight:900; text-transform:uppercase; font-size:1.1rem;">1. Pick Your Court</strong><br>
+                                <span style="color:#666; font-size:0.95rem;">Holdrege or Hastings locations.</span>
+                            </div>
+                            <div style="border-left:3px solid #000; padding-left:1rem;">
+                                <strong style="font-weight:900; text-transform:uppercase; font-size:1.1rem;">2. Grab a Time</strong><br>
+                                <span style="color:#666; font-size:0.95rem;">$25 flat rate / 60-min slot.</span>
+                            </div>
+                            <div style="border-left:3px solid #000; padding-left:1rem;">
+                                <strong style="font-weight:900; text-transform:uppercase; font-size:1.1rem;">3. Hit the Court</strong><br>
+                                <span style="color:#666; font-size:0.95rem;">Confirmation sent instantly.</span>
+                            </div>
+                        </div>
+                        
+                        <div style="display:flex; gap:1rem; flex-direction:column;">
+                            <button id="btn-install" style="width:100%; background:#000; color:#fff; padding:16px; font-size:1rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; border:none; cursor:pointer; transition:all 0.2s;">Install App</button>
+                            <button id="btn-skip" style="width:100%; background:transparent; color:#666; padding:12px; font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; border:none; cursor:pointer;">Not right now</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+
+            document.getElementById('btn-install').addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    if (outcome === 'accepted') {
+                        localStorage.setItem('tmate_onboarded', 'true');
+                        overlay.remove();
+                    }
+                    deferredPrompt = null;
+                } else if (isIOS) {
+                    alert('To install on iPhone:\\n1. Tap the Share button at the bottom\\n2. Scroll down and tap "Add to Home Screen"');
+                    localStorage.setItem('tmate_onboarded', 'true');
+                    overlay.remove();
+                }
+            });
+
+            document.getElementById('btn-skip').addEventListener('click', () => {
+                localStorage.setItem('tmate_onboarded', 'true');
+                overlay.remove();
+            });
+        }
+    </script>
 </body>
 </html>
