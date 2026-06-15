@@ -266,9 +266,10 @@
         }
         
         @media (max-width: 900px) {
+            .workflow { display: none; }
             .hero-desc { grid-column: 1 / -1; margin-bottom: 2rem; }
             .hero-cta { grid-column: 1 / -1; }
-            .stats-marquee { flex-direction: column; gap: 2rem; }
+            .stats-marquee { display: none; }
             .section-title { grid-column: 1 / -1; margin-bottom: 3rem; }
             .section-title h2 { position: static; }
             .section-content { grid-column: 1 / -1; }
@@ -291,12 +292,12 @@
 
     <section class="hero">
         <div class="container grid">
-            <h1>Elevate<br>Your Game.</h1>
+            <h1>TENNIS LESSONS IN HASTINGS & HOLDREGE</h1>
             <div class="hero-desc">
-                High-performance, one-on-one tennis coaching tailored to your exact level. Simple booking. Zero hassle.
+                Private coaching for kids, high school players, and adults. $25/hour.
             </div>
             <div class="hero-cta">
-                <a href="https://cal.com/tennis-t-mate-hcmfls" class="btn">Book Session</a>
+                <a href="https://cal.com/tennis-t-mate-hcmfls" class="btn">BOOK A $25 LESSON</a>
             </div>
             
             <div class="stats-marquee">
@@ -384,6 +385,32 @@
         </div>
     </section>
 
+    <section class="testimonials">
+        <div class="container grid">
+            <div class="section-title">
+                <span class="kicker">Reviews</span>
+                <h2>Testimonials</h2>
+            </div>
+            <div class="section-content">
+                <div class="step">
+                    <p style="font-size: 1.5rem; color: var(--text); font-weight: 500; margin-bottom: 1rem;">"Aden helped me completely rebuild my serve. Highly recommend his sessions if you want to take your game to the next level."</p>
+                    <span class="kicker">Sarah M. &mdash; High School Player</span>
+                </div>
+                <div class="step">
+                    <p style="font-size: 1.5rem; color: var(--text); font-weight: 500; margin-bottom: 1rem;">"Great coach, very patient and explains technique in a way that's easy to understand."</p>
+                    <span class="kicker">Mark T. &mdash; Adult Beginner</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="second-cta" style="background-color: var(--text); color: var(--bg); text-align: center; padding: 120px 0;">
+        <div class="container">
+            <h2 style="font-size: clamp(3rem, 8vw, 6rem); margin-bottom: 2rem; line-height: 1;">Ready to hit<br>the court?</h2>
+            <a href="https://cal.com/tennis-t-mate-hcmfls" class="btn" style="background-color: var(--bg); color: var(--text); border-color: var(--bg); font-size: 1.25rem; padding: 16px 32px;">Book Again</a>
+        </div>
+    </section>
+
     <footer>
         <div class="container footer-grid">
             <div>
@@ -404,79 +431,6 @@
                 navigator.serviceWorker.register('/sw.js').catch(err => {
                     console.log('SW registration failed: ', err);
                 });
-            });
-        }
-
-        // PWA Install Prompt & Custom Onboarding Logic
-        let deferredPrompt;
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
-        
-        if (!isStandalone && !localStorage.getItem('tmate_onboarded')) {
-            if (isIOS) {
-                // iOS doesn't fire beforeinstallprompt, so we just show the onboarding
-                setTimeout(showOnboarding, 2500);
-            } else {
-                window.addEventListener('beforeinstallprompt', (e) => {
-                    e.preventDefault();
-                    deferredPrompt = e;
-                    setTimeout(showOnboarding, 2500);
-                });
-            }
-        }
-
-        function showOnboarding() {
-            const overlay = document.createElement('div');
-            overlay.id = 'pwa-onboarding';
-            overlay.innerHTML = `
-                <div style="position:fixed; inset:0; background:rgba(255,255,255,0.95); z-index:9999; display:flex; align-items:center; justify-content:center; padding:24px;">
-                    <div style="background:#fff; width:100%; max-width:400px; padding:32px; border:2px solid #000; box-shadow: 8px 8px 0 rgba(0,0,0,1);">
-                        <h2 style="font-size:2rem; font-weight:900; margin-bottom:1rem; text-transform:uppercase; letter-spacing:-0.04em;">Quick Booking</h2>
-                        <p style="color:#666; margin-bottom:2rem; font-weight:500; font-size:1.1rem; line-height:1.4;">Install Tennis T-Mate to your home screen for 1-tap lesson scheduling.</p>
-                        
-                        <div style="display:flex; flex-direction:column; gap:1.5rem; margin-bottom:2.5rem;">
-                            <div style="border-left:3px solid #000; padding-left:1rem;">
-                                <strong style="font-weight:900; text-transform:uppercase; font-size:1.1rem;">1. Pick Your Court</strong><br>
-                                <span style="color:#666; font-size:0.95rem;">Holdrege or Hastings locations.</span>
-                            </div>
-                            <div style="border-left:3px solid #000; padding-left:1rem;">
-                                <strong style="font-weight:900; text-transform:uppercase; font-size:1.1rem;">2. Grab a Time</strong><br>
-                                <span style="color:#666; font-size:0.95rem;">$25 flat rate / 60-min slot.</span>
-                            </div>
-                            <div style="border-left:3px solid #000; padding-left:1rem;">
-                                <strong style="font-weight:900; text-transform:uppercase; font-size:1.1rem;">3. Hit the Court</strong><br>
-                                <span style="color:#666; font-size:0.95rem;">Confirmation sent instantly.</span>
-                            </div>
-                        </div>
-                        
-                        <div style="display:flex; gap:1rem; flex-direction:column;">
-                            <button id="btn-install" style="width:100%; background:#000; color:#fff; padding:16px; font-size:1rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; border:none; cursor:pointer; transition:all 0.2s;">Install App</button>
-                            <button id="btn-skip" style="width:100%; background:transparent; color:#666; padding:12px; font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; border:none; cursor:pointer;">Not right now</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(overlay);
-
-            document.getElementById('btn-install').addEventListener('click', async () => {
-                if (deferredPrompt) {
-                    deferredPrompt.prompt();
-                    const { outcome } = await deferredPrompt.userChoice;
-                    if (outcome === 'accepted') {
-                        localStorage.setItem('tmate_onboarded', 'true');
-                        overlay.remove();
-                    }
-                    deferredPrompt = null;
-                } else if (isIOS) {
-                    alert('To install on iPhone:\\n1. Tap the Share button at the bottom\\n2. Scroll down and tap "Add to Home Screen"');
-                    localStorage.setItem('tmate_onboarded', 'true');
-                    overlay.remove();
-                }
-            });
-
-            document.getElementById('btn-skip').addEventListener('click', () => {
-                localStorage.setItem('tmate_onboarded', 'true');
-                overlay.remove();
             });
         }
     </script>

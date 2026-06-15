@@ -144,25 +144,6 @@ new_css = """
     .gear-item span { font-size: 0.85rem; color: var(--text-muted); }
     .view-all { font-weight: 700; text-transform: uppercase; font-size: 0.85rem; border-bottom: 1px solid var(--text); padding-bottom: 2px; }
 
-    /* Sponsor Ad Slot */
-    .sponsor-banner { 
-        border: 1px solid var(--border-dark);
-        padding: 2rem; 
-        margin-bottom: 3rem; 
-        background: var(--bg);
-    }
-    .sponsor-label { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 1rem; }
-    .sponsor-link { 
-        display: inline-block; 
-        background: var(--text); 
-        color: var(--bg);
-        padding: 10px 20px; 
-        font-weight: 700; 
-        font-size: 0.85rem; 
-        text-transform: uppercase;
-        margin-top: 1rem;
-    }
-    
     /* Lead Gen / Newsletter */
     .newsletter-form { display: flex; flex-direction: column; gap: 1rem; }
     .newsletter-form input { 
