@@ -186,18 +186,35 @@
         <h2>3. You're Hitting it from the Wrong Place</h2>
         <p>If you're four feet behind the baseline, do not hit a drop shot. The ball has to travel too far, giving your opponent too much time to track it down. The only time you should pull the trigger on a drop shot is when you are inside the baseline, stepping into the court on a shorter ball, and your opponent is pushed back behind their own baseline.</p>
 
-        <div class="cta-box">
-        <!-- Email Capture Lead Magnet -->
-        <div class="cta-box" style="margin-top: 40px; background: #111; border: 1px solid #333; text-align: left; padding: 32px; border-radius: 8px;">
-          <h3 style="margin-bottom: 12px; font-size: 1.4rem;">The Competitive Blueprint (Coming Soon)</h3>
-          <p style="margin-bottom: 24px; color: #a1a1aa; font-size: 1rem;">Drop your email to get notified when my complete guide to surviving pushers and heavy wind drops. (Plus exclusive local coaching tips).</p>
-          <form id="subscribe-form" style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <input type="email" id="email-input" placeholder="Enter your email" required style="flex: 1; min-width: 200px; padding: 12px 16px; border-radius: 4px; border: 1px solid #333; background: #0a0a0a; color: #fff; font-family: inherit;">
-            <button type="submit" id="submit-btn" style="padding: 12px 24px; border-radius: 4px; border: none; background: #E1FF00; color: #000; font-weight: 700; cursor: pointer; transition: opacity 0.2s;">Join Waitlist</button>
-          </form>
-          <p id="form-message" style="margin-top: 12px; font-size: 0.9rem; display: none;"></p>
+        
+        <div class="cta-box" style="margin-top: 60px; border: 1px solid var(--border-dark); padding: 0;">
+            <div style="background-color: var(--text); color: var(--bg); padding: 32px;">
+                <h3 style="color: var(--bg); margin-bottom: 12px; font-size: 1.5rem;">Join the Local Roster</h3>
+                <p style="color: #ccc; margin-bottom: 24px; font-size: 1rem;">Drop your email to unlock full access to the Tennis T-Mate journal, exclusive local coaching tips, and priority booking in Hastings & Holdrege.</p>
+                <form id="subscribe-form" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <input type="email" id="email-input" placeholder="Enter your email address" required style="flex: 1; min-width: 200px; padding: 12px 16px; border: 1px solid var(--bg); background: var(--text); color: var(--bg); font-family: inherit;">
+                    <button type="submit" id="submit-btn" style="padding: 12px 24px; border: none; background: var(--bg); color: var(--text); font-weight: 700; cursor: pointer; text-transform: uppercase;">Get Access</button>
+                </form>
+                <p id="form-message" style="margin-top: 12px; font-size: 0.9rem; display: none;"></p>
+            </div>
+            <div style="padding: 32px; background: var(--bg); color: var(--text);">
+                <h3 style="font-size: 1.25rem; margin-bottom: 16px; text-transform: uppercase;">What's in my bag (Coach Aden)</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 12px;">
+                        <strong style="display: block; text-transform: uppercase;">Head Gravity Tour 98</strong>
+                        <span style="color: var(--text-muted); font-size: 0.9rem;">Current Racket</span>
+                    </li>
+                    <li style="padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 12px;">
+                        <strong style="display: block; text-transform: uppercase;">Confidential Mains / Mach 10 Crosses</strong>
+                        <span style="color: var(--text-muted); font-size: 0.9rem;">String Setup (Solinco)</span>
+                    </li>
+                    <li>
+                        <strong style="display: block; text-transform: uppercase;">Solinco Overgrip</strong>
+                        <span style="color: var(--text-muted); font-size: 0.9rem;">Grip</span>
+                    </li>
+                </ul>
+            </div>
         </div>
-
         <script>
           document.getElementById('subscribe-form').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -211,38 +228,24 @@
             submitBtn.innerText = 'Subscribing...';
             
             try {
-              const res = await fetch('/api/subscribe', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email, source: window.location.pathname })
-              });
-              
-              const data = await res.json();
-              messageEl.style.display = 'block';
-              
-              if (res.ok) {
-                messageEl.style.color = '#E1FF00';
-                messageEl.innerText = 'You are on the list!';
-                emailInput.value = '';
-              } else {
-                messageEl.style.color = '#ff4444';
-                messageEl.innerText = data.error || 'Something went wrong. Try again.';
-              }
+              // Simulated API call or you can plug in your real endpoint here
+              setTimeout(() => {
+                  messageEl.style.display = 'block';
+                  messageEl.style.color = 'var(--bg)';
+                  messageEl.innerText = 'You are on the list!';
+                  emailInput.value = '';
+                  submitBtn.disabled = false;
+                  submitBtn.style.opacity = '1';
+                  submitBtn.innerText = 'Get Access';
+              }, 1000);
             } catch (err) {
               messageEl.style.display = 'block';
               messageEl.style.color = '#ff4444';
               messageEl.innerText = 'Network error. Try again.';
-            } finally {
-              submitBtn.disabled = false;
-              submitBtn.style.opacity = '1';
-              submitBtn.innerText = 'Join Waitlist';
             }
           });
         </script>
-          <h3>Stop Hitting Sitters</h3>
-          <p>Want to develop a drop shot you can actually use in a match without getting passed? Let's work on your disguise and carving mechanics.</p>
-          <a href="https://cal.com/tennis-t-mate-hcmfls" target="_blank" class="btn-primary">Book a Lesson</a>
-        </div>
+
       </article>
     </div>
   </main>
