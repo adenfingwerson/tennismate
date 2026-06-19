@@ -330,6 +330,7 @@
         <div class="container">
             <div class="logo">Tennis T-Mate</div>
             <div class="nav-links">
+                <a href="/admin.html" id="admin-link" style="display: none; color: #ccff00; border: 1px solid #ccff00; padding: 4px 12px; background: #000;">Coach Admin</a>
                 <a href="/login.html">Profile</a>
                 <a href="/blog/">Journal</a>
                 <a href="https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01" class="btn">Book</a>
@@ -448,6 +449,12 @@
     </footer>
 
     <script>
+        // Check for Admin status to reveal hidden link
+        if (localStorage.getItem('tm_user_email') === 'aden.f.ingwerson@gmail.com') {
+            const adminLink = document.getElementById('admin-link');
+            if (adminLink) adminLink.style.display = 'inline-block';
+        }
+
         // Register Service Worker for PWA
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
