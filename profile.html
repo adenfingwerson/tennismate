@@ -683,11 +683,15 @@
                     <h3>Tactical & Mental Framework</h3>
                     <div class="stat-row">
                         <span class="stat-label">A-Game Pattern</span>
-                        <input type="text" class="tm-input" disabled value="[Awaiting AI Analysis]" style="width: 100%; max-width: 100%; text-align: left; color: var(--text-muted);">
+                        <input type="text" id="ai-a-game" class="tm-input" disabled value="[Awaiting AI Analysis]" style="width: 100%; max-width: 100%; text-align: left; color: var(--text-muted);">
                     </div>
                     <div class="stat-row">
                         <span class="stat-label">Vulnerability Breakdown</span>
-                        <input type="text" class="tm-input" disabled value="[Awaiting AI Analysis]" style="width: 100%; max-width: 100%; text-align: left; color: var(--text-muted);">
+                        <input type="text" id="ai-vuln" class="tm-input" disabled value="[Awaiting AI Analysis]" style="width: 100%; max-width: 100%; text-align: left; color: var(--text-muted);">
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reset Trigger</span>
+                        <input type="text" id="ai-reset" class="tm-input" disabled value="[Awaiting AI Analysis]" style="width: 100%; max-width: 100%; text-align: left; color: var(--text-muted);">
                     </div>
                 </div>
             </div>
@@ -756,6 +760,12 @@
                         input.value = metrics[`field_${index}`];
                     }
                 });
+
+                // Populate AI fields
+                if (metrics.ai_a_game) document.getElementById('ai-a-game').value = metrics.ai_a_game;
+                if (metrics.ai_vuln) document.getElementById('ai-vuln').value = metrics.ai_vuln;
+                if (metrics.ai_reset) document.getElementById('ai-reset').value = metrics.ai_reset;
+
                 handleUtrChange(); // update UI again if UTR loaded
             }
         } catch(e) {

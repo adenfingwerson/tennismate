@@ -46,7 +46,7 @@ export async function onRequestPost(context) {
         let aiText = response.response;
         
         // Try to parse the response and update the profile automatically
-        const lines = aiText.split('\\n').filter(l => l.trim().length > 0);
+        const lines = aiText.split('\n').filter(l => l.trim().length > 0);
         let a_game = "", vuln = "", reset = "";
         
         lines.forEach(line => {
@@ -55,11 +55,24 @@ export async function onRequestPost(context) {
             if (line.toUpperCase().includes('RESET TRIGGER:')) reset = line.split(':')[1].trim();
         });
 
-        if (profileResults.length > 0 && a_game) {
-            let metricsObj = JSON.parse(profileResults[0].metrics_json || "{}");
-            // Assuming the tactical fields in profile.html are the last 3 inputs. 
-            // We'll just pass the text back to the frontend to handle, it's safer and cooler to see.
+        // Save back to D1 under the user's metrics_json
+        let metricsObj = {};
+        if (profileResults.length > 0 && profileResults[0].metrics_json) {
+            try {
+                metricsObj = JSON.parse(profileResults[0].metrics_json);
+            } catch(e) {}
         }
+        
+        // Add the AI data to the object
+        metricsObj.ai_a_game = a_game || aiText.substring(0, 100); 
+        metricsObj.ai_vuln = vuln || "";
+        metricsObj.ai_reset = reset || "";
+
+        // Upsert back to database
+        await env.DB.prepare(`
+            INSERT INTO player_metrics (user_id, metrics_json) VALUES (?, ?)
+            ON CONFLICT(user_id) DO UPDATE SET metrics_json = excluded.metrics_json, last_updated = CURRENT_TIMESTAMP
+        `).bind(userId, JSON.stringify(metricsObj)).run();
 
         return new Response(JSON.stringify({ success: true, ai_plan: aiText }), {
             headers: { "Content-Type": "application/json" }
