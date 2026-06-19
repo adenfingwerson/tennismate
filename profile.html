@@ -671,8 +671,8 @@
                 <h2>Unlock AI Insights</h2>
                 <p>Link your email and phone to unlock your personalized tactical blueprint and AI strategy breakdown.</p>
                 <div class="lead-form">
-                    <input type="email" class="lead-input" placeholder="Enter your email address">
-                    <input type="tel" class="lead-input" placeholder="Enter your phone number">
+                    <input type="email" id="lead-email" class="lead-input" disabled style="background: transparent; border-color: var(--border-dark); color: var(--text-muted);" placeholder="Email Address">
+                    <input type="tel" id="lead-phone" class="lead-input" placeholder="Enter your phone number">
                     <button class="btn btn-primary" onclick="unlockContent()">Unlock AI Profile</button>
                 </div>
             </div>
@@ -733,6 +733,10 @@
             return;
         }
 
+        if (document.getElementById('lead-email')) {
+            document.getElementById('lead-email').value = userEmail || '';
+        }
+
         // Auto-unlock if we already have their phone
         if (userPhone) {
             removeWall();
@@ -746,7 +750,7 @@
                 const metrics = JSON.parse(data.metrics);
                 
                 // Populate inputs
-                const inputs = document.querySelectorAll('#tab-stats .tm-input, #tab-stats .tm-select');
+                const inputs = document.querySelectorAll('#profile-name, #tab-stats .tm-input, #tab-stats .tm-select');
                 inputs.forEach((input, index) => {
                     if (metrics[`field_${index}`]) {
                         input.value = metrics[`field_${index}`];
@@ -760,7 +764,7 @@
     });
 
     async function saveProfile() {
-        const inputs = document.querySelectorAll('#tab-stats .tm-input, #tab-stats .tm-select');
+        const inputs = document.querySelectorAll('#profile-name, #tab-stats .tm-input, #tab-stats .tm-select');
         const metrics = {};
         
         inputs.forEach((input, index) => {
@@ -790,12 +794,11 @@
 
     // Lead Capture Unlock Logic
     async function unlockContent() {
-        const inputs = document.querySelectorAll('.lead-input');
-        const email = inputs[0].value;
-        const phone = inputs[1].value;
+        const email = document.getElementById('lead-email').value;
+        const phone = document.getElementById('lead-phone').value;
 
         if(!email || !phone) {
-            alert('Please enter both email and phone number to link your profile.');
+            alert('Please enter your phone number to link your profile.');
             return;
         }
         

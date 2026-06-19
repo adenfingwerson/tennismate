@@ -195,6 +195,7 @@
         function verifyPin() {
             const pin = document.getElementById('admin-pin').value;
             if (pin === '1743') {
+                localStorage.setItem('tm_admin_pin', pin);
                 document.getElementById('pin-guard').style.display = 'none';
                 document.getElementById('auth-guard').style.display = 'grid';
                 document.getElementById('lesson-date').valueAsDate = new Date();
@@ -203,6 +204,13 @@
                 alert('Invalid PIN.');
                 document.getElementById('admin-pin').value = '';
             }
+        }
+
+        function getAuthHeaders() {
+            return {
+                'Content-Type': 'application/json',
+                'X-Admin-Pin': localStorage.getItem('tm_admin_pin') || ''
+            };
         }
 
         // Allow hitting Enter to submit PIN
@@ -214,7 +222,7 @@
 
         async function loadRoster() {
             try {
-                const res = await fetch('/api/admin/roster');
+                const res = await fetch('/api/admin/roster', { headers: getAuthHeaders() });
                 const data = await res.json();
                 
                 const rosterList = document.getElementById('roster-list');
@@ -257,7 +265,7 @@
             try {
                 const res = await fetch('/api/admin/delete_user', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: getAuthHeaders(),
                     body: JSON.stringify({ user_id: selectedUserId })
                 });
 
@@ -283,7 +291,7 @@
             try {
                 const res = await fetch('/api/admin/lessons', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: getAuthHeaders(),
                     body: JSON.stringify({
                         user_id: selectedUserId,
                         lesson_date: date,
@@ -311,7 +319,7 @@
             try {
                 const res = await fetch('/api/admin/generate', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: getAuthHeaders(),
                     body: JSON.stringify({ user_id: selectedUserId })
                 });
 

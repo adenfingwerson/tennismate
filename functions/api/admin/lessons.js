@@ -1,5 +1,10 @@
 export async function onRequestPost(context) {
     const { request, env } = context;
+    const pin = request.headers.get('X-Admin-Pin');
+    if (pin !== '1743') {
+        return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+    }
+
     try {
         const body = await request.json();
         const id = crypto.randomUUID();
