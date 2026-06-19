@@ -14,9 +14,7 @@ export async function onRequestPost(context) {
 
         // 2. Fetch Latest Lesson Notes
         const { results: lessonResults } = await env.DB.prepare("SELECT raw_notes FROM lessons WHERE user_id = ? ORDER BY created_at DESC LIMIT 5").bind(userId).all();
-        const pastNotes = lessonResults.map(l => l.raw_notes).join("
-
-");
+        const pastNotes = lessonResults.map(l => l.raw_notes).join("\\n\\n");
 
         if (!pastNotes) {
             return new Response(JSON.stringify({ error: 'No lesson notes found for this player. Log a lesson first.' }), { status: 400 });
@@ -43,8 +41,7 @@ export async function onRequestPost(context) {
         let aiText = response.response;
         
         // Try to parse the response and update the profile automatically
-        const lines = aiText.split('
-').filter(l => l.trim().length > 0);
+        const lines = aiText.split('\\n').filter(l => l.trim().length > 0);
         let a_game = "", vuln = "", reset = "";
         
         lines.forEach(line => {
