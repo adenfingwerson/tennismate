@@ -965,9 +965,7 @@
 </div>
 </div>
 
-            <button class="tm-btn" id="btn-raqgen" style="width: 100%; font-size: 1rem; padding: 16px; background: linear-gradient(90deg, #00ffcc 0%, #00b3ff 100%); color: #000; border: none; font-weight: 900; letter-spacing: 1px; transition: opacity 0.2s;" onclick="generateRaqGen()">
-                INITIALIZE MASTER EQUATION
-            </button>
+            
             
             <!-- RESULTS CONTAINER -->
             <div id="raqgen-result" style="display: none; margin-top: 32px; padding-top: 24px; border-top: 1px solid #333;">
@@ -1043,8 +1041,39 @@
             </div>
         </div>
     </div>
-</div>
 
+    <!-- BOTTOM TM8 T00LS EXPANDABLE SECTION -->
+    <div class="master-accordion">
+        <details style="padding: 0;">
+            <summary class="master-summary">
+                <span style="display: flex; align-items: center; gap: 16px;">
+                    <span class="pulse-dot"></span>
+                    TM8 T00LS
+                </span>
+                <span style="font-size: 0.9rem; font-weight: 900; background: var(--text); color: var(--bg); padding: 8px 16px; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;">
+                    OPEN WORKSPACE <span style="font-size: 1.4rem; line-height: 0;">+</span>
+                </span>
+            </summary>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; padding: 32px; background: #fff; border-top: 4px solid var(--border-dark);">
+                <button class="btn-brutalist-tab tab-btn active" onclick="switchTab('tab-stats'); window.scrollTo(0, 0);">
+                    <span>Player Profile</span>
+                    <span>→</span>
+                </button>
+                <button class="btn-brutalist-tab tab-btn" onclick="switchTab('tab-lessons'); window.scrollTo(0, 0);">
+                    <span>Training Journal</span>
+                    <span>→</span>
+                </button>
+                <button class="btn-brutalist-tab tab-btn" style="position: relative; overflow: hidden;" onclick="switchTab('tab-tools'); window.scrollTo(0, 0);">
+                    <span style="position: absolute; top: -10px; left: -10px; width: 24px; height: 24px; background: var(--text);"></span>
+                    <span style="margin-left: 16px;">RaQGeN OS V.2</span>
+                    <span>→</span>
+                </button>
+            </div>
+        </details>
+    </div>
+
+</div>
 <script>
     // Tab switching logic
     function switchTab(tabId) {
