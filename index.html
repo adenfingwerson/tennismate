@@ -929,7 +929,23 @@
         let bhVal = document.getElementById('idx-raq-bh').value || 'Two-Handed';
         let styleVal = document.getElementById('idx-raq-style').value || 'All-Court Player';
 
+        
         try {
+            // --- THE LABOR ILLUSION UX ---
+            const steps = [
+                "ANALYZING BIOMETRICS...",
+                "CALCULATING TORSIONAL STABILITY...",
+                "SIMULATING KINETIC CHAIN...",
+                "EVALUATING PARETO FRONTIER...",
+                "ISOLATING OPTIMAL FRAME..."
+            ];
+            
+            for (let i = 0; i < steps.length; i++) {
+                btn.innerText = steps[i];
+                await new Promise(r => setTimeout(r, 700)); 
+            }
+            // -----------------------------
+
             const data = computeRaqGenLocal({
                 height: heightStr,
                 weight: weightStr,
@@ -940,15 +956,26 @@
             });
             
             if (data.success) {
-                document.getElementById('idx-raqgen-result').style.display = 'block';
+                let resDiv = document.getElementById('idx-raqgen-result');
+                resDiv.style.display = 'block';
+                // smooth scroll down to it
+                resDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 
                 // Best Match
                 safeSetText('idx-raqgen-name', data.best_match.name);
+                // Also support profile.html naming diff
+                safeSetText('raqgen-racket-name', data.best_match.name);
+                
                 safeSetText('idx-raqgen-score', data.best_match.score.toFixed(1) + "%");
                 safeSetText('idx-raqgen-weight', data.best_match.specs.weight + "g");
                 safeSetText('idx-raqgen-sw', data.best_match.specs.sw);
                 safeSetText('idx-raqgen-ra', data.best_match.specs.ra + ' (Dyn: ' + data.best_match.specs.dynamic + 'Hz)');
                 safeSetText('idx-raqgen-pattern', data.best_match.specs.pattern);
+
+                // Reset bars first for animation
+                safeSetWidth('idx-bar-bio', "0%");
+                safeSetWidth('idx-bar-tac', "0%");
+                safeSetWidth('idx-bar-safe', "0%");
 
                 // Animate Bars
                 setTimeout(() => {
@@ -960,7 +987,7 @@
                     
                     safeSetWidth('idx-bar-safe', data.best_match.safe_score + "%");
                     safeSetText('idx-bar-safe-val', data.best_match.safe_score.toFixed(0) + "%");
-                }, 100);
+                }, 300);
 
                 // Runners Up
                 safeSetText('idx-ru1-name', data.runner_up_1.name);
@@ -976,10 +1003,9 @@
             console.error(e);
             alert("Error: " + e.stack);
         } finally {
-            btn.innerText = originalText;
+            btn.innerText = "RECALCULATE OPTIMIZATION";
             btn.style.opacity = "1";
         }
-    }
 </script>
 
 <script>

@@ -1049,7 +1049,23 @@
             safeSetText('raq-bh', bhVal);
         }
         
+        
         try {
+            // --- THE LABOR ILLUSION UX ---
+            const steps = [
+                "ANALYZING BIOMETRICS...",
+                "CALCULATING TORSIONAL STABILITY...",
+                "SIMULATING KINETIC CHAIN...",
+                "EVALUATING PARETO FRONTIER...",
+                "ISOLATING OPTIMAL FRAME..."
+            ];
+            
+            for (let i = 0; i < steps.length; i++) {
+                btn.innerText = steps[i];
+                await new Promise(r => setTimeout(r, 700)); 
+            }
+            // -----------------------------
+
             const data = computeRaqGenLocal({
                 height: heightStr,
                 weight: weightStr,
@@ -1060,15 +1076,26 @@
             });
             
             if (data.success) {
-                document.getElementById('raqgen-result').style.display = 'block';
+                let resDiv = document.getElementById('raqgen-result');
+                resDiv.style.display = 'block';
+                // smooth scroll down to it
+                resDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 
                 // Best Match
+                safeSetText('raqgen-name', data.best_match.name);
+                // Also support profile.html naming diff
                 safeSetText('raqgen-racket-name', data.best_match.name);
+                
                 safeSetText('raqgen-score', data.best_match.score.toFixed(1) + "%");
                 safeSetText('raqgen-weight', data.best_match.specs.weight + "g");
                 safeSetText('raqgen-sw', data.best_match.specs.sw);
-                safeSetText('raqgen-ra', `${data.best_match.specs.ra} (Dyn: ${data.best_match.specs.dynamic}Hz)`);
+                safeSetText('raqgen-ra', data.best_match.specs.ra + ' (Dyn: ' + data.best_match.specs.dynamic + 'Hz)');
                 safeSetText('raqgen-pattern', data.best_match.specs.pattern);
+
+                // Reset bars first for animation
+                safeSetWidth('bar-bio', "0%");
+                safeSetWidth('bar-tac', "0%");
+                safeSetWidth('bar-safe', "0%");
 
                 // Animate Bars
                 setTimeout(() => {
@@ -1080,7 +1107,7 @@
                     
                     safeSetWidth('bar-safe', data.best_match.safe_score + "%");
                     safeSetText('bar-safe-val', data.best_match.safe_score.toFixed(0) + "%");
-                }, 100);
+                }, 300);
 
                 // Runners Up
                 safeSetText('ru1-name', data.runner_up_1.name);
@@ -1089,7 +1116,6 @@
                 safeSetText('ru2-name', data.runner_up_2.name);
                 safeSetText('ru2-score', data.runner_up_2.score.toFixed(1) + "%");
 
-                document.getElementById('raqgen-result').scrollIntoView({ behavior: 'smooth' });
             } else {
                 alert("RaQGeN computation failed.");
             }
@@ -1097,10 +1123,9 @@
             console.error(e);
             alert("Error: " + e.stack);
         } finally {
-            btn.innerText = originalText;
+            btn.innerText = "RECALCULATE OPTIMIZATION";
             btn.style.opacity = "1";
         }
-    }
 
     // Dynamic Field Hiding based on UTR
     function handleUtrChange() {
