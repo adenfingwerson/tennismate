@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Log In - TennistMate</title>
+    <style>
+        /* ===== Minimalist Editorial / Brutalist Architecture ===== */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+
+        :root {
+            --bg: #ffffff;
+            --text: #000000;
+            --text-muted: #666666;
+            --border: #e5e5e5;
+            --border-dark: #000000;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            color: var(--text);
+            background-color: #f9fafb; /* Slightly off-white to make the card pop */
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Nav */
+        nav {
+            padding: 24px 24px;
+            background: var(--bg);
+            border-bottom: 2px solid var(--border-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.04em;
+            font-size: 1.25rem;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        /* Polymarket-style Centered Auth Card */
+        .auth-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .auth-card {
+            background: var(--bg);
+            width: 100%;
+            max-width: 440px;
+            border: 4px solid var(--border-dark);
+            padding: 40px 32px;
+            box-shadow: 12px 12px 0 var(--border-dark);
+            text-align: center;
+        }
+
+        .auth-card h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+
+        .auth-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 32px;
+            font-weight: 500;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 24px;
+        }
+
+        .input-label {
+            display: block;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+        }
+
+        .tm-input {
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            padding: 16px;
+            border: 2px solid var(--border-dark);
+            background: #f9fafb;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-radius: 0; /* Brutalist sharp edges */
+        }
+
+        .tm-input:focus {
+            outline: none;
+            background: var(--bg);
+            box-shadow: inset 0 0 0 2px var(--border-dark);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 1.1rem;
+            border: 2px solid var(--border-dark);
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--text);
+            color: var(--bg);
+            margin-bottom: 16px;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--text-muted);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .btn-secondary:hover {
+            background-color: #f3f4f6;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 24px 0;
+            color: var(--border-dark);
+            font-weight: 900;
+            font-size: 0.85rem;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 2px solid var(--border-dark);
+        }
+
+        .divider span {
+            padding: 0 16px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/" class="logo">Tennis T-Mate</a>
+        <a href="/" style="font-weight: 700; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; text-transform: uppercase;">&larr; Back to Home</a>
+    </nav>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <h1>Access Profile</h1>
+            <p>Log in or register to view your personalized AI tactical breakdown and lesson history.</p>
+
+            <div class="input-group">
+                <label class="input-label">Email Address</label>
+                <input type="email" class="tm-input" placeholder="player@example.com">
+            </div>
+
+            <button class="btn btn-primary" onclick="simulateLogin()">Continue with Email</button>
+            
+            <div class="divider"><span>OR</span></div>
+
+            <button class="btn btn-secondary" onclick="simulateLogin()">
+                <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                Continue with Google
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function simulateLogin() {
+            // In a real app, this would hit Supabase or Cloudflare Auth.
+            // For now, it just routes them to the profile page.
+            window.location.href = '/profile.html';
+        }
+    </script>
+</body>
+</html>
