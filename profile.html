@@ -483,15 +483,15 @@
                 </div>
                 <div class="stat-row">
                     <span class="stat-label">Current UTR</span>
-                    <select class="tm-select">
-                        <option>1.0 - 3.0 (Middle School / JV)</option>
-                        <option>4.0 - 6.0 (Varsity / Intermediate)</option>
-                        <option selected>7.0 - 8.0 (Advanced)</option>
-                        <option>9.0 - 11.0 (High-Level Competitive)</option>
-                        <option>12.0+ (Elite / Pro)</option>
+                    <select class="tm-select" id="utr-select" onchange="handleUtrChange()">
+                        <option value="beginner">1.0 - 4.5 (Beginner / JV)</option>
+                        <option value="intermediate">4.5 - 6.5 (Varsity / Intermediate)</option>
+                        <option value="advanced" selected>7.0 - 8.5 (Advanced)</option>
+                        <option value="competitive">9.0 - 11.0 (High-Level Competitive)</option>
+                        <option value="elite">11.5+ (Elite / Pro)</option>
                     </select>
                 </div>
-                <div class="stat-row">
+                <div class="stat-row technical-field">
                     <span class="stat-label">Racquet</span>
                     <input type="text" class="tm-input" value="HEAD Gravity Tour 98" placeholder="e.g. Babolat Pure Drive">
                 </div>
@@ -510,7 +510,7 @@
             <!-- Forehand -->
             <div class="data-card">
                 <h3>Forehand Mechanics</h3>
-                <div class="stat-row">
+                <div class="stat-row technical-field">
                     <span class="stat-label">Grip</span>
                     <select class="tm-select">
                         <option>Eastern (Flatter, classic style)</option>
@@ -519,7 +519,7 @@
                         <option>Continental (Slices & volleys)</option>
                     </select>
                 </div>
-                <div class="stat-row">
+                <div class="stat-row technical-field">
                     <span class="stat-label">Contact Point</span>
                     <select class="tm-select">
                         <option>Dropping / Late (Heavy looping spin)</option>
@@ -616,6 +616,20 @@
         document.getElementById(tabId).classList.add('active');
         event.currentTarget.classList.add('active');
     }
+
+    // Dynamic Field Hiding based on UTR
+    function handleUtrChange() {
+        const utrSelect = document.getElementById('utr-select');
+        const isBeginner = utrSelect.value === 'beginner';
+        const techFields = document.querySelectorAll('.technical-field');
+        
+        techFields.forEach(field => {
+            field.style.display = isBeginner ? 'none' : 'flex';
+        });
+    }
+
+    // Run once on load to set initial state
+    document.addEventListener('DOMContentLoaded', handleUtrChange);
 
     // Lead Capture Unlock Logic
     function unlockContent() {
