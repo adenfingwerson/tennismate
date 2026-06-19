@@ -497,26 +497,28 @@
                 <h3>Baseline Metrics</h3>
                 <div class="stat-row">
                     <span class="stat-label">Institution/School</span>
-                    <input type="text" class="tm-input" value="Hastings College" placeholder="e.g. West High School">
+                    <input type="text" class="tm-input" value="" placeholder="e.g. West High School">
                 </div>
                 <div class="stat-row">
                     <span class="stat-label">Current UTR</span>
                     <select class="tm-select" id="utr-select" onchange="handleUtrChange()">
+                        <option value="" disabled selected>Select UTR...</option>
                         <option value="beginner">1.0 - 4.5 (Developing / Lower Intermediate)</option>
                         <option value="intermediate">4.5 - 6.5 (Varsity / Intermediate)</option>
-                        <option value="advanced" selected>7.0 - 8.5 (Advanced)</option>
+                        <option value="advanced">7.0 - 8.5 (Advanced)</option>
                         <option value="competitive">9.0 - 11.0 (High-Level Competitive)</option>
                         <option value="elite">11.5+ (Elite / Pro)</option>
                     </select>
                 </div>
                 <div class="stat-row technical-field">
                     <span class="stat-label">Racquet</span>
-                    <input type="text" class="tm-input" value="HEAD Gravity Tour 98" placeholder="e.g. Babolat Pure Drive">
+                    <input type="text" class="tm-input" value="" placeholder="e.g. Babolat Pure Drive">
                 </div>
                 <div class="stat-row">
                     <span class="stat-label">Play Style</span>
                     <select class="tm-select">
-                        <option selected>Aggressive Baseliner (Dictates with power)</option>
+                        <option value="" disabled selected>Select Style...</option>
+                        <option>Aggressive Baseliner (Dictates with power)</option>
                         <option>Counter-Puncher (Uses opponent's pace)</option>
                         <option>All-Court Player (Comfortable anywhere)</option>
                         <option>Serve & Volley (Attacks the net)</option>
@@ -531,17 +533,19 @@
                 <div class="stat-row technical-field">
                     <span class="stat-label">Grip</span>
                     <select class="tm-select">
+                        <option value="" disabled selected>Select Grip...</option>
                         <option>Eastern (Flatter, classic style)</option>
                         <option>Semi-Western (Modern power & spin)</option>
-                        <option selected>Western (Heavy topspin & high balls)</option>
+                        <option>Western (Heavy topspin & high balls)</option>
                         <option>Continental (Slices & volleys)</option>
                     </select>
                 </div>
                 <div class="stat-row technical-field">
                     <span class="stat-label">Contact Point</span>
                     <select class="tm-select">
+                        <option value="" disabled selected>Select Contact...</option>
                         <option>Dropping / Late (Heavy looping spin)</option>
-                        <option selected>Early / On the Rise (Takes time away)</option>
+                        <option>Early / On the Rise (Takes time away)</option>
                         <option>Peak of Bounce (Standard strike)</option>
                     </select>
                 </div>
