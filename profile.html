@@ -641,13 +641,11 @@
         <div class="tactical-card" style="background: var(--bg); margin-bottom: 24px;">
             <h3>Coaching Feed</h3>
             <p style="margin-bottom: 24px;">Raw notes from your recent court sessions.</p>
-            <div style="border-left: 4px solid var(--border-dark); padding-left: 16px; margin-bottom: 24px;">
-                <span class="kicker">June 18, 2026</span>
-                <p style="color: var(--text); font-weight: 500;">- Focused heavily on early contact point for the forehand.<br>- Assigned specific footwork drills to maintain spacing when tired.<br>- <strong>Homework:</strong> 100 shadow swings emphasizing the "EARLY" cue word.</p>
-            </div>
-            <div style="border-left: 4px solid var(--border-dark); padding-left: 16px;">
-                <span class="kicker">June 10, 2026</span>
-                <p style="color: var(--text); font-weight: 500;">- Serve mechanic breakdown.<br>- Worked on kick serve targeting the body jam zone.</p>
+            <div id="user-lesson-feed">
+                <!-- Lessons will be injected here via JS. Below is the empty state. -->
+                <div style="border: 2px dashed var(--border); padding: 24px; text-align: center; color: var(--text-muted); font-weight: 500;">
+                    No lessons logged yet. Check back after your first session on the court.
+                </div>
             </div>
         </div>
 
@@ -685,11 +683,11 @@
                     <h3>Tactical & Mental Framework</h3>
                     <div class="stat-row">
                         <span class="stat-label">A-Game Pattern</span>
-                        <input type="text" class="tm-input" disabled value="Serve disrupts -> BH redirect -> FH finish" style="width: 100%; max-width: 100%; text-align: left;">
+                        <input type="text" class="tm-input" disabled value="[Awaiting AI Analysis]" style="width: 100%; max-width: 100%; text-align: left; color: var(--text-muted);">
                     </div>
                     <div class="stat-row">
                         <span class="stat-label">Vulnerability Breakdown</span>
-                        <input type="text" class="tm-input" disabled value="Fatigue causing late contact -> net errors" style="width: 100%; max-width: 100%; text-align: left;">
+                        <input type="text" class="tm-input" disabled value="[Awaiting AI Analysis]" style="width: 100%; max-width: 100%; text-align: left; color: var(--text-muted);">
                     </div>
                 </div>
             </div>
