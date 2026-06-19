@@ -369,7 +369,7 @@
                 if(data.success) {
                     const out = document.getElementById('ai-output');
                     out.style.display = 'block';
-                    out.innerText = data.ai_plan;
+                    out.innerHTML = `<strong>FOCUS:</strong> ${data.ai_plan.core_focus}<br><br><strong>CUES:</strong><br>- ${data.ai_plan.mechanical_cues.join('<br>- ')}<br><br><strong>RULE:</strong> ${data.ai_plan.tactical_rule}`;
                 } else {
                     alert('AI Error: ' + data.error);
                 }
