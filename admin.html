@@ -3,218 +3,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>God Mode Control Panel | Tennis T-Mate</title>
+    <title>Coach Admin Portal - TennistMate</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&display=swap');
-        
+        /* Brutalist / Minimalist Admin Theme */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+
         :root {
-            --bg: #050505;
-            --surface: #111111;
-            --border: #222222;
-            --text: #eeeeee;
-            --accent: #E1FF00; /* Optic Yellow */
-            --danger: #ff3333;
+            --bg: #ffffff;
+            --text: #000000;
+            --border: #000000;
+            --accent: #ccff00;
         }
 
         body {
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg);
             color: var(--text);
-            font-family: 'JetBrains Mono', monospace;
             margin: 0;
             padding: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
         }
 
-        .panel {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            width: 100%;
-            max-width: 800px;
-            padding: 40px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        h1 {
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 3rem;
             margin-bottom: 40px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 20px;
+            border-bottom: 4px solid var(--border);
+            padding-bottom: 16px;
         }
 
-        h1 { margin: 0; font-size: 1.5rem; letter-spacing: -0.05em; color: var(--accent); }
-        .status { font-size: 0.8rem; color: #666; display: flex; align-items: center; gap: 8px; }
-        .status-dot { width: 8px; height: 8px; background: #00ff00; border-radius: 50%; box-shadow: 0 0 10px #00ff00; }
-
-        .system-grid {
+        .admin-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+        }
+
+        .roster-panel {
+            border: 2px solid var(--border);
+            padding: 20px;
+            height: calc(100vh - 160px);
+            overflow-y: auto;
+            background: #f9fafb;
+        }
+
+        .roster-title {
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        .player-card {
+            padding: 16px;
+            border: 2px solid var(--border);
+            margin-bottom: 12px;
+            cursor: pointer;
+            background: var(--bg);
+            transition: all 0.2s;
+        }
+
+        .player-card:hover, .player-card.active {
+            background: var(--accent);
+            transform: translateX(4px);
+            box-shadow: -4px 4px 0 var(--border);
+        }
+
+        .player-name {
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+        
+        .player-email {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .lesson-panel {
+            border: 2px solid var(--border);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
             gap: 24px;
         }
 
-        .card {
-            background: #0a0a0a;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 24px;
-            position: relative;
-            overflow: hidden;
+        .panel-header {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 16px;
         }
 
-        .card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-            background: var(--border); transition: background 0.3s;
+        .tm-textarea {
+            width: 100%;
+            height: 300px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            padding: 16px;
+            border: 2px solid var(--border);
+            background: #f9fafb;
+            resize: vertical;
         }
 
-        .card:hover::before { background: var(--accent); }
-
-        h2 { font-size: 1.1rem; margin: 0 0 16px 0; }
-        p { font-size: 0.85rem; color: #888; line-height: 1.5; margin-bottom: 16px; }
-
-        textarea {
-            width: 100%; height: 140px; background: #000; border: 1px solid var(--border);
-            color: var(--text); padding: 12px; font-family: inherit; font-size: 0.85rem;
-            margin-bottom: 16px; border-radius: 4px; resize: vertical; box-sizing: border-box;
+        .tm-textarea:focus {
+            outline: none;
+            background: var(--bg);
+            box-shadow: 4px 4px 0 var(--border);
         }
-        
-        textarea:focus { outline: none; border-color: var(--accent); }
 
         .btn {
-            display: block; width: 100%; background: transparent; border: 1px solid var(--accent);
-            color: var(--accent); padding: 12px; text-align: center; font-family: inherit;
-            font-weight: 700; cursor: pointer; border-radius: 4px; transition: all 0.2s;
-            text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.85rem;
-            margin-top: auto;
+            background-color: var(--text);
+            color: var(--bg);
+            padding: 16px 32px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 2px solid var(--border);
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
         }
 
-        .btn:hover { background: var(--accent); color: var(--bg); }
-        .btn:disabled { border-color: var(--border); color: #555; cursor: not-allowed; }
-        
-        .btn-download { background: var(--text); color: var(--bg); border-color: var(--text); margin-top: 12px; }
-        .btn-download:hover { background: transparent; color: var(--text); }
-
-        .log-window {
-            margin-top: 32px; background: #000; border: 1px solid var(--border);
-            border-radius: 6px; padding: 16px; font-size: 0.8rem; color: #00ff00;
-            height: 150px; overflow-y: auto;
+        .btn:hover {
+            background-color: var(--accent);
+            color: var(--text);
         }
     </style>
 </head>
 <body>
 
-    <div class="panel">
-        <div class="header">
-            <h1>GOD MODE :: CONTROL</h1>
-            <div class="status"><div class="status-dot"></div> ADMIN: aden.f.ingwerson</div>
-        </div>
+    <h1>Coach Admin Portal</h1>
 
-        <div class="system-grid">
-            <!-- System 1: The Brain -->
-            <div class="card">
-                <h2>System 1: The Brain</h2>
-                <p>Paste your viral scripts from Twin.so below. The Brain will format them for the Factory.</p>
-                <textarea id="twin-scripts" placeholder="Paste your Twin.so scripts here (separated by blank lines)..."></textarea>
-                <button class="btn" id="btn-brain" onclick="turnOnBrain()">1. Synthesize Payload</button>
-                <button class="btn btn-download" id="btn-activator" style="display:none;" onclick="downloadActivator()">2. Download Activator</button>
-            </div>
-
-            <!-- System 2 & 3: The Factory Key -->
-            <div class="card">
-                <h2>System 2: The Factory Key</h2>
-                <p>Drop the downloaded Activator file into your local <code>Keyhole</code> folder on your Mac. The local daemon will automatically render the videos and push them to Buffer.</p>
-                <button class="btn" disabled>Awaiting Activator Drop...</button>
+    <div class="admin-grid" id="auth-guard" style="display: none;">
+        
+        <!-- Sidebar: Player Roster -->
+        <div class="roster-panel">
+            <div class="roster-title">Player Roster</div>
+            <div id="roster-list">
+                <!-- Players injected here by JS -->
+                Loading players...
             </div>
         </div>
 
-        <div class="log-window" id="logs">
-            > Welcome, Aden.<br>
-            > Systems online. Waiting for command...<br>
+        <!-- Main Area: Log Lesson -->
+        <div class="lesson-panel" id="lesson-workspace" style="opacity: 0.5; pointer-events: none;">
+            <div class="panel-header">
+                <h2 id="active-player-name">Select a player</h2>
+                <input type="date" id="lesson-date" style="padding: 8px; border: 2px solid #000; font-family: Inter;">
+            </div>
+
+            <div>
+                <label style="font-weight: 900; text-transform: uppercase; display: block; margin-bottom: 8px;">Raw Notebook Dump</label>
+                <textarea class="tm-textarea" id="lesson-notes" placeholder="Paste your raw notes from the court here..."></textarea>
+            </div>
+
+            <button class="btn" onclick="saveLesson()">Log Session to Database</button>
+
+            <!-- Automation trigger (future) -->
+            <button class="btn" style="background: var(--accent); color: var(--text); margin-top: -8px;" onclick="generateAiPlan()">
+                Generate AI Tactical Plan &rarr;
+            </button>
         </div>
+
     </div>
 
     <script>
-        let generatedScripts = [];
+        let selectedUserId = null;
 
-        function log(msg) {
-            const logs = document.getElementById('logs');
-            logs.innerHTML += `> ${msg}<br>`;
-            logs.scrollTop = logs.scrollHeight;
-        }
-
-        function turnOnBrain() {
-            const input = document.getElementById('twin-scripts').value.trim();
-            if (!input) {
-                log("ERROR: No scripts detected. Please paste Twin.so output first.");
+        // Security check - rough frontend gate (API enforces strictly)
+        document.addEventListener('DOMContentLoaded', async () => {
+            const email = localStorage.getItem('tm_user_email');
+            if(email !== 'aden.f.ingwerson@gmail.com') {
+                document.body.innerHTML = '<h1 style="text-align:center; margin-top:20vh;">Unauthorized. Coach access only.</h1>';
                 return;
             }
+            document.getElementById('auth-guard').style.display = 'grid';
+            document.getElementById('lesson-date').valueAsDate = new Date();
+            loadRoster();
+        });
 
-            log("Parsing Twin.so output...");
-            const btn = document.getElementById('btn-brain');
-            btn.innerText = "Processing...";
-            btn.disabled = true;
-
-            // Split by double newline
-            let chunks = input.split(/
-\s*
-/);
-            
-            // If that didn't work, try splitting by numbers (1., 2., etc)
-            if (chunks.length === 1) {
-                chunks = input.split(/(?:^|
-)\d+\.\s*/).filter(c => c.trim().length > 0);
-            }
-
-            // Clean up and format into the final JSON structure
-            generatedScripts = chunks.map((chunk, index) => {
-                const text = chunk.trim().replace(/^["']|["']$/g, ''); // strip quotes
-                const num = String(index + 1).padStart(2, '0');
+        async function loadRoster() {
+            try {
+                const res = await fetch('/api/admin/roster');
+                const data = await res.json();
                 
-                // Create a filename from the first 3 words
-                let title = text.split(/\s+/).slice(0, 3).join('_').replace(/[^a-zA-Z0-9_]/g, '');
-                if (!title) title = "Script";
+                const rosterList = document.getElementById('roster-list');
+                rosterList.innerHTML = '';
 
-                return {
-                    "filename": `${num}_${title}`,
-                    "text": text
-                };
-            }).filter(s => s.text.length > 5);
-
-            setTimeout(() => {
-                log(`Successfully parsed ${generatedScripts.length} scripts from input.`);
-                log("Activator Payload synthesized.");
-                btn.innerText = "Payload Ready";
-                document.getElementById('btn-activator').style.display = 'block';
-            }, 600);
+                data.users.forEach(user => {
+                    const div = document.createElement('div');
+                    div.className = 'player-card';
+                    div.innerHTML = `
+                        <div class="player-name">${user.email.split('@')[0]}</div>
+                        <div class="player-email">${user.email}</div>
+                    `;
+                    div.onclick = () => selectPlayer(user.id, user.email, div);
+                    rosterList.appendChild(div);
+                });
+            } catch (e) {
+                document.getElementById('roster-list').innerHTML = 'Error loading roster.';
+            }
         }
 
-        function downloadActivator() {
-            log("Downloading Activator Payload...");
+        function selectPlayer(id, email, cardElement) {
+            selectedUserId = id;
+            document.getElementById('active-player-name').innerText = email;
             
-            const payload = {
-                "batch_id": "TENNIS_BATCH_" + Date.now(),
-                "scripts": generatedScripts
-            };
+            // Unlock workspace
+            document.getElementById('lesson-workspace').style.opacity = '1';
+            document.getElementById('lesson-workspace').style.pointerEvents = 'auto';
 
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload, null, 2));
-            const dlAnchorElem = document.createElement('a');
-            dlAnchorElem.setAttribute("href", dataStr);
-            dlAnchorElem.setAttribute("download", "ACTIVATOR.json");
-            dlAnchorElem.click();
+            // Highlight card
+            document.querySelectorAll('.player-card').forEach(c => c.classList.remove('active'));
+            cardElement.classList.add('active');
+        }
 
-            log("ACTION REQUIRED: Move ACTIVATOR.json from Downloads to your local Factory Keyhole folder.");
+        async function saveLesson() {
+            if(!selectedUserId) return;
             
-            // Reset state
-            document.getElementById('btn-brain').innerText = "1. Synthesize Payload";
-            document.getElementById('btn-brain').disabled = false;
-            document.getElementById('twin-scripts').value = "";
-            document.getElementById('btn-activator').style.display = "none";
+            const date = document.getElementById('lesson-date').value;
+            const notes = document.getElementById('lesson-notes').value;
+
+            try {
+                const res = await fetch('/api/admin/lessons', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_id: selectedUserId,
+                        lesson_date: date,
+                        raw_notes: notes
+                    })
+                });
+
+                if(res.ok) {
+                    alert('Lesson logged to database!');
+                    document.getElementById('lesson-notes').value = '';
+                }
+            } catch(e) {
+                alert('Error saving lesson.');
+            }
+        }
+
+        function generateAiPlan() {
+            alert('AI Engine not yet wired. This will pull the player profile and your raw notes, run it through Claude/GPT, and spit out a tactical blueprint directly into their locked profile.');
         }
     </script>
 </body>
