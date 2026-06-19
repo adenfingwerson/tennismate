@@ -524,10 +524,26 @@
         <div class="badge">TennistMate PRO</div>
     </div>
 
+    <!-- TM8 T00LS EXPANDABLE SECTION -->
+    <div style="width: 100%; max-width: 1000px; margin: 0 auto 20px auto; background: var(--bg); border: 2px solid var(--border-dark); border-radius: 12px; overflow: hidden;">
+        <details style="padding: 0;">
+            <summary style="padding: 15px 20px; font-size: 1.2rem; font-weight: 900; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid transparent;">
+                <span>âš¡ï¸Ž TM8 T00LS</span>
+                <span style="font-size: 0.8rem; background: var(--border-dark); color: #fff; padding: 4px 8px; border-radius: 12px;">Expand</span>
+            </summary>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; padding: 20px; background: #fafafa; border-top: 2px dashed var(--border-dark);">
+                <button class="tm-btn" style="width: 100%; text-align: left; padding: 15px;">ðŸ‘¤ Profiles</button>
+                <button class="tm-btn" style="width: 100%; text-align: left; padding: 15px; background: #000; color: #ccff00; border-color: #000;">ðŸ”§ Tools (RaQGeN Brain)</button>
+                <button class="tm-btn" style="width: 100%; text-align: left; padding: 15px;">ðŸ““ Journal</button>
+            </div>
+        </details>
+    </div>
+
     <!-- TABS NAVIGATION -->
     <div class="tabs">
         <button class="tab-btn active" onclick="switchTab('tab-stats')">Player Stats</button>
         <button class="tab-btn" onclick="switchTab('tab-lessons')">🔒 Coaching & AI Plans</button>
+        <button class="tab-btn" onclick="switchTab('tab-tools')">⚡ TM8 T00LS</button>
     </div>
 
     <!-- TAB 1: PLAYER STATS (PUBLIC / EDITABLE) -->
@@ -756,6 +772,79 @@
 
         </div>
     </div>
+
+    <!-- TAB 3: TM8 T00LS (RaQGeN) -->
+    <div id="tab-tools" class="tab-content">
+        <div class="tactical-card" style="background: var(--bg); margin-bottom: 24px; border: 2px solid var(--border-dark);">
+            <h3>⚡ RaQGeN</h3>
+            <p style="margin-bottom: 24px; color: var(--text-muted); font-size: 0.9rem;">
+                A.I. Personalized Racket Recommendation Software. Physics-based, zero-BS algorithm leveraging your biological data and mechanics to find the absolute optimal frame.
+            </p>
+            
+            <div class="grid-layout" style="margin-bottom: 24px;">
+                <div class="data-card" style="background: #f9f9f9;">
+                    <h4 style="margin-bottom: 16px;">Biomechanical Profile</h4>
+                    <div class="stat-row">
+                        <span class="stat-label">Height Constraint</span>
+                        <span class="stat-value" id="raq-height">Auto-Linked</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Weight Class</span>
+                        <span class="stat-value" id="raq-weight">Auto-Linked</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Wingspan Ratio</span>
+                        <span class="stat-value" id="raq-wingspan">Auto-Linked</span>
+                    </div>
+                </div>
+                
+                <div class="data-card" style="background: #f9f9f9;">
+                    <h4 style="margin-bottom: 16px;">Swing Dynamics</h4>
+                    <div class="stat-row">
+                        <span class="stat-label">Forehand Grip</span>
+                        <span class="stat-value" id="raq-grip">Auto-Linked</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Backhand Type</span>
+                        <span class="stat-value" id="raq-bh">Auto-Linked</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Target Playstyle</span>
+                        <span class="stat-value" id="raq-style">Auto-Linked</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="tm-btn" style="width: 100%; font-size: 1.1rem; padding: 16px; background-color: var(--text); color: var(--bg);" onclick="generateRaqGen()">
+                INITIALIZE RAQGEN ALGORITHM
+            </button>
+            
+            <div id="raqgen-result" style="display: none; margin-top: 32px; padding: 24px; border-top: 2px solid var(--border-dark);">
+                <h3 style="margin-bottom: 8px;">Optimal Frame Matrix</h3>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 24px;">Mahalanobis Distance & Intent-Filtered Consensus applied.</p>
+                
+                <div style="display: flex; gap: 16px; align-items: flex-start;">
+                    <div style="flex: 1;">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 4px;" id="raqgen-racket-name">Calculating...</h4>
+                        <p style="font-size: 0.9rem; margin-bottom: 16px;">Match Score: <span style="font-weight: 900;" id="raqgen-score">--%</span></p>
+                        
+                        <div class="stat-row" style="padding: 8px 0; border-bottom: 1px solid #eee;">
+                            <span class="stat-label">Target Strung Weight</span>
+                            <span class="stat-value" id="raqgen-weight">--g</span>
+                        </div>
+                        <div class="stat-row" style="padding: 8px 0; border-bottom: 1px solid #eee;">
+                            <span class="stat-label">Swingweight Constraint</span>
+                            <span class="stat-value" id="raqgen-sw">--</span>
+                        </div>
+                        <div class="stat-row" style="padding: 8px 0; border-bottom: 1px solid #eee;">
+                            <span class="stat-label">Ideal Stiffness (RA)</span>
+                            <span class="stat-value" id="raqgen-ra">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -765,6 +854,75 @@
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
         event.currentTarget.classList.add('active');
+    }
+
+    // RaQGeN Integration
+    async function generateRaqGen() {
+        const btn = event.currentTarget;
+        const originalText = btn.innerText;
+        btn.innerText = "CALCULATING MATRICES...";
+        btn.style.opacity = "0.7";
+        
+        // Sync values visually
+        const inputs = document.querySelectorAll('#tab-stats .tm-input, #tab-stats .tm-select');
+        let heightStr = '72';
+        let weightStr = '160';
+        let wingspanStr = '72';
+        let styleVal = 'All-Court Player';
+        let gripVal = 'Semi-Western';
+        let bhVal = 'Two-Handed';
+
+        if (inputs.length >= 8) {
+            heightStr = inputs[0].value || '72';
+            weightStr = inputs[1].value || '160';
+            wingspanStr = inputs[2].value || '72';
+            styleVal = inputs[3].value || 'All-Court Player';
+            gripVal = inputs[4].value || 'Semi-Western';
+            bhVal = inputs[5].value || 'Two-Handed';
+
+            document.getElementById('raq-height').innerText = heightStr + '"';
+            document.getElementById('raq-weight').innerText = weightStr + ' lbs';
+            document.getElementById('raq-wingspan').innerText = wingspanStr + '"';
+            document.getElementById('raq-style').innerText = styleVal;
+            document.getElementById('raq-grip').innerText = gripVal;
+            document.getElementById('raq-bh').innerText = bhVal;
+        }
+        
+        try {
+            const res = await fetch('/api/raqgen', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    height: heightStr,
+                    weight: weightStr,
+                    wingspan: wingspanStr,
+                    style: styleVal,
+                    grip: gripVal,
+                    bh: bhVal
+                })
+            });
+            
+            const data = await res.json();
+            
+            if (data.success) {
+                document.getElementById('raqgen-result').style.display = 'block';
+                document.getElementById('raqgen-racket-name').innerText = data.best_match.name;
+                document.getElementById('raqgen-score').innerText = data.best_match.score;
+                document.getElementById('raqgen-weight').innerText = data.best_match.specs.weight;
+                document.getElementById('raqgen-sw').innerText = data.best_match.specs.sw;
+                document.getElementById('raqgen-ra').innerText = `${data.best_match.specs.ra} (Dynamic: ${data.best_match.specs.dynamic}Hz)`;
+                
+                document.getElementById('raqgen-result').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                alert("RaQGeN computation failed.");
+            }
+        } catch(e) {
+            console.error(e);
+            alert("Error connecting to RaQGeN Matrix Engine.");
+        } finally {
+            btn.innerText = originalText;
+            btn.style.opacity = "1";
+        }
     }
 
     // Dynamic Field Hiding based on UTR
