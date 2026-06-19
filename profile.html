@@ -554,24 +554,26 @@
             background: var(--accent); border: 3px solid var(--text); 
             border-radius: 50%; animation: subtlePulse 2s infinite;
         }
-        .btn-brutalist-tab {
+        \.btn-brutalist-tab {
             width: 100%; text-align: left; padding: 20px; 
-            background: #f4f4f4; color: var(--text); 
+            background: linear-gradient(135deg, #ccff00 0%, #aadd00 100%); 
+            color: var(--text); 
             border: 3px solid var(--border-dark); font-size: 1.1rem; 
             font-weight: 900; text-transform: uppercase; letter-spacing: 1px;
             display: flex; justify-content: space-between; align-items: center; 
-            cursor: pointer; transition: all 0.1s ease;
+            cursor: pointer; transition: all 0.15s ease;
+            box-shadow: 4px 4px 0px var(--border-dark);
         }
         .btn-brutalist-tab:hover {
-            background: #e5e5e5;
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px var(--border-dark);
+            background: linear-gradient(135deg, #d4ff33 0%, #b8e600 100%);
         }
         .btn-brutalist-tab.active {
             background: var(--text);
-            color: var(--bg);
-        }
-        .btn-brutalist-tab.active-accent {
-            background: var(--accent);
-            color: var(--text);
+            color: var(--accent);
+            box-shadow: 2px 2px 0px var(--border-dark);
+            transform: translate(2px, 2px);
         }
     </style>
     
@@ -587,21 +589,26 @@
                 </span>
             </summary>
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; padding: 32px; background: #fff; border-top: 4px solid var(--border-dark);">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 32px; background: #fff; border-top: 4px solid var(--border-dark);">
                 
                 <button class="btn-brutalist-tab tab-btn active" onclick="switchTab('tab-stats')">
-                    <span>Player Profile</span>
+                    <span>👤 Player Profile</span>
                     <span>→</span>
                 </button>
                 
                 <button class="btn-brutalist-tab tab-btn" onclick="switchTab('tab-lessons')">
-                    <span>Training Journal</span>
+                    <span>📓 Training Journal</span>
                     <span>→</span>
                 </button>
 
                 <button class="btn-brutalist-tab tab-btn" style="position: relative; overflow: hidden;" onclick="switchTab('tab-tools')">
                     <span style="position: absolute; top: -10px; left: -10px; width: 24px; height: 24px; background: var(--text);"></span>
-                    <span style="margin-left: 16px;">RaQGeN OS V.2</span>
+                    <span style="margin-left: 16px;">⚡ RaQGeN PRO</span>
+                    <span>→</span>
+                </button>
+
+                <button class="btn-brutalist-tab" onclick="window.location.href='/'">
+                    <span>📅 Book a Lesson</span>
                     <span>→</span>
                 </button>
 
@@ -853,7 +860,7 @@
             </div>
             
             <p style="margin-bottom: 32px; color: var(--text-muted); font-size: 1.1rem; font-weight: 500;">
-                Personalized Racket Recommendation Engine. Powered by TennisMate's Equations, OSINT data, and the Mahalanobis Distance Model.
+                Personalized Racket Recommendation Engine. Powered by TennisT-Mate's Equations, OSINT data, and the Mahalanobis Distance Model.
             </p>
             
             <div class="grid-layout" style="margin-bottom: 32px; gap: 24px;">
@@ -1055,18 +1062,22 @@
                 </span>
             </summary>
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; padding: 32px; background: #fff; border-top: 4px solid var(--border-dark);">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 32px; background: #fff; border-top: 4px solid var(--border-dark);">
                 <button class="btn-brutalist-tab tab-btn active" onclick="switchTab('tab-stats'); window.scrollTo(0, 0);">
-                    <span>Player Profile</span>
+                    <span>👤 Player Profile</span>
                     <span>→</span>
                 </button>
                 <button class="btn-brutalist-tab tab-btn" onclick="switchTab('tab-lessons'); window.scrollTo(0, 0);">
-                    <span>Training Journal</span>
+                    <span>📓 Training Journal</span>
                     <span>→</span>
                 </button>
                 <button class="btn-brutalist-tab tab-btn" style="position: relative; overflow: hidden;" onclick="switchTab('tab-tools'); window.scrollTo(0, 0);">
                     <span style="position: absolute; top: -10px; left: -10px; width: 24px; height: 24px; background: var(--text);"></span>
-                    <span style="margin-left: 16px;">RaQGeN OS V.2</span>
+                    <span style="margin-left: 16px;">⚡ RaQGeN PRO</span>
+                    <span>→</span>
+                </button>
+                <button class="btn-brutalist-tab" onclick="window.location.href='/'">
+                    <span>📅 Book a Lesson</span>
                     <span>→</span>
                 </button>
             </div>
