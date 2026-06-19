@@ -734,7 +734,7 @@
         handleUtrChange(); // set initial UI state
 
         // Check for Admin status to reveal hidden link
-        if (userEmail === 'aden.f.ingwerson@gmail.com') {
+        if (userEmail && userEmail.trim().toLowerCase() === 'aden.f.ingwerson@gmail.com') {
             const adminLink = document.getElementById('admin-link');
             if (adminLink) adminLink.style.display = 'inline-block';
         }

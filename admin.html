@@ -184,7 +184,7 @@
         // Security check - rough frontend gate (API enforces strictly)
         document.addEventListener('DOMContentLoaded', async () => {
             const email = localStorage.getItem('tm_user_email');
-            if(email !== 'aden.f.ingwerson@gmail.com') {
+            if(!email || email.trim().toLowerCase() !== 'aden.f.ingwerson@gmail.com') {
                 document.body.innerHTML = '<h1 style="text-align:center; margin-top:20vh;">Unauthorized. Coach access only.</h1>';
                 return;
             }

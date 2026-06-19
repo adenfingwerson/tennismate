@@ -450,7 +450,8 @@
 
     <script>
         // Check for Admin status to reveal hidden link
-        if (localStorage.getItem('tm_user_email') === 'aden.f.ingwerson@gmail.com') {
+        const tmUserEmail = localStorage.getItem('tm_user_email');
+        if (tmUserEmail && tmUserEmail.trim().toLowerCase() === 'aden.f.ingwerson@gmail.com') {
             const adminLink = document.getElementById('admin-link');
             if (adminLink) adminLink.style.display = 'inline-block';
         }
