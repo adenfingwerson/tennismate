@@ -500,11 +500,42 @@
     <nav>
         <div class="container">
             <div class="logo">Tennis T-Mate</div>
-            <div class="nav-links">
-                <a href="/admin.html" id="admin-link" style="display: none; color: #ccff00; border: 1px solid #ccff00; padding: 4px 12px; background: #000;">Coach Admin</a>
-                <a href="/login.html">Profile</a>
-                <a href="/blog/">Journal</a>
-                <a href="#" onclick="openModal(event)" class="btn">Book</a>
+            <div class="nav-links" style="position: relative; display: flex; align-items: center; gap: 1rem;">
+                <a href="/admin.html" id="admin-link" style="display: none; color: #000; border: 2px solid #000; padding: 6px 12px; background: #ccff00; text-decoration: none; font-weight: 900; text-transform: uppercase;">Admin</a>
+                
+                <details class="nav-dropdown" style="position: relative;">
+                    <style>
+                        .nav-dropdown summary::-webkit-details-marker { display: none; }
+                        .nav-dropdown[open] summary { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px var(--border-dark); }
+                        .tm8-nav-item {
+                            padding: 16px 20px; border-bottom: 2px solid var(--border-dark); text-decoration: none; color: var(--text); font-weight: 900; text-transform: uppercase; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; background: #fff; transition: background 0.15s ease;
+                        }
+                        .tm8-nav-item:hover { background: #f4f4f4; }
+                        .tm8-nav-item.accent { background: linear-gradient(135deg, #ccff00 0%, #aadd00 100%); border-bottom: none; }
+                        .tm8-nav-item.accent:hover { background: linear-gradient(135deg, #d4ff33 0%, #b8e600 100%); }
+                    </style>
+                    <summary style="list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 900; text-transform: uppercase; border: 3px solid var(--border-dark); padding: 10px 20px; background: #fff; box-shadow: 4px 4px 0px var(--border-dark); transition: transform 0.1s, box-shadow 0.1s; font-size: 0.9rem;" onmouseover="this.style.transform='translate(-2px, -2px)'; this.style.boxShadow='6px 6px 0px var(--border-dark)';" onmouseout="if(!this.parentElement.open){this.style.transform='translate(0, 0)'; this.style.boxShadow='4px 4px 0px var(--border-dark)';}">
+                        <span class="pulse-dot" style="width: 10px; height: 10px;"></span>
+                        TM8 T00LS <span style="font-size: 0.7rem; margin-left: 4px;">▼</span>
+                    </summary>
+                    <div style="position: absolute; top: calc(100% + 14px); right: 0; background: #fff; border: 4px solid var(--border-dark); box-shadow: 8px 8px 0px var(--border-dark); width: 280px; display: flex; flex-direction: column; z-index: 1000;">
+                        <a href="/profile.html?tab=stats" class="tm8-nav-item">
+                            <span>Player Profile</span><span>→</span>
+                        </a>
+                        <a href="/profile.html?tab=lessons" class="tm8-nav-item">
+                            <span>Coaching Notes</span><span>→</span>
+                        </a>
+                        <a href="/blog/" class="tm8-nav-item">
+                            <span>The Journal</span><span>→</span>
+                        </a>
+                        <a href="/index.html#raqgen" class="tm8-nav-item" onclick="document.querySelector('.raqgen-section').scrollIntoView({behavior: 'smooth'}); return false;">
+                            <span>RaQGeN Engine</span><span>→</span>
+                        </a>
+                        <a href="#" onclick="openModal(event)" class="tm8-nav-item accent">
+                            <span>Book a Lesson</span><span>→</span>
+                        </a>
+                    </div>
+                </details>
             </div>
         </div>
     </nav>
@@ -531,84 +562,7 @@
         </div>
     </section>
 
-    <!-- TM8 T00LS EXPANDABLE SECTION -->
-    <div class="container" style="position: relative; z-index: 10; margin-top: 0px; margin-bottom: 40px; max-width: 1000px;">
-        <style>
-            @keyframes subtlePulse {
-                0% { transform: scale(1); opacity: 1; }
-                50% { transform: scale(1.2); opacity: 0.8; }
-                100% { transform: scale(1); opacity: 1; }
-            }
-            .master-accordion {
-                background: #fff; border: 4px solid var(--border-dark); 
-                box-shadow: 8px 8px 0px var(--border-dark); 
-                transition: transform 0.15s ease, box-shadow 0.15s ease;
-            }
-            .master-accordion:hover {
-                transform: translate(-4px, -4px);
-                box-shadow: 12px 12px 0px var(--border-dark);
-            }
-            .master-summary {
-                padding: 20px 30px; font-size: 1.2rem; font-weight: 900; 
-                cursor: pointer; list-style: none; display: flex; 
-                justify-content: space-between; align-items: center; 
-                color: var(--text); text-transform: uppercase; letter-spacing: 1px;
-            }
-            .master-summary::-webkit-details-marker { display: none; }
-            .pulse-dot {
-                display: inline-block; width: 12px; height: 12px; 
-                background: var(--accent); border: 2px solid var(--text); 
-                border-radius: 50%; animation: subtlePulse 2s infinite;
-            }
-            .tm8-link {
-                text-decoration: none; color: #000; padding: 20px 30px; 
-                font-weight: 800; text-transform: uppercase; letter-spacing: 1px; 
-                display: flex; justify-content: space-between; align-items: center; 
-                transition: background 0.2s, padding-left 0.2s;
-                border-bottom: 2px solid #eee;
-                font-size: 0.95rem;
-            }
-            .tm8-link:hover {
-                background: #f9f9f9; padding-left: 35px;
-            }
-            .tm8-link.accent {
-                background: linear-gradient(135deg, #ccff00 0%, #aadd00 100%);
-                border-bottom: none;
-            }
-            .tm8-link.accent:hover {
-                background: linear-gradient(135deg, #d4ff33 0%, #b8e600 100%);
-            }
-        </style>
-        <div class="master-accordion">
-            <details style="padding: 0;">
-                <summary class="master-summary">
-                    <span style="display: flex; align-items: center; gap: 12px;">
-                        <span class="pulse-dot"></span>
-                        TM8 T00LS
-                    </span>
-                    <span style="font-size: 1.4rem; font-weight: 400;">+</span>
-                </summary>
-                
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); border-top: 4px solid var(--border-dark); background: #fff;">
-                    <a href="/profile.html?tab=stats" class="tm8-link" style="border-right: 2px solid #eee;">
-                        Player Profile <span>&rarr;</span>
-                    </a>
-                    <a href="/profile.html?tab=lessons" class="tm8-link" style="border-right: 2px solid #eee;">
-                        Coaching Notes <span>&rarr;</span>
-                    </a>
-                    <a href="/blog" class="tm8-link" style="border-right: 2px solid #eee;">
-                        The Journal <span>&rarr;</span>
-                    </a>
-                    <a href="#raqgen" class="tm8-link" style="border-right: 2px solid #eee;" onclick="document.querySelector('.raqgen-section').scrollIntoView({behavior: 'smooth'}); return false;">
-                        RaQGeN Engine <span>&rarr;</span>
-                    </a>
-                    <a href="#" onclick="openModal(event)" class="tm8-link accent">
-                        Book a Lesson <span>&rarr;</span>
-                    </a>
-                </div>
-            </details>
-        </div>
-    </div>
+    
 
     <section class="details-accordion" style="padding: 60px 0;">
         <div class="container" style="max-width: 800px;">
