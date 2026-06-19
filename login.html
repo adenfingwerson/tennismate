@@ -212,6 +212,14 @@
             <h1>Log in or Sign up</h1>
             <p>Access your AI profile and lesson history.</p>
 
+            
+            <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 24px; background: #f3f4f6; padding: 4px; border-radius: 12px;">
+                <button id="btn-player" style="flex: 1; padding: 10px; border-radius: 8px; border: none; background: var(--text); color: var(--bg); font-weight: 800; cursor: pointer; transition: 0.2s;">Player</button>
+                <button id="btn-parent" style="flex: 1; padding: 10px; border-radius: 8px; border: none; background: transparent; color: var(--text-muted); font-weight: 800; cursor: pointer; transition: 0.2s;">Parent</button>
+            </div>
+            
+            <input type="hidden" id="login-role" value="player">
+
             <div class="input-group">
                 <input type="email" class="tm-input" placeholder="Email Address">
             </div>
@@ -228,6 +236,27 @@
     </div>
 
     <script>
+        
+        document.getElementById('btn-player').addEventListener('click', function() {
+            this.style.background = 'var(--text)';
+            this.style.color = 'var(--bg)';
+            const parentBtn = document.getElementById('btn-parent');
+            parentBtn.style.background = 'transparent';
+            parentBtn.style.color = 'var(--text-muted)';
+            document.getElementById('login-role').value = 'player';
+            document.querySelector('p').innerText = "Access your AI profile and lesson history.";
+        });
+
+        document.getElementById('btn-parent').addEventListener('click', function() {
+            this.style.background = 'var(--text)';
+            this.style.color = 'var(--bg)';
+            const playerBtn = document.getElementById('btn-player');
+            playerBtn.style.background = 'transparent';
+            playerBtn.style.color = 'var(--text-muted)';
+            document.getElementById('login-role').value = 'parent';
+            document.querySelector('p').innerText = "Manage bookings, billing, and view student progress.";
+        });
+
         async function simulateLogin() {
             const emailInput = document.querySelector('input[type="email"]').value;
             if (!emailInput) {
@@ -239,7 +268,7 @@
                 const response = await fetch('/api/auth/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: emailInput })
+                    body: JSON.stringify({ email: emailInput, role: document.getElementById("login-role").value })
                 });
 
                 const data = await response.json();
@@ -247,6 +276,7 @@
                 if (data.success) {
                     localStorage.setItem('tm_user_id', data.user.id);
                     localStorage.setItem('tm_user_email', data.user.email);
+                    localStorage.setItem('tm_user_role', document.getElementById('login-role').value);
                     if (data.user.phone_number) {
                         localStorage.setItem('tm_user_phone', data.user.phone_number);
                     }

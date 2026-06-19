@@ -1010,6 +1010,35 @@
     });
     
     // Tab switching logic
+    
+    // Role-based visibility
+    document.addEventListener('DOMContentLoaded', () => {
+        const role = localStorage.getItem('tm_user_role');
+        if (role === 'parent') {
+            // Hide player-specific tabs and elements
+            const toolsTab = document.querySelector('button[onclick="switchTab(\'tab-tools\')"]');
+            if (toolsTab) toolsTab.style.display = 'none';
+            
+            const profileHeader = document.querySelector('.profile-header h1');
+            if (profileHeader) profileHeader.innerHTML = 'Parent <span style="color:var(--text-muted)">Portal</span>';
+            
+            // Rename stats to student progress
+            const statsTab = document.querySelector('button[onclick="switchTab(\'tab-stats\')"]');
+            if (statsTab) statsTab.innerText = 'Student Progress';
+            
+            // Hide biomechanics/grip inputs
+            const mechSection = document.getElementById('idx-raq-grip'); // if it exists or similar
+            const allInputs = document.querySelectorAll('.tm-input, .tm-select');
+            allInputs.forEach(input => {
+                if (input.closest('div') && input.closest('div').innerHTML.includes('Grip') || input.closest('div').innerHTML.includes('Wingspan')) {
+                    input.closest('div').style.display = 'none';
+                }
+            });
+            
+            // Add billing/schedule placeholder to dashboard if needed
+        }
+    });
+
     function switchTab(tabId) {
         document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
