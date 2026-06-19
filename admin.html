@@ -155,7 +155,10 @@
         <!-- Main Area: Log Lesson -->
         <div class="lesson-panel" id="lesson-workspace" style="opacity: 0.5; pointer-events: none;">
             <div class="panel-header">
-                <h2 id="active-player-name">Select a player</h2>
+                <div>
+                    <h2 id="active-player-name" style="margin-bottom: 8px;">Select a player</h2>
+                    <button id="delete-player-btn" onclick="deletePlayer()" style="display: none; background: #ff4c4c; color: white; border: none; padding: 4px 8px; cursor: pointer; font-weight: bold; font-family: 'Inter'; text-transform: uppercase; font-size: 0.75rem;">Delete Player</button>
+                </div>
                 <input type="date" id="lesson-date" style="padding: 8px; border: 2px solid #000; font-family: Inter;">
             </div>
 
@@ -167,9 +170,10 @@
             <button class="btn" onclick="saveLesson()">Log Session to Database</button>
 
             <!-- Automation trigger (future) -->
-            <button class="btn" style="background: var(--accent); color: var(--text); margin-top: -8px;" onclick="generateAiPlan()">
+            <button class="btn" id="ai-btn" style="background: var(--accent); color: var(--text); margin-top: -8px;" onclick="generateAiPlan()">
                 Generate AI Tactical Plan &rarr;
             </button>
+            <div id="ai-output" style="white-space: pre-wrap; font-family: monospace; font-size: 0.9rem; background: #000; color: #ccff00; padding: 16px; display: none;"></div>
         </div>
 
     </div>
@@ -234,6 +238,8 @@
         function selectPlayer(id, email, cardElement) {
             selectedUserId = id;
             document.getElementById('active-player-name').innerText = email;
+            document.getElementById('delete-player-btn').style.display = 'inline-block';
+            document.getElementById('ai-output').style.display = 'none';
             
             // Unlock workspace
             document.getElementById('lesson-workspace').style.opacity = '1';
@@ -242,6 +248,30 @@
             // Highlight card
             document.querySelectorAll('.player-card').forEach(c => c.classList.remove('active'));
             cardElement.classList.add('active');
+        }
+
+        async function deletePlayer() {
+            if(!selectedUserId) return;
+            if(!confirm("Are you sure you want to permanently delete this player and all their data?")) return;
+
+            try {
+                const res = await fetch('/api/admin/delete_user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user_id: selectedUserId })
+                });
+
+                if(res.ok) {
+                    alert('Player deleted.');
+                    document.getElementById('lesson-workspace').style.opacity = '0.5';
+                    document.getElementById('lesson-workspace').style.pointerEvents = 'none';
+                    document.getElementById('delete-player-btn').style.display = 'none';
+                    selectedUserId = null;
+                    loadRoster();
+                }
+            } catch(e) {
+                alert('Error deleting player.');
+            }
         }
 
         async function saveLesson() {
@@ -270,8 +300,36 @@
             }
         }
 
-        function generateAiPlan() {
-            alert('AI Engine not yet wired. This will pull the player profile and your raw notes, run it through Claude/GPT, and spit out a tactical blueprint directly into their locked profile.');
+        async function generateAiPlan() {
+            if(!selectedUserId) return;
+            
+            const btn = document.getElementById('ai-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Analyzing...';
+            btn.style.opacity = '0.7';
+
+            try {
+                const res = await fetch('/api/admin/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user_id: selectedUserId })
+                });
+
+                const data = await res.json();
+                
+                if(data.success) {
+                    const out = document.getElementById('ai-output');
+                    out.style.display = 'block';
+                    out.innerText = data.ai_plan;
+                } else {
+                    alert('AI Error: ' + data.error);
+                }
+            } catch(e) {
+                alert('Connection error talking to AI engine.');
+            } finally {
+                btn.innerHTML = originalText;
+                btn.style.opacity = '1';
+            }
         }
     </script>
 </body>
