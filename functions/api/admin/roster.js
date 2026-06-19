@@ -6,7 +6,13 @@ export async function onRequestGet(context) {
     }
 
     try {
-        const { results } = await env.DB.prepare("SELECT id, email FROM users WHERE LOWER(email) != 'aden.f.ingwerson@gmail.com' ORDER BY created_at DESC").all();
+        const { results } = await env.DB.prepare(`
+            SELECT u.id, u.email, p.metrics_json 
+            FROM users u 
+            LEFT JOIN player_metrics p ON u.id = p.user_id 
+            WHERE LOWER(u.email) != 'aden.f.ingwerson@gmail.com' 
+            ORDER BY u.created_at DESC
+        `).all();
         return new Response(JSON.stringify({ success: true, users: results }), {
             headers: { "Content-Type": "application/json" }
         });

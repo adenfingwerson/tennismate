@@ -146,6 +146,12 @@
         <!-- Sidebar: Player Roster -->
         <div class="roster-panel">
             <div class="roster-title">Player Roster</div>
+            
+            <div style="margin-bottom: 20px; display: flex; gap: 8px;">
+                <input type="text" id="new-player-name" placeholder="New player name..." style="flex-grow: 1; padding: 8px; border: 2px solid var(--border); font-family: 'Inter', sans-serif;">
+                <button class="btn" style="padding: 8px 12px;" onclick="createPlayer()">Add</button>
+            </div>
+
             <div id="roster-list">
                 <!-- Players injected here by JS -->
                 Loading players...
@@ -229,13 +235,24 @@
                 rosterList.innerHTML = '';
 
                 data.users.forEach(user => {
+                    // Try to get name from metrics_json, fallback to email prefix
+                    let displayName = user.email.split('@')[0];
+                    if (user.metrics_json) {
+                        try {
+                            const metrics = JSON.parse(user.metrics_json);
+                            if (metrics.field_0) displayName = metrics.field_0;
+                        } catch(e) {}
+                    }
+                    // Hide the dummy placeholder email in the UI if it exists
+                    let displayEmail = user.email.includes('@placeholder.tennistmate.com') ? 'No email attached' : user.email;
+
                     const div = document.createElement('div');
                     div.className = 'player-card';
                     div.innerHTML = `
-                        <div class="player-name">${user.email.split('@')[0]}</div>
-                        <div class="player-email">${user.email}</div>
+                        <div class="player-name">${displayName}</div>
+                        <div class="player-email">${displayEmail}</div>
                     `;
-                    div.onclick = () => selectPlayer(user.id, user.email, div);
+                    div.onclick = () => selectPlayer(user.id, displayName, div);
                     rosterList.appendChild(div);
                 });
             } catch (e) {
@@ -243,9 +260,33 @@
             }
         }
 
-        function selectPlayer(id, email, cardElement) {
+        async function createPlayer() {
+            const nameInput = document.getElementById('new-player-name');
+            const name = nameInput.value.trim();
+            if (!name) return alert('Enter a player name first.');
+
+            try {
+                const res = await fetch('/api/admin/create_user', {
+                    method: 'POST',
+                    headers: getAuthHeaders(),
+                    body: JSON.stringify({ name })
+                });
+                
+                const data = await res.json();
+                if (data.success) {
+                    nameInput.value = '';
+                    loadRoster();
+                } else {
+                    alert('Error creating player: ' + data.error);
+                }
+            } catch(e) {
+                alert('Request failed.');
+            }
+        }
+
+        function selectPlayer(id, displayName, cardElement) {
             selectedUserId = id;
-            document.getElementById('active-player-name').innerText = email;
+            document.getElementById('active-player-name').innerText = displayName;
             document.getElementById('delete-player-btn').style.display = 'inline-block';
             document.getElementById('ai-output').style.display = 'none';
             
