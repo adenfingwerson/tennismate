@@ -17,6 +17,7 @@
             --text-muted: #666666;
             --border: #e5e5e5;
             --border-dark: #000000;
+            --accent: #ccff00;
         }
 
         * {
@@ -101,6 +102,51 @@
         .btn:hover {
             background-color: var(--bg);
             color: var(--text);
+        }
+
+        /* ECHO PULSE ANIMATION (2026 Style) */
+        .echo-button-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .echo-button {
+            position: relative;
+            z-index: 2;
+            background-color: var(--accent);
+            color: var(--text);
+            border: 2px solid var(--text);
+            padding: 18px 40px;
+            font-size: 1.1rem;
+            box-shadow: 6px 6px 0 var(--border-dark);
+            transform: translateY(0);
+        }
+
+        .echo-button:hover {
+            background-color: var(--text);
+            color: var(--bg);
+            box-shadow: 2px 2px 0 var(--border-dark);
+            transform: translateY(4px) translateX(4px);
+        }
+
+        .echo-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: 2px solid var(--accent);
+            z-index: 1;
+            pointer-events: none;
+            animation: sonic-pulse 2.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+        }
+
+        @keyframes sonic-pulse {
+            0% { width: 100%; height: 100%; opacity: 1; border-width: 4px; }
+            100% { width: 160%; height: 250%; opacity: 0; border-width: 1px; }
         }
 
         /* ===== Layout ===== */
@@ -298,7 +344,11 @@
                 Private coaching for kids, high school players, and adults. $25/hour.
             </div>
             <div class="hero-cta">
-                <a href="https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01" class="btn">BOOK A $25 LESSON</a>
+                <div class="echo-button-wrapper">
+                    <div class="echo-ring"></div>
+                    <a href="https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01" class="btn echo-button">BOOK A $25 LESSON</a>
+                </div>
+                <span class="no-account-text">No account required to book. Just pick a time.</span>
             </div>
             
             <div class="stats-marquee">

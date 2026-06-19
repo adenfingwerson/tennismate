@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Log In - TennistMate</title>
     <style>
-        /* ===== Minimalist Editorial / Brutalist Architecture ===== */
+        /* ===== Polymarket Brutalism Architecture ===== */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
 
         :root {
             --bg: #ffffff;
             --text: #000000;
-            --text-muted: #666666;
+            --text-muted: #888888;
             --border: #e5e5e5;
             --border-dark: #000000;
+            --accent: #ccff00;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -21,19 +22,16 @@
         body {
             font-family: 'Inter', -apple-system, sans-serif;
             color: var(--text);
-            background-color: #f9fafb; /* Slightly off-white to make the card pop */
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
+            background-color: #f4f5f7; 
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* Nav */
         nav {
-            padding: 24px 24px;
-            background: var(--bg);
-            border-bottom: 2px solid var(--border-dark);
+            padding: 20px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -53,30 +51,44 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 24px;
+            padding: 16px;
         }
 
         .auth-card {
             background: var(--bg);
             width: 100%;
-            max-width: 440px;
-            border: 4px solid var(--border-dark);
+            max-width: 400px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
             padding: 40px 32px;
-            box-shadow: 12px 12px 0 var(--border-dark);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
             text-align: center;
         }
 
+        /* Mobile specific adjustments (Bottom sheet feel) */
+        @media (max-width: 600px) {
+            .auth-container {
+                align-items: flex-end;
+                padding: 0;
+            }
+            .auth-card {
+                border-radius: 32px 32px 0 0;
+                border: none;
+                border-top: 1px solid var(--border);
+                padding: 48px 24px;
+            }
+        }
+
         .auth-card h1 {
-            font-size: 2rem;
+            font-size: 1.75rem;
             font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
-            margin-bottom: 12px;
+            letter-spacing: -0.03em;
+            margin-bottom: 8px;
         }
 
         .auth-card p {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 1rem;
             margin-bottom: 32px;
             font-weight: 500;
         }
@@ -86,47 +98,42 @@
             margin-bottom: 24px;
         }
 
-        .input-label {
-            display: block;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            margin-bottom: 8px;
-            letter-spacing: 0.05em;
-        }
-
         .tm-input {
             width: 100%;
             font-family: 'Inter', sans-serif;
-            font-size: 1rem;
+            font-size: 1.1rem;
             padding: 16px;
-            border: 2px solid var(--border-dark);
-            background: #f9fafb;
+            border: 2px solid var(--border);
+            background: var(--bg);
             font-weight: 500;
+            border-radius: 12px;
             transition: all 0.2s ease;
-            border-radius: 0; /* Brutalist sharp edges */
         }
 
         .tm-input:focus {
             outline: none;
-            background: var(--bg);
-            box-shadow: inset 0 0 0 2px var(--border-dark);
+            border-color: var(--border-dark);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
         .btn {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 100%;
             padding: 16px;
             font-family: 'Inter', sans-serif;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            font-weight: 800;
             font-size: 1.1rem;
-            border: 2px solid var(--border-dark);
+            border-radius: 12px;
             cursor: pointer;
-            text-align: center;
             text-decoration: none;
-            transition: all 0.2s ease;
+            transition: transform 0.1s, opacity 0.2s;
+            border: none;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
         }
 
         .btn-primary {
@@ -136,20 +143,17 @@
         }
 
         .btn-primary:hover {
-            background-color: var(--text-muted);
+            opacity: 0.9;
         }
 
         .btn-secondary {
-            background-color: var(--bg);
+            background-color: #f3f4f6;
             color: var(--text);
-            display: flex;
-            align-items: center;
-            justify-content: center;
             gap: 12px;
         }
 
         .btn-secondary:hover {
-            background-color: #f3f4f6;
+            background-color: #e5e7eb;
         }
 
         .divider {
@@ -157,20 +161,41 @@
             align-items: center;
             text-align: center;
             margin: 24px 0;
-            color: var(--border-dark);
-            font-weight: 900;
+            color: var(--text-muted);
+            font-weight: 700;
             font-size: 0.85rem;
         }
 
         .divider::before, .divider::after {
             content: '';
             flex: 1;
-            border-bottom: 2px solid var(--border-dark);
+            border-bottom: 1px solid var(--border);
         }
 
         .divider span {
             padding: 0 16px;
-            text-transform: uppercase;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: #f3f4f6;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 600px) {
+            .close-btn { display: none; } /* On mobile, the back button in nav works */
         }
     </style>
 </head>
@@ -178,17 +203,17 @@
 
     <nav>
         <a href="/" class="logo">Tennis T-Mate</a>
-        <a href="/" style="font-weight: 700; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; text-transform: uppercase;">&larr; Back to Home</a>
+        <a href="/" style="font-weight: 700; color: var(--text-muted); text-decoration: none; font-size: 0.95rem;">Cancel</a>
     </nav>
 
     <div class="auth-container">
-        <div class="auth-card">
-            <h1>Access Profile</h1>
-            <p>Log in or register to view your personalized AI tactical breakdown and lesson history.</p>
+        <div class="auth-card" style="position: relative;">
+            <button class="close-btn" onclick="window.location.href='/'">&times;</button>
+            <h1>Log in or Sign up</h1>
+            <p>Access your AI profile and lesson history.</p>
 
             <div class="input-group">
-                <label class="input-label">Email Address</label>
-                <input type="email" class="tm-input" placeholder="player@example.com">
+                <input type="email" class="tm-input" placeholder="Email Address">
             </div>
 
             <button class="btn btn-primary" onclick="simulateLogin()">Continue with Email</button>
@@ -220,14 +245,11 @@
                 const data = await response.json();
                 
                 if (data.success) {
-                    // Store session data locally
                     localStorage.setItem('tm_user_id', data.user.id);
                     localStorage.setItem('tm_user_email', data.user.email);
                     if (data.user.phone_number) {
                         localStorage.setItem('tm_user_phone', data.user.phone_number);
                     }
-                    
-                    // Redirect to profile
                     window.location.href = '/profile.html';
                 } else {
                     alert('Error logging in: ' + data.error);
