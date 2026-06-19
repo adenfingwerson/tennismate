@@ -135,6 +135,12 @@
 
     <h1>Coach Admin Portal</h1>
 
+    <div id="pin-guard" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 100; align-items: center; justify-content: center; flex-direction: column;">
+        <h2 style="margin-bottom: 24px; font-size: 2rem; text-transform: uppercase;">Admin Access PIN</h2>
+        <input type="password" id="admin-pin" placeholder="••••" style="width: 200px; text-align: center; font-size: 2rem; letter-spacing: 0.2em; padding: 16px; border: 4px solid var(--border); background: #f9fafb; font-family: 'Inter', sans-serif; font-weight: 900; margin-bottom: 24px; outline: none;">
+        <button class="btn" style="width: 200px; padding: 16px; font-size: 1.2rem;" onclick="verifyPin()">Unlock</button>
+    </div>
+
     <div class="admin-grid" id="auth-guard" style="display: none;">
         
         <!-- Sidebar: Player Roster -->
@@ -178,9 +184,28 @@
                 document.body.innerHTML = '<h1 style="text-align:center; margin-top:20vh;">Unauthorized. Coach access only.</h1>';
                 return;
             }
-            document.getElementById('auth-guard').style.display = 'grid';
-            document.getElementById('lesson-date').valueAsDate = new Date();
-            loadRoster();
+            // Show PIN guard
+            document.getElementById('pin-guard').style.display = 'flex';
+        });
+
+        function verifyPin() {
+            const pin = document.getElementById('admin-pin').value;
+            if (pin === '1743') {
+                document.getElementById('pin-guard').style.display = 'none';
+                document.getElementById('auth-guard').style.display = 'grid';
+                document.getElementById('lesson-date').valueAsDate = new Date();
+                loadRoster();
+            } else {
+                alert('Invalid PIN.');
+                document.getElementById('admin-pin').value = '';
+            }
+        }
+
+        // Allow hitting Enter to submit PIN
+        document.getElementById('admin-pin').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                verifyPin();
+            }
         });
 
         async function loadRoster() {
