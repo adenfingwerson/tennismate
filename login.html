@@ -203,10 +203,39 @@
     </div>
 
     <script>
-        function simulateLogin() {
-            // In a real app, this would hit Supabase or Cloudflare Auth.
-            // For now, it just routes them to the profile page.
-            window.location.href = '/profile.html';
+        async function simulateLogin() {
+            const emailInput = document.querySelector('input[type="email"]').value;
+            if (!emailInput) {
+                alert("Please enter an email address.");
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: emailInput })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Store session data locally
+                    localStorage.setItem('tm_user_id', data.user.id);
+                    localStorage.setItem('tm_user_email', data.user.email);
+                    if (data.user.phone_number) {
+                        localStorage.setItem('tm_user_phone', data.user.phone_number);
+                    }
+                    
+                    // Redirect to profile
+                    window.location.href = '/profile.html';
+                } else {
+                    alert('Error logging in: ' + data.error);
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Connection error. Please try again.');
+            }
         }
     </script>
 </body>
