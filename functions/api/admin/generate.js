@@ -39,7 +39,7 @@ export async function onRequestPost(context) {
         Keep it extremely brutalist, tactical, and short. Do not include any other conversational text.`;
 
         // 4. Run Cloudflare Workers AI
-        const response = await env.AI.run('@cf/meta/llama-3.1-8b-instruct', {
+        const response = await env.AI.run('@cf/meta/llama-3.1-8b-instruct-fp8', {
             messages: [{ role: 'user', content: prompt }]
         });
         
