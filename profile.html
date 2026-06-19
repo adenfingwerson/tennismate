@@ -465,6 +465,7 @@
         <div class="container">
             <div class="logo"><a href="/">Tennis T-Mate</a></div>
             <div class="nav-links">
+                <a href="/admin.html" id="admin-link" style="display: none; color: #ccff00; border: 1px solid #ccff00; padding: 4px 12px; background: #000;">Coach Admin</a>
                 <a href="/">Home</a>
                 <a href="/profile.html">Profile</a>
                 <a href="/blog/">Journal</a>
@@ -731,6 +732,12 @@
 
     document.addEventListener('DOMContentLoaded', async () => {
         handleUtrChange(); // set initial UI state
+
+        // Check for Admin status to reveal hidden link
+        if (userEmail === 'aden.f.ingwerson@gmail.com') {
+            const adminLink = document.getElementById('admin-link');
+            if (adminLink) adminLink.style.display = 'inline-block';
+        }
 
         if (!userId) {
             window.location.href = '/login.html';
