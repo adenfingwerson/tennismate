@@ -55,7 +55,7 @@
 
         /* ===== Navigation ===== */
         nav {
-            padding: 16px 0;
+            padding: 12px 0;
             border-bottom: 1px solid var(--border-dark);
         }
 
@@ -163,7 +163,7 @@
 
         /* ===== Hero ===== */
         .hero {
-            padding: 40px 0 20px 0;
+            padding: 20px 0 10px 0;
             min-height: auto;
             display: flex;
             align-items: center;
@@ -172,8 +172,8 @@
 
         .hero h1 {
             grid-column: 1 / -1;
-            font-size: clamp(3rem, 9vw, 8rem);
-            margin-bottom: 1rem;
+            font-size: clamp(2.8rem, 9vw, 8rem);
+            margin-bottom: 0.5rem;
             word-wrap: break-word;
             line-height: 1;
         }
@@ -316,9 +316,9 @@
         
         @media (max-width: 900px) {
             .workflow { display: none; }
-            .hero-desc { grid-column: 1 / -1; margin-bottom: 2rem; }
+            .hero-desc { grid-column: 1 / -1; margin-bottom: 1rem; }
             .hero-cta { grid-column: 1 / -1; }
-            .stats-marquee { display: flex; gap: 2rem; margin-top: 1.5rem; }
+            .stats-marquee { display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
             .section-title { grid-column: 1 / -1; margin-bottom: 3rem; }
             .section-title h2 { position: static; }
             .section-content { grid-column: 1 / -1; }
@@ -532,7 +532,7 @@
     </section>
 
     <!-- TM8 T00LS EXPANDABLE SECTION -->
-    <div class="container" style="position: relative; z-index: 10; margin-top: 20px; margin-bottom: 40px; max-width: 1000px;">
+    <div class="container" style="position: relative; z-index: 10; margin-top: 0px; margin-bottom: 40px; max-width: 1000px;">
         <style>
             @keyframes subtlePulse {
                 0% { transform: scale(1); opacity: 1; }
