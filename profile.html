@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Player Profile - TennistMate</title>
+    <style>
+        /* ===== Minimalist Editorial / Brutalist Architecture ===== */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+
+        :root {
+            --bg: #ffffff;
+            --text: #000000;
+            --text-muted: #666666;
+            --border: #e5e5e5;
+            --border-dark: #000000;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            color: var(--text);
+            background-color: var(--bg);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            padding: 20px 16px; /* Mobile friendly padding */
+        }
+
+        @media (min-width: 768px) {
+            body { padding: 40px 24px; }
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            text-transform: uppercase;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Profile Header */
+        .profile-header {
+            border-bottom: 4px solid var(--border-dark);
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        @media (min-width: 768px) {
+            .profile-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-end;
+            }
+        }
+
+        .profile-header h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            margin-bottom: 0;
+            word-break: break-word;
+        }
+
+        .badge {
+            background-color: var(--text);
+            color: var(--bg);
+            padding: 8px 16px;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            align-self: flex-start;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            border-bottom: 2px solid var(--border-dark);
+            padding-bottom: 16px;
+            overflow-x: auto; /* Scrollable on mobile */
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tab-btn {
+            background: none;
+            border: 2px solid var(--border-dark);
+            padding: 10px 16px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+        }
+
+        @media (min-width: 768px) {
+            .tab-btn { padding: 10px 24px; font-size: 1rem; gap: 16px; }
+        }
+
+        .tab-btn.active {
+            background-color: var(--text);
+            color: var(--bg);
+        }
+
+        .tab-btn:hover:not(.active) { background-color: #f3f4f6; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Grid Layout */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-layout { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        }
+
+        .data-card {
+            border: 2px solid var(--border-dark);
+            padding: 24px;
+            background: var(--bg);
+        }
+
+        .data-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+        }
+
+        .stat-row {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            gap: 8px;
+        }
+
+        @media (min-width: 768px) {
+            .stat-row {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        .stat-row:last-child { border-bottom: none; }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        /* Inputs */
+        .tm-select, .tm-input {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            color: var(--text);
+            background-color: #f3f4f6;
+            padding: 10px 12px;
+            border-radius: 0;
+            border: 2px solid var(--border-dark);
+            cursor: pointer;
+            outline: none;
+            font-size: 0.9rem;
+            appearance: auto;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .tm-select, .tm-input {
+                max-width: 60%;
+                text-align: right;
+            }
+        }
+
+        .tm-select:focus, .tm-input:focus {
+            background-color: #ffffff;
+            box-shadow: 4px 4px 0 var(--border-dark);
+        }
+
+        /* Tactical Section */
+        .tactical-card {
+            border: 2px solid var(--border-dark);
+            padding: 24px;
+            margin-bottom: 48px;
+        }
+
+        @media (min-width: 768px) {
+            .tactical-card { padding: 40px; }
+        }
+        
+        .tactical-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 24px;
+            max-width: 800px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--bg);
+            color: var(--text);
+            padding: 16px 24px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 2px solid var(--border-dark);
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover { background-color: var(--text); color: var(--bg); }
+
+        .btn-primary {
+            background-color: var(--text);
+            color: var(--bg);
+        }
+        .btn-primary:hover {
+            background-color: var(--text-muted);
+        }
+
+        .kicker {
+            display: block;
+            text-transform: uppercase;
+            font-weight: 900;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* ===== GATED CONTENT WALL ===== */
+        .gated-container {
+            position: relative;
+        }
+
+        .gated-blur {
+            filter: blur(8px);
+            pointer-events: none;
+            user-select: none;
+            opacity: 0.4;
+        }
+
+        .gated-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg);
+            border: 4px solid var(--border-dark);
+            padding: 40px 24px;
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 12px 12px 0 var(--border-dark);
+            z-index: 10;
+        }
+
+        .gated-overlay h2 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .gated-overlay p {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        .lead-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .lead-input {
+            width: 100%;
+            padding: 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            border: 2px solid var(--border-dark);
+            font-weight: 500;
+        }
+
+        .lead-input:focus {
+            outline: none;
+            box-shadow: inset 0 0 0 2px var(--border-dark);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="profile-header">
+        <div>
+            <span class="kicker">Player Profile</span>
+            <input type="text" value="Aden Ingwerson" class="tm-input" style="font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; background: transparent; border: none; border-bottom: 2px dashed var(--border-dark); padding: 0; text-align: left; max-width: 100%; width: 100%; color: var(--text);">
+        </div>
+        <div class="badge">TennistMate PRO</div>
+    </div>
+
+    <!-- TABS NAVIGATION -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('tab-stats')">Player Stats</button>
+        <button class="tab-btn" onclick="switchTab('tab-lessons')">🔒 Lesson History & AI Plans</button>
+    </div>
+
+    <!-- TAB 1: PLAYER STATS (PUBLIC / EDITABLE) -->
+    <div id="tab-stats" class="tab-content active">
+        <div class="grid-layout">
+            <!-- Baseline Metrics -->
+            <div class="data-card">
+                <h3>Baseline Metrics</h3>
+                <div class="stat-row">
+                    <span class="stat-label">Institution/School</span>
+                    <input type="text" class="tm-input" value="Hastings College" placeholder="e.g. West High School">
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Current UTR</span>
+                    <select class="tm-select">
+                        <option>1.0 - 3.0 (Middle School / JV)</option>
+                        <option>4.0 - 6.0 (Varsity / Intermediate)</option>
+                        <option selected>7.0 - 8.0 (Advanced)</option>
+                        <option>9.0 - 11.0 (High-Level Competitive)</option>
+                        <option>12.0+ (Elite / Pro)</option>
+                    </select>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Racquet</span>
+                    <input type="text" class="tm-input" value="HEAD Gravity Tour 98" placeholder="e.g. Babolat Pure Drive">
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Play Style</span>
+                    <select class="tm-select">
+                        <option selected>Aggressive Baseliner (Dictates with power)</option>
+                        <option>Counter-Puncher (Uses opponent's pace)</option>
+                        <option>All-Court Player (Comfortable anywhere)</option>
+                        <option>Serve & Volley (Attacks the net)</option>
+                        <option>Grinder (Wins by never missing)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Forehand -->
+            <div class="data-card">
+                <h3>Forehand Mechanics</h3>
+                <div class="stat-row">
+                    <span class="stat-label">Grip</span>
+                    <select class="tm-select">
+                        <option>Eastern (Flatter, classic style)</option>
+                        <option>Semi-Western (Modern power & spin)</option>
+                        <option selected>Western (Heavy topspin & high balls)</option>
+                        <option>Continental (Slices & volleys)</option>
+                    </select>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Contact Point</span>
+                    <select class="tm-select">
+                        <option>Dropping / Late (Heavy looping spin)</option>
+                        <option selected>Early / On the Rise (Takes time away)</option>
+                        <option>Peak of Bounce (Standard strike)</option>
+                    </select>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Primary Weapon</span>
+                    <select class="tm-select">
+                        <option selected>Acceleration & Finishing (Hitting winners)</option>
+                        <option>Heavy Crosscourt (Pulling off court)</option>
+                        <option>Consistent Depth (Pinning opponent back)</option>
+                        <option>Inside-Out Attack (Dictating with FH)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="alert('In production, this saves the base profile to the database.')">
+            Save Base Profile
+        </button>
+    </div>
+
+    <!-- TAB 2: LESSON HISTORY & AI PLANS (GATED CONTENT) -->
+    <div id="tab-lessons" class="tab-content">
+        <div class="gated-container">
+            
+            <!-- THE WALL OVERLAY -->
+            <div class="gated-overlay" id="lead-wall">
+                <h2>Unlock Your AI Profile</h2>
+                <p>Link your email and phone to view personalized AI lesson plans, technical feedback, and coach history.</p>
+                <div class="lead-form">
+                    <input type="email" class="lead-input" placeholder="Enter your email address">
+                    <input type="tel" class="lead-input" placeholder="Enter your phone number">
+                    <button class="btn btn-primary" onclick="unlockContent()">Unlock Profile</button>
+                </div>
+                <p style="font-size: 0.8rem; margin-top: 16px; margin-bottom: 0;">We use this to send you your AI progression reports.</p>
+            </div>
+
+            <!-- THE BLURRED CONTENT -->
+            <div id="gated-content" class="gated-blur">
+                <div class="tactical-card">
+                    <h3>Tactical & Mental Framework</h3>
+                    <p>AI-Generated analysis based on your base stats and match history.</p>
+                    <div class="stat-row">
+                        <span class="stat-label">A-Game Pattern</span>
+                        <input type="text" class="tm-input" value="Serve disrupts -> BH redirect -> FH finish" style="width: 100%; max-width: 100%; text-align: left;">
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Vulnerability Breakdown</span>
+                        <input type="text" class="tm-input" value="Fatigue causing late contact -> net errors" style="width: 100%; max-width: 100%; text-align: left;">
+                    </div>
+                </div>
+
+                <div class="tactical-card" style="background: #f9fafb;">
+                    <h3>Coaching Feed</h3>
+                    <div style="border-left: 4px solid var(--border-dark); padding-left: 16px; margin-bottom: 24px;">
+                        <span class="kicker">June 18, 2026</span>
+                        <p style="color: var(--text); font-weight: 500;">- Focused heavily on early contact point for the forehand.<br>- Assigned specific footwork drills to maintain spacing when tired.<br>- <strong>Homework:</strong> 100 shadow swings emphasizing the "EARLY" cue word.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    // Tab switching logic
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    // Lead Capture Unlock Logic
+    function unlockContent() {
+        const inputs = document.querySelectorAll('.lead-input');
+        if(inputs[0].value === '' || inputs[1].value === '') {
+            alert('Please enter both email and phone number to link your profile.');
+            return;
+        }
+        
+        // Remove the wall
+        document.getElementById('lead-wall').style.display = 'none';
+        // Remove the blur
+        document.getElementById('gated-content').classList.remove('gated-blur');
+        
+        // In production, this would fire a fetch() request to your database/CRM
+        alert('Success! In production, this saves the lead to the DB and unlocks the AI profile for ' + inputs[0].value);
+    }
+</script>
+</body>
+</html>
