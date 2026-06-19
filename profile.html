@@ -44,6 +44,53 @@
             margin: 0 auto;
         }
 
+        
+        nav {
+            padding: 0 0 24px 0;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-dark);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.25rem;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+        
+        .logo a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        
+        .nav-links a.btn {
+            border: 2px solid var(--text);
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+
         /* Profile Header */
         .profile-header {
             border-bottom: 4px solid var(--border-dark);
@@ -396,6 +443,18 @@
     </style>
 </head>
 <body>
+    <nav>
+        <div class="container">
+            <div class="logo"><a href="/">Tennis T-Mate</a></div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/profile.html">Profile</a>
+                <a href="/blog/">Journal</a>
+                <a href="https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01" class="btn">Book</a>
+            </div>
+        </div>
+    </nav>
+
 
 <div class="container">
     <div class="profile-header">
