@@ -13,6 +13,12 @@ export async function onRequestPost(context) {
             return new Response(JSON.stringify({ error: 'User ID is required' }), { status: 400 });
         }
 
+        // Safeguard: Prevent deleting the admin account
+        const { results } = await env.DB.prepare("SELECT email FROM users WHERE id = ?").bind(userId).all();
+        if (results.length > 0 && results[0].email.toLowerCase() === 'aden.f.ingwerson@gmail.com') {
+            return new Response(JSON.stringify({ error: 'Cannot delete the admin account.' }), { status: 403 });
+        }
+
         // Delete from all tables to maintain referential integrity
         await env.DB.prepare("DELETE FROM lessons WHERE user_id = ?").bind(userId).run();
         await env.DB.prepare("DELETE FROM player_metrics WHERE user_id = ?").bind(userId).run();
