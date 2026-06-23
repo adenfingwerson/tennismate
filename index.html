@@ -200,15 +200,21 @@
             width: 100%;
             height: 100%;
             background: transparent;
-            border: 2px solid var(--accent);
             z-index: 1;
             pointer-events: none;
-            animation: sonic-pulse 2.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+            /* Methodical, smooth wave */
+            animation: smooth-wave 3.5s ease-out infinite;
         }
 
-        @keyframes sonic-pulse {
-            0% { width: 100%; height: 100%; opacity: 1; border-width: 4px; }
-            100% { width: 160%; height: 250%; opacity: 0; border-width: 1px; }
+        @keyframes smooth-wave {
+            0% { 
+                box-shadow: 0 0 0 0px var(--text); 
+                opacity: 0.8; 
+            }
+            100% { 
+                box-shadow: 0 0 0 45px var(--bg); 
+                opacity: 0; 
+            }
         }
 
         /* ===== Layout ===== */
@@ -1130,7 +1136,7 @@
                 </div>
 
                 <div class="echo-button-wrapper" style="width: 100%; display: block;">
-                    <div class="echo-ring" style="border-color: var(--border-dark);"></div>
+                    <div class="echo-ring"></div>
                     <button id="btn-idx-raqgen" class="echo-button" style="width: 100%; font-size: 1.2rem; padding: 20px; background: var(--accent); color: var(--bg); color: var(--bg); border: none; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; cursor: pointer;" onclick="runIndexRaqGen()">
                         Compute Optimal Frame
                     </button>
