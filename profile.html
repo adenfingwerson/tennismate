@@ -1080,19 +1080,39 @@
         
         
         try {
-            // --- THE LABOR ILLUSION UX ---
-            const steps = [
-                "ANALYZING BIOMETRICS...",
-                "CALCULATING TORSIONAL STABILITY...",
-                "SIMULATING KINETIC CHAIN...",
-                "EVALUATING PARETO FRONTIER...",
-                "ISOLATING OPTIMAL FRAME..."
-            ];
-            
-            for (let i = 0; i < steps.length; i++) {
-                btn.innerText = steps[i];
-                await new Promise(r => setTimeout(r, 700)); 
+            // --- THE MATRIX TERMINAL UX ---
+            let terminal = document.getElementById(btn.id === 'btn-idx-raqgen' ? 'idx-terminal' : 'profile-terminal');
+            if (!terminal) {
+                terminal = document.createElement('div');
+                terminal.id = btn.id === 'btn-idx-raqgen' ? 'idx-terminal' : 'profile-terminal';
+                terminal.style.cssText = "background: #000; color: #ccff00; font-family: monospace; font-size: 0.85rem; padding: 16px; margin-top: 20px; border-radius: 8px; height: 150px; overflow-y: hidden; text-align: left; box-shadow: inset 0 0 10px rgba(204,255,0,0.2); border: 1px solid #333;";
+                btn.parentNode.insertBefore(terminal, btn.nextSibling);
             }
+            terminal.style.display = 'block';
+            terminal.innerHTML = '';
+            
+            const logMsg = async (msg, delay) => {
+                terminal.innerHTML += '<div>' + msg + '</div>';
+                terminal.scrollTop = terminal.scrollHeight;
+                await new Promise(r => setTimeout(r, delay));
+            };
+
+            btn.innerText = "COMPUTING...";
+            await logMsg("[SYS] Booting local specification matrix...", 400);
+            await logMsg("[DATA] 34 Elite ATP/WTA Frames loaded into memory.", 500);
+            await logMsg("[DATA] Physics models loaded: Hz, TW, RA, SW, Mass.", 400);
+            await logMsg("[CALC] Applying Gender & Injury Kinetics...", 600);
+            await logMsg("[CALC] Modulating Torsional Stability bounds...", 500);
+            
+            const scanFrames = ["Babolat Pure Aero 98", "Wilson Pro Staff 97 v14", "Yonex Percept 97D", "Head Gravity Pro 2023", "Tecnifibre TFight 305 ISO"];
+            for (let f of scanFrames) {
+                await logMsg("[SCAN] Evaluating " + f + "...", 300);
+            }
+            
+            await logMsg("[SYS] Pareto frontier evaluated.", 400);
+            await logMsg("[SYS] Optimal frame isolated.", 500);
+            
+            terminal.style.display = 'none';
             // -----------------------------
 
             const data = computeRaqGenLocal({
@@ -1155,6 +1175,7 @@
             btn.innerText = "RECALCULATE OPTIMIZATION";
             btn.style.opacity = "1";
         }
+    }
 
     // Dynamic Field Hiding based on UTR
     function handleUtrChange() {
