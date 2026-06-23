@@ -714,8 +714,8 @@
                             padding: 16px 20px; border-bottom: 2px solid var(--border-dark); text-decoration: none; color: var(--text); font-weight: 900; text-transform: uppercase; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; background: #fff; transition: background 0.15s ease;
                         }
                         .tm8-nav-item:hover { background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; }
-                        .tm8-nav-item.accent { background: linear-gradient(135deg, #B3E6B5 0%, #aadd00 100%); border-bottom: none; }
-                        .tm8-nav-item.accent:hover { background: linear-gradient(135deg, #d4ff33 0%, #b8e600 100%); }
+                        .tm8-nav-item.accent { background: var(--bg); color: var(--text); border-bottom: none; }
+                        .tm8-nav-item.accent:hover { background: var(--text); color: var(--bg); }
                     
         /* Update global buttons */
         
@@ -911,7 +911,7 @@
                         <a href="/blog/" class="tm8-nav-item">
                             <span>The Journal</span><span>→</span>
                         </a>
-                        <a href="/index.html#raqgen" class="tm8-nav-item" onclick="document.querySelector('.raqgen-section').scrollIntoView({behavior: 'smooth'}); return false;">
+                        <a href="/index.html#raqgen" class="tm8-nav-item" onclick="document.querySelector('.raqgen-section').scrollIntoView({behavior: 'smooth'}); history.pushState(null, null, '#raqgen'); return false;">
                             <span>RaQGeN Engine</span><span>→</span>
                         </a>
                         <a href="#" onclick="openModal(event)" class="tm8-nav-item accent">
