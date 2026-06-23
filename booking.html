@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tennis T-Mate - Book a Lesson</title>
+    <style>
+        :root {
+            --bg: #FFFFFF;
+            --text: #000000;
+            --accent: #ECD06F;
+            --accent-hover: #B8E600;
+            --border-main: 2px solid #000000;
+            --border-subtle: 1px solid #1A1A1A;
+            --success-bg: #E8F5E9;
+            --success-text: #2E7D32;
+            --success-border: #4CAF50;
+            
+            --surge-subtle: #F5F5F5;
+            --surge-aggressive: #F0F0F0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            position: relative;
+            cursor: none; /* Custom cursor */
+        }
+        
+        /* Hide native cursor completely */
+        html, a, button, input {
+            cursor: none !important;
+        }
+
+        /* PREMIUM NOISE OVERLAY */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* CUSTOM CURSOR */
+        #custom-cursor {
+            position: fixed;
+            top: 0; left: 0;
+            width: 12px; height: 12px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+            mix-blend-mode: difference;
+        }
+        #custom-cursor.hover {
+            width: 40px; height: 40px;
+            background-color: #FFFFFF;
+            mix-blend-mode: difference;
+        }
+
+        /* PLASTIC PIPE SURGE SYSTEM */
+        #liquid-container {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 100;
+            overflow: hidden;
+        }
+        
+        .tube-group {
+            opacity: 1;
+            transition: opacity 1.5s ease-out;
+        }
+
+        .tube-bg {
+            stroke: #F0F0F0;
+            stroke-width: 24px;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: drop-shadow(0px 6px 10px rgba(0,0,0,0.15));
+        }
+
+        .tube-liquid {
+            stroke: var(--accent);
+            stroke-width: 16px;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: url(#liquidBlob);
+            /* Initial state to be overridden by JS */
+        }
+
+        .tube-highlight {
+            stroke: rgba(255, 255, 255, 0.9);
+            stroke-width: 4px;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transform: translate(-4px, -4px);
+        }
+
+        .container {
+            max-width: 100vw;
+            padding: 16px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @media (min-width: 768px) {
+            .container { max-width: 560px; }
+        }
+        @media (min-width: 1024px) {
+            .container { max-width: 640px; }
+        }
+
+        .header {
+            padding: 40px 0 56px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 40px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .header p {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #555555;
+            letter-spacing: 1px;
+        }
+
+        .booking-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .box {
+            border: var(--border-main);
+            background: var(--bg);
+            transition: background 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .box.active-surge-subtle { background: var(--surge-subtle); }
+        .box.active-surge-aggressive { background: var(--surge-aggressive); }
+
+        .box-header {
+            height: 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .box-title {
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        .toggle-icon {
+            font-size: 16px;
+            font-weight: 700;
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .box.open .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .box-content {
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.3s ease-in-out;
+            padding: 0 24px;
+        }
+
+        .box.open .box-content {
+            max-height: 1000px;
+            opacity: 1;
+            padding: 0 24px 24px;
+        }
+
+        /* BOX 1: CALL ME NOW */
+        .box.primary {
+            border: 3px solid var(--accent);
+        }
+        .box.primary .box-content {
+            max-height: none;
+            opacity: 1;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .phone-display {
+            font-size: 28px;
+            font-weight: 700;
+            font-family: 'SF Mono', ui-monospace, Menlo, Monaco, monospace;
+            text-align: center;
+            letter-spacing: -1px;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: var(--text);
+            border: none;
+            font-family: inherit;
+            font-weight: 800;
+            font-size: 16px;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+            padding: 18px;
+            width: 100%;
+            cursor: none; /* Let custom cursor handle it */
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s cubic-bezier(0.19, 1, 0.22, 1), background 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn:hover {
+            background: var(--accent-hover);
+            transform: scale(1.01);
+            box-shadow: 0 0 10px rgba(204, 255, 0, 0.4), 0 0 20px rgba(204, 255, 0, 0.2);
+        }
+
+        /* FORMS */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #444;
+        }
+
+        .form-group input {
+            border: var(--border-subtle);
+            padding: 16px;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 500;
+            background: #fff;
+            outline: none;
+            transition: border-color 0.3s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+            cursor: none; /* custom cursor */
+        }
+        
+        .form-group input:focus {
+            border-color: #000;
+            box-shadow: inset 0 0 0 1px #000;
+        }
+
+        /* FEEDBACK / SUCCESS MESSAGES */
+        .feedback {
+            display: none;
+            text-align: center;
+            padding: 16px;
+            background: var(--success-bg);
+            border: 1px solid var(--success-border);
+            color: var(--success-text);
+            animation: fadeInUp 0.4s ease-out;
+            margin-top: 16px;
+        }
+        .feedback.show { display: block; }
+        .feedback-title { font-weight: 700; font-size: 16px; }
+        .feedback-sub { font-size: 12px; opacity: 0.8; margin-top: 4px; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* SCHEDULE BOX 3 */
+        .loading-pulse {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+
+        .slots-grid {
+            display: none;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        
+        .slot {
+            background: var(--bg);
+            color: var(--text);
+            border: 2px solid #000;
+            font-family: 'SF Mono', ui-monospace, Menlo, Monaco, monospace;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 12px 16px;
+            animation: popIn 0.5s cubic-bezier(0.19, 1, 0.22, 1) backwards;
+            cursor: none;
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+
+        .slot:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 0 #000;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+    </style>
+</head>
+<body>
+    <div id="custom-cursor"></div>
+
+    <div id="liquid-container">
+        <!-- SVG Canvas for plastic tubes & liquid -->
+        <svg id="surge-svg" style="width:100%;height:100%;position:absolute;top:0;left:0;pointer-events:none;">
+            <defs>
+                <filter id="liquidBlob">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise" />
+                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="12" xChannelSelector="R" yChannelSelector="G" />
+                </filter>
+            </defs>
+        </svg>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <h1>Book a Lesson</h1>
+            <p>Pick one. Let's go.</p>
+        </header>
+
+        <div class="booking-grid">
+            
+            <!-- BOX 1: CALL ME NOW -->
+            <div class="box primary">
+                <div class="box-content">
+                    <div class="phone-display">(402) 555-1234</div>
+                    <button class="btn" id="callNowBtn">Call Now</button>
+                </div>
+            </div>
+
+            <!-- BOX 2: LEAVE YOUR NUMBER -->
+            <div class="box expandable" id="box-leave-number">
+                <div class="box-header">
+                    <div class="box-title">Leave Your Number</div>
+                    <div class="toggle-icon">&#x2193;</div>
+                </div>
+                <div class="box-content">
+                    <form id="form-leave-number">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" name="name" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" name="phone" placeholder="(402) 555-5678" required>
+                        </div>
+                        <button type="submit" class="btn">Send It</button>
+                        
+                        <div class="feedback" id="feedback-leave-number">
+                            <div class="feedback-title">GOT IT. I'LL CALL YOU.</div>
+                            <div class="feedback-sub" id="feedback-leave-number-sub"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- BOX 3: MY SCHEDULE -->
+            <div class="box expandable" id="box-schedule">
+                <div class="box-header">
+                    <div class="box-title">My Schedule</div>
+                    <div class="toggle-icon">&#x2193;</div>
+                </div>
+                <div class="box-content">
+                    <div class="loading-pulse" id="schedule-loading">PULLING FROM GOOGLE CALENDAR...</div>
+                    <div class="slots-grid" id="schedule-slots">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOX 4: CALL ME AT -->
+            <div class="box expandable" id="box-call-at">
+                <div class="box-header">
+                    <div class="box-title">Call Me At</div>
+                    <div class="toggle-icon">&#x2193;</div>
+                </div>
+                <div class="box-content">
+                    <form id="form-call-at">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" name="name" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" name="phone" placeholder="(402) 555-5678" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" name="date" required id="date-picker">
+                        </div>
+                        <div class="form-group">
+                            <label>Time</label>
+                            <input type="time" name="time" required min="08:00" max="20:00">
+                        </div>
+                        <button type="submit" class="btn">Add to my Calendar</button>
+                        
+                        <div class="feedback" id="feedback-call-at">
+                            <div class="feedback-title">SCHEDULED FOR <span id="feedback-date"></span> AT <span id="feedback-time"></span></div>
+                            <div class="feedback-sub">CHECK YOUR CALENDAR</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // CUSTOM CURSOR LOGIC
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        
+        // Add hover effect to all buttons, inputs, and clickable headers
+        const clickables = document.querySelectorAll('a, button, input, .box-header, .slot');
+        clickables.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // PLASTIC TUBE / BLOOD KNIFE SURGE SYSTEM
+        const svgCanvas = document.getElementById('surge-svg');
+
+        function createSurge(x, y, aggressive = false) {
+            const numTubes = aggressive ? 10 : 3;
+            
+            for (let i = 0; i < numTubes; i++) {
+                // Generate meandering path
+                const length = aggressive ? (Math.random() * 600 + 300) : (Math.random() * 200 + 100);
+                const segments = aggressive ? 5 : 2;
+                
+                let d = `M ${x} ${y}`;
+                let currX = x;
+                let currY = y;
+                
+                // Buttons spray outwards in all directions
+                let currentAngle = aggressive ? ((Math.PI * 2 / numTubes) * i + (Math.random() - 0.5)) : Math.random() * Math.PI * 2;
+
+                for (let j = 0; j < segments; j++) {
+                    const segLength = length / segments;
+                    currentAngle += (Math.random() - 0.5) * 1.5; // Bendy curves
+
+                    const endX = currX + Math.cos(currentAngle) * segLength;
+                    const endY = currY + Math.sin(currentAngle) * segLength;
+
+                    const cp1X = currX + Math.cos(currentAngle - 0.5) * (segLength * 0.4);
+                    const cp1Y = currY + Math.sin(currentAngle - 0.5) * (segLength * 0.4);
+
+                    const cp2X = endX - Math.cos(currentAngle + 0.5) * (segLength * 0.4);
+                    const cp2Y = endY - Math.sin(currentAngle + 0.5) * (segLength * 0.4);
+
+                    d += ` C ${cp1X} ${cp1Y}, ${cp2X} ${cp2Y}, ${endX} ${endY}`;
+                    currX = endX;
+                    currY = endY;
+                }
+
+                // Create SVG elements
+                const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                group.setAttribute('class', 'tube-group');
+
+                const bg = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                bg.setAttribute('class', 'tube-bg');
+                bg.setAttribute('d', d);
+
+                const liquid = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                liquid.setAttribute('class', 'tube-liquid');
+                liquid.setAttribute('d', d);
+
+                const highlight = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                highlight.setAttribute('class', 'tube-highlight');
+                highlight.setAttribute('d', d);
+
+                group.appendChild(bg);
+                group.appendChild(liquid);
+                group.appendChild(highlight);
+                svgCanvas.appendChild(group);
+
+                // Setup animation
+                const totalLength = liquid.getTotalLength();
+                liquid.style.strokeDasharray = totalLength;
+                liquid.style.strokeDashoffset = totalLength;
+                
+                // Fast pump out
+                liquid.style.transition = `stroke-dashoffset ${aggressive ? 0.6 : 0.4}s cubic-bezier(0.19, 1, 0.22, 1)`;
+
+                // Force reflow
+                liquid.getBoundingClientRect();
+
+                // Start pump
+                setTimeout(() => {
+                    liquid.style.strokeDashoffset = 0;
+                    
+                    // Drain and fade
+                    setTimeout(() => {
+                        liquid.style.transition = 'stroke-dashoffset 1.2s ease-in-out';
+                        liquid.style.strokeDashoffset = -totalLength;
+                        
+                        setTimeout(() => {
+                            group.style.opacity = '0';
+                            setTimeout(() => group.remove(), 1500);
+                        }, 800);
+                        
+                    }, aggressive ? 800 : 400);
+                }, 10 + (i * 20)); // slight staggering
+            }
+        }
+
+        // Global touch listener (subtle surge)
+        let lastTouch = 0;
+        document.addEventListener('touchstart', (e) => {
+            const now = performance.now();
+            if (now - lastTouch < 100) return; // Debounce
+            lastTouch = now;
+            
+            const touch = e.touches[0];
+            createSurge(touch.clientX, touch.clientY, false);
+        }, {passive: true});
+
+        // Box Expansion Logic
+        const boxes = document.querySelectorAll('.box.expandable');
+        boxes.forEach(box => {
+            const header = box.querySelector('.box-header');
+            header.addEventListener('click', (e) => {
+                const isOpen = box.classList.contains('open');
+                
+                // Aggressive surge on click
+                createSurge(e.clientX, e.clientY, true);
+                
+                // BG Color shift
+                box.classList.add('active-surge-aggressive');
+                setTimeout(() => box.classList.remove('active-surge-aggressive'), 800);
+
+                // Toggle
+                if (isOpen) {
+                    box.classList.remove('open');
+                } else {
+                    boxes.forEach(b => b.classList.remove('open')); // Accordion behavior
+                    box.classList.add('open');
+                    
+                    // Special behavior for Schedule box
+                    if(box.id === 'box-schedule') {
+                        loadSchedule();
+                    }
+                }
+            });
+        });
+
+        // Box 1: Call Button
+        document.getElementById('callNowBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            createSurge(e.clientX, e.clientY, true);
+            setTimeout(() => {
+                window.location.href = 'tel:4025551234';
+            }, 300);
+        });
+
+        // Box 2: Form Submit
+        document.getElementById('form-leave-number').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('.btn');
+            const rect = btn.getBoundingClientRect();
+            createSurge(rect.left + rect.width/2, rect.top + rect.height/2, true);
+            
+            const phone = e.target.phone.value;
+            const timeStr = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            document.getElementById('feedback-leave-number-sub').innerText = `${phone} · ${timeStr}`;
+            const feedback = document.getElementById('feedback-leave-number');
+            
+            feedback.classList.add('show');
+            setTimeout(() => feedback.classList.remove('show'), 3500);
+            e.target.reset();
+        });
+
+        // Box 3: Mock Calendar Load
+        function loadSchedule() {
+            const loading = document.getElementById('schedule-loading');
+            const grid = document.getElementById('schedule-slots');
+            
+            loading.style.display = 'block';
+            grid.style.display = 'none';
+            grid.innerHTML = '';
+            
+            setTimeout(() => {
+                loading.style.display = 'none';
+                grid.style.display = 'flex';
+                
+                const slots = [
+                    'MONDAY · 9:00 AM - 10:30 AM',
+                    'WEDNESDAY · 4:00 PM - 5:30 PM',
+                    'FRIDAY · 7:00 AM - 8:30 AM'
+                ];
+                
+                slots.forEach((text, i) => {
+                    const el = document.createElement('div');
+                    el.className = 'slot';
+                    el.innerText = text;
+                    el.style.animationDelay = `${i * 60}ms`;
+                    
+                    // Attach cursor hover events to dynamically created slots
+                    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+                    
+                    grid.appendChild(el);
+                });
+            }, 800);
+        }
+
+        // Box 4: Date Picker Constraints & Submit
+        const datePicker = document.getElementById('date-picker');
+        const today = new Date();
+        const maxDate = new Date();
+        maxDate.setDate(today.getDate() + 14);
+        
+        datePicker.min = today.toISOString().split('T')[0];
+        datePicker.max = maxDate.toISOString().split('T')[0];
+
+        document.getElementById('form-call-at').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('.btn');
+            const rect = btn.getBoundingClientRect();
+            createSurge(rect.left + rect.width/2, rect.top + rect.height/2, true);
+            
+            const dateStr = new Date(e.target.date.value).toLocaleDateString('en-US', {weekday: 'short', month: 'short', day: 'numeric'});
+            
+            document.getElementById('feedback-date').innerText = dateStr.toUpperCase();
+            
+            // Format time manually to match aesthetic
+            let timeVal = e.target.time.value;
+            let [h, m] = timeVal.split(':');
+            h = parseInt(h);
+            let ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12 || 12;
+            document.getElementById('feedback-time').innerText = `${h}:${m} ${ampm}`;
+            
+            const feedback = document.getElementById('feedback-call-at');
+            feedback.classList.add('show');
+            setTimeout(() => feedback.classList.remove('show'), 3500);
+            e.target.reset();
+        });
+
+    </script>
+</body>
+</html>

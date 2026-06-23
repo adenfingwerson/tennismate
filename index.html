@@ -11,13 +11,17 @@
         /* ===== Minimalist Editorial / Brutalist Architecture ===== */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
 
-        :root {
-            --bg: #ffffff;
-            --text: #000000;
-            --text-muted: #666666;
-            --border: #e5e5e5;
-            --border-dark: #000000;
-            --accent: #ccff00;
+                                :root {
+            --bg: #FAFAFA;
+            --bg-card: #FFFFFF;
+            --text: #212413;
+            --text-muted: #6B705C;
+            --border: #E8EBE0;
+            --border-dark: #212413;
+            --accent: #B3E6B5;
+            --radius-pill: 100px;
+            --radius-card: 32px;
+            --shadow-soft: 0 12px 32px rgba(33, 36, 19, 0.08);
         }
 
         * {
@@ -87,7 +91,7 @@
 
         .btn {
             display: inline-block;
-            background-color: var(--text);
+            background-color: var(--text); color: var(--accent);
             color: var(--bg);
             padding: 12px 24px;
             font-size: 0.85rem;
@@ -116,17 +120,17 @@
             z-index: 2;
             background-color: var(--accent);
             color: var(--text);
-            border: 2px solid var(--text);
+            border: none;
             padding: 18px 40px;
             font-size: 1.1rem;
-            box-shadow: 6px 6px 0 var(--border-dark);
+            box-shadow: var(--shadow-soft);
             transform: translateY(0);
         }
 
         .echo-button:hover {
-            background-color: var(--text);
+            background-color: var(--text); color: var(--accent);
             color: var(--bg);
-            box-shadow: 2px 2px 0 var(--border-dark);
+            box-shadow: var(--shadow-soft);
             transform: translateY(4px) translateX(4px);
         }
 
@@ -378,7 +382,7 @@
         
         .step-indicator { display: flex; gap: 8px; margin-bottom: 32px; }
         .step-dot { height: 4px; flex: 1; background: var(--border); border-radius: 2px; transition: background 0.3s; }
-        .step-dot.active { background: var(--text); }
+        .step-dot.active { background: var(--text); color: var(--accent); }
         
         .booking-step { display: none; animation: slideIn 0.3s ease forwards; }
         .booking-step.active { display: block; }
@@ -395,19 +399,19 @@
         .radio-group { display: grid; grid-template-columns: 1fr; gap: 12px; }
         .radio-option { border: 1px solid var(--border-dark); border-radius: 8px; padding: 16px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; }
         .radio-option:hover { border-color: var(--text); background: #f9f9f9; }
-        .radio-option.selected { border-color: var(--text); border-width: 2px; background: var(--text); color: var(--bg); }
+        .radio-option.selected { border-color: var(--text); border-width: 2px; background: var(--text); color: var(--accent); color: var(--accent); }
         .radio-option-title { font-weight: 900; font-size: 1.1rem; text-transform: uppercase; margin-bottom: 4px; }
         .radio-option-desc { font-size: 0.9rem; color: var(--text-muted); }
         .radio-option.selected .radio-option-desc { color: #aaaaaa; }
 
         .modal-actions { display: flex; gap: 16px; margin-top: 40px; }
         .btn-modal { flex: 1; padding: 16px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; font-size: 1rem; cursor: pointer; border-radius: 8px; border: none; transition: all 0.2s; }
-        .btn-next { background: var(--text); color: var(--bg); }
+        .btn-next { background: var(--text); color: var(--accent); color: var(--accent); }
         .btn-next:hover { background: #333; }
         .btn-prev { background: transparent; color: var(--text); border: 1px solid var(--border-dark); }
         .btn-prev:hover { background: #f5f5f5; }
-        .btn-submit { background: var(--accent); color: var(--text); border: 2px solid var(--text); box-shadow: 4px 4px 0 var(--border-dark); }
-        .btn-submit:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--border-dark); }
+        .btn-submit { background: var(--accent); color: var(--text); border: none; box-shadow: var(--shadow-soft); }
+        .btn-submit:hover { transform: translate(2px, 2px); box-shadow: var(--shadow-soft); }
 
     
         @media (max-width: 600px) {
@@ -416,462 +420,327 @@
             .btn-modal { padding: 12px; font-size: 0.9rem; }
             .modal-title { font-size: 1.5rem; }
         }
+    
+        
+        
+        
+        /* --- HYPER SIMPLE CONTACT OPTIONS --- */
+        .contact-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        .contact-option {
+            background: var(--bg-card);
+            border: 2px solid transparent;
+            border-radius: var(--radius-pill);
+            padding: 24px 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(33, 36, 19, 0.05);
+            text-decoration: none;
+            color: var(--text);
+            display: block;
+        }
+        .contact-option:hover {
+            background: var(--accent);
+            transform: scale(1.02);
+            box-shadow: var(--shadow-soft);
+        }
+        .contact-title {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .contact-input {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-pill);
+            padding: 20px 24px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.25rem;
+            color: var(--text);
+            margin-bottom: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(33, 36, 19, 0.02);
+            width: 100%;
+        }
+        .contact-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(179, 230, 181, 0.3);
+        }
+
     </style>
 
 </head>
 <body>
 
-    <!-- Multi-Step Booking Flow -->
-    <div class="modal-overlay" id="bookingModal">
-        <div class="modal-content">
-            <div class="modal-close" onclick="closeModal()">&times;</div>
+    
+    
+    <style>
+        /* --- FINGERSPELLING AESTHETIC --- */
+        #bookingModal {
+            background: rgba(250, 250, 250, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .modal-content-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+            pointer-events: auto;
+        }
+        .modal-close {
+            position: absolute;
+            top: 32px;
+            right: 32px;
+            font-size: 3rem;
+            color: var(--text);
+            cursor: pointer;
+            z-index: 100;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+        .modal-close:hover { opacity: 1; }
+
+        .fs-title {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--text);
+        }
+
+        .fs-subtitle {
+            text-align: center;
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        .contact-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .contact-option {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            padding: 24px 32px;
+            border-radius: var(--radius-pill);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+            color: var(--text);
+            box-shadow: 0 4px 12px rgba(33, 36, 19, 0.05);
+            border: 2px solid transparent;
+        }
+        .contact-option:hover {
+            background: var(--accent);
+            transform: scale(1.02);
+            box-shadow: var(--shadow-soft);
+        }
+        .contact-title {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .fs-input {
+            width: 100%;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-pill);
+            padding: 20px 24px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.25rem;
+            color: var(--text);
+            margin-bottom: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(33, 36, 19, 0.02);
+        }
+        .fs-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(179, 230, 181, 0.3);
+        }
+
+        .fs-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--text); color: var(--accent);
+            color: var(--accent);
+            border: none;
+            border-radius: var(--radius-pill);
+            padding: 20px 32px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 100%;
+        }
+        .fs-btn:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-soft);
+        }
+        .fs-btn-back {
+            background: var(--border);
+            color: var(--text);
+            width: auto;
+            padding: 20px;
+            border-radius: 50%;
+        }
+        .fs-btn-back:hover {
+            background: var(--text-muted);
+            color: var(--bg);
+        }
+
+        /* Update global buttons */
+        .btn {
+            border-radius: var(--radius-pill) !important;
+            border: none !important;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .btn:hover {
+            transform: translateY(-4px);
+        }
+    
+        /* --- HYPER SIMPLE CONTACT OPTIONS --- */
+        .contact-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        .contact-option {
+            background: var(--bg-card);
+            border: 2px solid transparent;
+            border-radius: var(--radius-pill);
+            padding: 24px 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(33, 36, 19, 0.05);
+            text-decoration: none;
+            color: var(--text);
+            display: block;
+        }
+        .contact-option:hover {
+            background: var(--accent);
+            transform: scale(1.02);
+            box-shadow: var(--shadow-soft);
+        }
+        .contact-title {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .contact-input {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-pill);
+            padding: 20px 24px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.25rem;
+            color: var(--text);
+            margin-bottom: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(33, 36, 19, 0.02);
+            width: 100%;
+        }
+        .contact-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(179, 230, 181, 0.3);
+        }
+
+    </style>
+
+    
+    <!-- CONTACT MODAL -->
+    <div class="modal-overlay" id="bookingModal" style="display: none; background: rgba(250, 250, 250, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
+        <div class="modal-content" style="position: relative; max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; min-height: 100vh; padding: 24px; pointer-events: auto; background: transparent; border: none; box-shadow: none;">
+            <div class="modal-close hover-target" style="position: absolute; top: 32px; right: 32px; font-size: 3rem; color: var(--text); z-index: 100; opacity: 0.5;" onclick="closeModal()">&times;</div>
             
-            <div class="step-indicator">
-                <div class="step-dot active" id="dot-1"></div>
-                <div class="step-dot" id="dot-2"></div>
-                <div class="step-dot" id="dot-3"></div>
-            </div>
-
-            <form id="bookingForm" onsubmit="submitBooking(event)">
+            <div style="pointer-events: auto;">
                 
-                <!-- STEP 1: Location -->
-                <div class="booking-step active" id="step-1">
-                    <h2 class="modal-title">Where do you want to hit?</h2>
-                    <p class="modal-subtitle">Select a location to continue.</p>
+                <!-- STEP 1: Choose Option -->
+                <div class="booking-step active" id="step-1" style="position: relative; z-index: 10;">
+                    <h2 class="modal-title" style="font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 900; letter-spacing: -0.04em; text-align: center; margin-bottom: 40px; color: var(--text);">Connect</h2>
                     
-                    <div class="radio-group">
-                        <div class="radio-option selected" onclick="selectRadio('location', 'Holdrege', this)">
-                            <span class="radio-option-title">Holdrege, NE</span>
-                            <span class="radio-option-desc">North Park Courts • Available Mon - Sun</span>
+                    <div class="contact-grid">
+                        <div class="contact-option hover-target" onclick="nextContactStep('call')">
+                            <span class="contact-title">Schedule a Call</span>
                         </div>
-                        <div class="radio-option" onclick="selectRadio('location', 'Hastings', this)">
-                            <span class="radio-option-title">Hastings, NE</span>
-                            <span class="radio-option-desc">Hastings College • Available Thursdays Only</span>
+                        <div class="contact-option hover-target" onclick="nextContactStep('text')">
+                            <span class="contact-title">Send a Text</span>
                         </div>
-                    </div>
-                    <input type="hidden" id="b_location" value="Holdrege">
-                    
-                    <div class="modal-actions">
-                        <button type="button" class="btn-modal btn-next" onclick="nextStep(2)">Continue &rarr;</button>
+                        <a href="tel:3089910173" class="contact-option hover-target">
+                            <span class="contact-title">Call Now</span>
+                        </a>
                     </div>
                 </div>
 
-                <!-- STEP 2: Time -->
-                <div class="booking-step" id="step-2">
-                    <h2 class="modal-title">When works for you?</h2>
-                    <p class="modal-subtitle">Propose a day and time. We'll finalize via text.</p>
+                <!-- STEP 2: Schedule Call -->
+                <div class="booking-step" id="step-call" style="position: relative; z-index: 10; display: none;">
+                    <h2 class="modal-title" style="text-align: center; margin-bottom: 24px; font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 900;">Schedule</h2>
                     
-                    <div class="form-group">
-                        <label>Preferred Day & Time</label>
-                        <input type="text" id="b_time" placeholder="e.g., Tuesday at 4:30 PM" required>
-                    </div>
+                    <input type="text" id="c_name" class="hover-target contact-input" placeholder="Your Name" required>
+                    <input type="tel" id="c_phone" class="hover-target contact-input" placeholder="Phone Number" required>
+                    <input type="text" id="c_time" class="hover-target contact-input" placeholder="Preferred Day & Time" required>
                     
-                    <div class="modal-actions">
-                        <button type="button" class="btn-modal btn-prev" onclick="nextStep(1)">&larr; Back</button>
-                        <button type="button" class="btn-modal btn-next" onclick="nextStep(3)">Continue &rarr;</button>
+                    <div style="display: flex; gap: 16px; margin-top: 8px;">
+                        <button type="button" class="btn-modal btn-prev hover-target" style="background: var(--border); color: var(--text); width: auto; padding: 20px; border-radius: 50%; border: none;" onclick="nextContactStep(1)">&larr;</button>
+                        <button type="button" class="btn-modal btn-submit hover-target" style="flex: 1; background: var(--text); color: var(--accent); border: none; border-radius: var(--radius-pill); font-size: 1.25rem; font-weight: 700; transition: all 0.4s;" onclick="submitContact('call')">Confirm</button>
                     </div>
                 </div>
 
-                <!-- STEP 3: Contact & Payment -->
-                <div class="booking-step" id="step-3">
-                    <h2 class="modal-title">Final Details</h2>
-                    <p class="modal-subtitle">Enter your contact info. You'll be redirected to Stripe to lock in the $25.</p>
+                <!-- STEP 3: Text Me -->
+                <div class="booking-step" id="step-text" style="position: relative; z-index: 10; display: none;">
+                    <h2 class="modal-title" style="text-align: center; margin-bottom: 24px; font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 900;">Details</h2>
                     
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" id="b_name" placeholder="John Doe" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Phone Number</label>
-                        <input type="tel" id="b_phone" placeholder="(555) 123-4567" required>
-                    </div>
+                    <input type="text" id="t_name" class="hover-target contact-input" placeholder="Your Name" required>
+                    <input type="tel" id="t_phone" class="hover-target contact-input" placeholder="Phone Number" required>
                     
-                    <div class="modal-actions">
-                        <button type="button" class="btn-modal btn-prev" onclick="nextStep(2)">&larr; Back</button>
-                        <button type="submit" class="btn-modal btn-submit" id="b_submit">Pay $25 on Stripe &rarr;</button>
+                    <div style="display: flex; gap: 16px; margin-top: 8px;">
+                        <button type="button" class="btn-modal btn-prev hover-target" style="background: var(--border); color: var(--text); width: auto; padding: 20px; border-radius: 50%; border: none;" onclick="nextContactStep(1)">&larr;</button>
+                        <button type="button" class="btn-modal btn-submit hover-target" style="flex: 1; background: var(--text); color: var(--accent); border: none; border-radius: var(--radius-pill); font-size: 1.25rem; font-weight: 700; transition: all 0.4s;" onclick="submitContact('text')">Send</button>
                     </div>
                 </div>
+                
+                <!-- STEP 4: Success -->
+                <div class="booking-step" id="step-success" style="position: relative; z-index: 10; text-align: center; display: none;">
+                    <div style="width: 80px; height: 80px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 32px;">
+                        <span style="font-size: 2rem; color: var(--text);">âœ“</span>
+                    </div>
+                    <h2 class="modal-title" style="font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 900; margin-bottom: 16px;">Received.</h2>
+                    <p class="modal-subtitle" style="font-size: 1.25rem; color: var(--text-muted); margin-bottom: 32px;">I'll be in touch shortly.</p>
+                    <button type="button" class="btn-modal btn-submit hover-target" style="background: var(--text); color: var(--bg); width: 100%; border: none; border-radius: var(--radius-pill); font-size: 1.25rem; font-weight: 700; padding: 20px;" onclick="closeModal()">Close</button>
+                </div>
 
-            </form>
+            </div>
         </div>
     </div>
 
-
-    <nav>
-        <div class="container">
-            <div class="logo">Tennis T-Mate</div>
-            <div class="nav-links" style="position: relative; display: flex; align-items: center; gap: 1rem;">
-                <a href="/admin.html" id="admin-link" style="display: none; color: #000; border: 2px solid #000; padding: 6px 12px; background: #ccff00; text-decoration: none; font-weight: 900; text-transform: uppercase;">Admin</a>
-                
-                <details class="nav-dropdown" style="position: relative;">
-                    <style>
-                        .nav-dropdown summary::-webkit-details-marker { display: none; }
-                        .nav-dropdown[open] summary { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px var(--border-dark); }
-                        .tm8-nav-item {
-                            padding: 16px 20px; border-bottom: 2px solid var(--border-dark); text-decoration: none; color: var(--text); font-weight: 900; text-transform: uppercase; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; background: #fff; transition: background 0.15s ease;
-                        }
-                        .tm8-nav-item:hover { background: #f4f4f4; }
-                        .tm8-nav-item.accent { background: linear-gradient(135deg, #ccff00 0%, #aadd00 100%); border-bottom: none; }
-                        .tm8-nav-item.accent:hover { background: linear-gradient(135deg, #d4ff33 0%, #b8e600 100%); }
-                    </style>
-                    <summary style="list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 900; text-transform: uppercase; border: 3px solid var(--border-dark); padding: 10px 20px; background: #fff; box-shadow: 4px 4px 0px var(--border-dark); transition: transform 0.1s, box-shadow 0.1s; font-size: 0.9rem;" onmouseover="this.style.transform='translate(-2px, -2px)'; this.style.boxShadow='6px 6px 0px var(--border-dark)';" onmouseout="if(!this.parentElement.open){this.style.transform='translate(0, 0)'; this.style.boxShadow='4px 4px 0px var(--border-dark)';}">
-                        <span class="pulse-dot" style="width: 10px; height: 10px;"></span>
-                        TM8 T00LS <span style="font-size: 0.7rem; margin-left: 4px;">▼</span>
-                    </summary>
-                    <div style="position: absolute; top: calc(100% + 14px); right: 0; background: #fff; border: 4px solid var(--border-dark); box-shadow: 8px 8px 0px var(--border-dark); width: 280px; display: flex; flex-direction: column; z-index: 1000;">
-                        <a href="/profile.html?tab=stats" class="tm8-nav-item">
-                            <span>Player Profile</span><span>→</span>
-                        </a>
-                        <a href="/profile.html?tab=lessons" class="tm8-nav-item">
-                            <span>Coaching Notes</span><span>→</span>
-                        </a>
-                        <a href="/blog/" class="tm8-nav-item">
-                            <span>The Journal</span><span>→</span>
-                        </a>
-                        <a href="/index.html#raqgen" class="tm8-nav-item" onclick="document.querySelector('.raqgen-section').scrollIntoView({behavior: 'smooth'}); return false;">
-                            <span>RaQGeN Engine</span><span>→</span>
-                        </a>
-                        <a href="#" onclick="openModal(event)" class="tm8-nav-item accent">
-                            <span>Book a Lesson</span><span>→</span>
-                        </a>
-                    </div>
-                </details>
-            </div>
-        </div>
-    </nav>
-
-    <section class="hero">
-        <div class="container grid">
-            <h1>TENNIS LESSONS IN HASTINGS & HOLDREGE</h1>
-            <div class="hero-desc">
-                Private coaching for kids, high school players, and adults. $25/hour.
-            </div>
-            <div class="hero-cta">
-                <div class="echo-button-wrapper">
-                    <div class="echo-ring"></div>
-                    <a href="#" onclick="openModal(event)" class="btn echo-button">BOOK A $25 LESSON</a>
-                </div>
-                <span class="no-account-text">No account required to book. Just pick a time.</span>
-            </div>
-            
-            <div class="stats-marquee">
-                <div class="stat"><span class="stat-val">60m</span><span class="stat-lbl">Session Time</span></div>
-                <div class="stat"><span class="stat-val">$25</span><span class="stat-lbl">Flat Rate</span></div>
-                <div class="stat"><span class="stat-val">2</span><span class="stat-lbl">Locations</span></div>
-            </div>
-        </div>
-    </section>
-
-    
-
-    <section class="details-accordion" style="padding: 60px 0;">
-        <div class="container" style="max-width: 800px;">
-            
-            <div class="accordion">
-                <button class="accordion-header" onclick="toggleAccordion(this)">
-                    The Roster
-                    <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    
-                <div class="roster-card" style="max-width: 500px;">
-                    <img src="assets/aden.jpg" alt="Aden Ingwerson" class="roster-image">
-                    <h3 class="roster-name">Aden Ingwerson</h3>
-                    <span class="kicker" style="margin-bottom: 0.5rem; margin-top: 1rem;">Coach (Holdrege & Hastings)</span>
-                    <p class="roster-desc">Current collegiate player focused on building solid fundamentals and modern stroke mechanics. Looking to coach all skill levels.</p>
-                </div>
-            
-                </div>
-            </div>
-
-            <div class="accordion">
-                <button class="accordion-header" onclick="toggleAccordion(this)">
-                    Pricing & Rates
-                    <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <div style="padding-top: 16px;">
-                    
-                <div class="location-card" style="max-width: 500px; margin: 0 auto;">
-                    <h3>Single Lesson</h3>
-                    <p style="font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem;">$25</p>
-                    <p style="color: var(--text-muted); margin-bottom: 2rem;">1 Hour Session. No hidden fees. No commitments.</p>
-                    <a href="#" onclick="openModal(event)" class="btn" style="width: 100%; text-align: center;">Book Now</a>
-                </div>
-            
-                    </div>
-                </div>
-            </div>
-
-            <div class="accordion">
-                <button class="accordion-header" onclick="toggleAccordion(this)">
-                    Locations
-                    <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <div class="location-grid" style="padding-top: 16px;">
-                    
-                <div class="location-card">
-                    <h3>Holdrege, NE</h3>
-                    <div class="detail-row">
-                        <span>Schedule</span>
-                        <strong>Mon - Sun</strong>
-                    </div>
-                    <div class="detail-row" style="border-bottom: none;">
-                        <span>Location</span>
-                        <strong style="text-align: right;">North Park Courts<br><span style="font-size: 0.8em; font-weight: 400; color: var(--text-muted);">301 W 14th Ave</span></strong>
-                    </div>
-                </div>
-                <div class="location-card">
-                    <h3>Hastings, NE</h3>
-                    <div class="detail-row">
-                        <span>Schedule</span>
-                        <strong>Thursdays Only</strong>
-                    </div>
-                    <div class="detail-row" style="border-bottom: none;">
-                        <span>Location</span>
-                        <strong style="text-align: right;">Hastings College<br><span style="font-size: 0.8em; font-weight: 400; color: var(--text-muted);">903 E 9th St</span></strong>
-                    </div>
-                </div>
-            
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-    
-
-    
-
-    
-
-
-    <section id="raqgen" class="raqgen-section" style="padding: 100px 20px; background-color: var(--bg); border-top: 4px solid var(--border-dark);">
-        <div class="container" style="max-width: 1000px;">
-            <div style="text-align: center; margin-bottom: 60px;">
-                <!-- Elegant Whispering Logo -->
-                <div style="display: inline-block; margin-bottom: 16px;">
-                    <span style="font-family: 'Inter', sans-serif; font-weight: 300; font-size: 1.1rem; letter-spacing: 12px; text-transform: uppercase; color: #888;">RaQGeN</span>
-                </div>
-                    <svg width="240" height="40" viewBox="0 0 240 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <text x="0" y="32" font-family="Inter, sans-serif" font-weight="900" font-size="40" fill="#000" letter-spacing="-2">RaQGeN</text>
-                        <rect x="155" y="4" width="30" height="30" fill="#ccff00" stroke="#000" stroke-width="4"/>
-                        <text x="162" y="26" font-family="Inter, sans-serif" font-weight="900" font-size="16" fill="#000">OS</text>
-                        <text x="195" y="30" font-family="Inter, sans-serif" font-weight="900" font-size="16" fill="#000" letter-spacing="1">V.2</text>
-                    </svg>
-                </div>
-                <h2 style="font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900; line-height: 1; margin-bottom: 20px; text-transform: uppercase;">The Master Equation.</h2>
-                <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 650px; margin: 0 auto; font-weight: 500;">
-                    Personalized Racket Recommendation Engine. Powered by TennisT-Mate's Equations, OSINT data, and the Mahalanobis Distance Model.
-                </p>
-            </div>
-
-            <div style="border: 4px solid var(--border-dark); padding: 40px; background: #fff; box-shadow: 16px 16px 0px var(--border-dark);">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-bottom: 40px;">
-                    
-                    <!-- Bio Input -->
-                    <div>
-                        <h4 style="font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; border-bottom: 4px solid var(--border-dark); padding-bottom: 8px; margin-bottom: 24px;">Biomechanics</h4>
-                        <div style="margin-bottom: 20px;">
-                            <label style="display: block; font-size: 0.9rem; font-weight: 900; margin-bottom: 8px;">Height (Inches)</label>
-                            <input type="number" id="idx-raq-height" placeholder="72" class="tm-input" style="width: 100%; border: 2px solid var(--border-dark); background: #f4f4f4; padding: 14px; font-weight: 700; font-size: 1.1rem;">
-                        </div>
-                        <div style="margin-bottom: 20px;">
-                            <label style="display: block; font-size: 0.9rem; font-weight: 900; margin-bottom: 8px;">Weight (lbs)</label>
-                            <input type="number" id="idx-raq-weight" placeholder="165" class="tm-input" style="width: 100%; border: 2px solid var(--border-dark); background: #f4f4f4; padding: 14px; font-weight: 700; font-size: 1.1rem;">
-                        </div>
-                        <div>
-                            <label style="display: block; font-size: 0.9rem; font-weight: 900; margin-bottom: 8px;">Wingspan (Inches)</label>
-                            <input type="number" id="idx-raq-wingspan" placeholder="74" class="tm-input" style="width: 100%; border: 2px solid var(--border-dark); background: #f4f4f4; padding: 14px; font-weight: 700; font-size: 1.1rem;">
-                        </div>
-                    </div>
-
-                    <!-- Dynamics Input -->
-                    <div>
-                        <h4 style="font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; border-bottom: 4px solid var(--border-dark); padding-bottom: 8px; margin-bottom: 24px;">Dynamics</h4>
-                        <div style="margin-bottom: 20px;">
-                            <label style="display: block; font-size: 0.9rem; font-weight: 900; margin-bottom: 8px;">Forehand Grip</label>
-                            <select id="idx-raq-grip" style="width: 100%; border: 2px solid var(--border-dark); background: #f4f4f4; padding: 14px; font-weight: 700; font-size: 1.1rem; font-family: 'Inter', sans-serif;">
-                                <option>Eastern</option>
-                                <option selected>Semi-Western</option>
-                                <option>Western</option>
-                            </select>
-                        </div>
-                        <div style="margin-bottom: 20px;">
-                            <label style="display: block; font-size: 0.9rem; font-weight: 900; margin-bottom: 8px;">Backhand</label>
-                            <select id="idx-raq-bh" style="width: 100%; border: 2px solid var(--border-dark); background: #f4f4f4; padding: 14px; font-weight: 700; font-size: 1.1rem; font-family: 'Inter', sans-serif;">
-                                <option selected>Two-Handed</option>
-                                <option>One-Handed</option>
-                                <option>Slice Only</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label style="display: block; font-size: 0.9rem; font-weight: 900; margin-bottom: 8px;">Playstyle</label>
-                            <select id="idx-raq-style" style="width: 100%; border: 2px solid var(--border-dark); background: #f4f4f4; padding: 14px; font-weight: 700; font-size: 1.1rem; font-family: 'Inter', sans-serif;">
-                                <option selected>All-Court Player</option>
-                                <option>Aggressive Baseliner</option>
-                                <option>Counter-Puncher</option>
-                                <option>Serve & Volley</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="echo-button-wrapper" style="width: 100%; display: block;">
-                    <div class="echo-ring" style="border-color: var(--border-dark);"></div>
-                    <button id="btn-idx-raqgen" class="btn echo-button" style="width: 100%; font-size: 1.2rem; padding: 20px; background: var(--text); color: var(--bg); border: 2px solid var(--border-dark); font-weight: 900; letter-spacing: 2px; text-transform: uppercase; cursor: pointer;" onclick="runIndexRaqGen()">
-                        Compute Optimal Frame
-                    </button>
-                </div>
-
-                <!-- RESULTS CONTAINER -->
-                <div id="idx-raqgen-result" style="display: none; margin-top: 60px; padding-top: 40px; border-top: 4px dashed var(--border-dark);">
-                    
-                    <!-- BEST MATCH -->
-                    <div style="border: 4px solid var(--border-dark); padding: 30px; margin-bottom: 40px; position: relative; background: #fff;">
-                        <div style="position: absolute; top: -18px; right: 20px; background: var(--accent); border: 4px solid var(--border-dark); padding: 6px 16px; font-weight: 900; letter-spacing: 1px; font-size: 1rem; box-shadow: 4px 4px 0px var(--border-dark);"><span id="idx-raqgen-score">100%</span> MATCH</div>
-                        
-                        <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 40px;">
-                            <span style="font-size: 0.9rem; font-weight: 900; text-transform: uppercase; color: var(--text-muted); letter-spacing: 2px;">Primary Recommendation</span>
-                            <h4 style="font-size: clamp(2rem, 5vw, 3.5rem); margin: 0; font-weight: 900; line-height: 1; text-transform: uppercase;" id="idx-raqgen-name">--</h4>
-                        </div>
-
-                        <!-- SCORE BARS -->
-                        <div style="margin-bottom: 40px;">
-                            <div style="margin-bottom: 24px;">
-                                <div style="display: flex; justify-content: space-between; font-size: 1rem; font-weight: 900; margin-bottom: 8px; text-transform: uppercase;">
-                                    <span>Bio-Kinetic Fit</span>
-                                    <span id="idx-bar-bio-val">--%</span>
-                                </div>
-                                <div style="width: 100%; height: 16px; background: #eee; border: 2px solid var(--border-dark);">
-                                    <div id="idx-bar-bio" style="height: 100%; background: var(--text); width: 0%; transition: width 1s ease-out;"></div>
-                                </div>
-                            </div>
-                            <div style="margin-bottom: 24px;">
-                                <div style="display: flex; justify-content: space-between; font-size: 1rem; font-weight: 900; margin-bottom: 8px; text-transform: uppercase;">
-                                    <span>Tactical Alignment</span>
-                                    <span id="idx-bar-tac-val">--%</span>
-                                </div>
-                                <div style="width: 100%; height: 16px; background: #eee; border: 2px solid var(--border-dark);">
-                                    <div id="idx-bar-tac" style="height: 100%; background: var(--text); width: 0%; transition: width 1s ease-out 0.2s;"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div style="display: flex; justify-content: space-between; font-size: 1rem; font-weight: 900; margin-bottom: 8px; text-transform: uppercase;">
-                                    <span>Arm Safety / Fatigue</span>
-                                    <span id="idx-bar-safe-val">--%</span>
-                                </div>
-                                <div style="width: 100%; height: 16px; background: #eee; border: 2px solid var(--border-dark);">
-                                    <div id="idx-bar-safe" style="height: 100%; background: var(--accent); width: 0%; transition: width 1s ease-out 0.4s;"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- SPECS -->
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 20px; border-top: 4px solid var(--border-dark); padding-top: 30px;">
-                            <div><span style="display: block; font-size: 0.85rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Mass</span> <span style="font-weight: 900; font-size: 1.8rem;" id="idx-raqgen-weight">--</span></div>
-                            <div><span style="display: block; font-size: 0.85rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Swingweight</span> <span style="font-weight: 900; font-size: 1.8rem;" id="idx-raqgen-sw">--</span></div>
-                            <div><span style="display: block; font-size: 0.85rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Stiffness (RA)</span> <span style="font-weight: 900; font-size: 1.8rem;" id="idx-raqgen-ra">--</span></div>
-                            <div><span style="display: block; font-size: 0.85rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Pattern</span> <span style="font-weight: 900; font-size: 1.8rem;" id="idx-raqgen-pattern">--</span></div>
-                        </div>
-                    </div>
-
-                    
-                    <!-- TW METRICS -->
-                    <div style="margin-top: 32px; border-top: 2px dashed var(--border-dark); padding-top: 24px; margin-bottom: 32px;">
-                        <span style="font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: var(--text-muted); letter-spacing: 2px; display: block; margin-bottom: 16px;">1-100 Performance Metrics</span>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px;">
-                            <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Overall</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-overall">--</span>
-                            </div>
-                            <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Power</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-power">--</span>
-                            </div>
-                            <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Control</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-control">--</span>
-                            </div>
-                            <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Maneuverability</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-maneuver">--</span>
-                            </div>
-                            <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Stability</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-stability">--</span>
-                            </div>
-                            <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Comfort</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-comfort">--</span>
-                            </div>
-                            <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Topspin</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-topspin">--</span>
-                            </div>
-                            <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Touch</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-touch">--</span>
-                            </div>
-                            <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Groundstrokes</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-ground">--</span>
-                            </div>
-                            <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Volleys</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-volleys">--</span>
-                            </div>
-                            <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Serves</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-serves">--</span>
-                            </div>
-                            <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Returns</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-returns">--</span>
-                            </div>
-                        </div>
-                    </div>
-\n                    <!-- RUNNERS UP -->
-                    <h5 style="font-size: 1.1rem; font-weight: 900; text-transform: uppercase; margin-bottom: 20px;">Mathematical Alternatives</h5>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-                        <div style="border: 2px solid var(--border-dark); padding: 24px; display: flex; justify-content: space-between; align-items: center; background: #f4f4f4;">
-                            <span style="font-weight: 900; font-size: 1.2rem; text-transform: uppercase;" id="idx-ru1-name">--</span>
-                            <span style="background: var(--text); color: var(--bg); padding: 6px 12px; font-weight: 900; font-size: 1.1rem;" id="idx-ru1-score">--%</span>
-                        </div>
-                        <div style="border: 2px solid var(--border-dark); padding: 24px; display: flex; justify-content: space-between; align-items: center; background: #f4f4f4;">
-                            <span style="font-weight: 900; font-size: 1.2rem; text-transform: uppercase;" id="idx-ru2-name">--</span>
-                            <span style="background: var(--text); color: var(--bg); padding: 6px 12px; font-weight: 900; font-size: 1.1rem;" id="idx-ru2-score">--%</span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-<section class="second-cta" style="background-color: var(--text); color: var(--bg); text-align: center; padding: 120px 0;">
-        <div class="container">
-            <h2 style="font-size: clamp(3rem, 8vw, 6rem); margin-bottom: 2rem; line-height: 1;">Ready to hit<br>the court?</h2>
-            <a href="#" onclick="openModal(event)" class="btn" style="background-color: var(--bg); color: var(--text); border-color: var(--bg); font-size: 1.25rem; padding: 16px 32px;">Book Session</a>
-        </div>
-    </section>
-    <footer>
-        <div class="container footer-grid">
-            <div>
-                <h2 style="font-size: 2rem; margin-bottom: 1rem;">Inquiries.</h2>
-                <a href="tel:3089910173" style="font-size: 1.5rem; font-weight: 700; border-bottom: 2px solid var(--text-dark);">(308) 991-0173</a>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
-                <div style="display: flex; gap: 24px;">
-                    <a href="/profile.html" style="font-weight: 700; text-transform: uppercase;">Profile &rarr;</a>
-                    <a href="/blog/" style="font-weight: 700; text-transform: uppercase;">The Journal &rarr;</a>
-                </div>
-                <span style="font-size: 0.8rem; color: var(--text-muted);">&copy; 2026 Tennis T-Mate</span>
-            </div>
-        </div>
-    </footer>
 
     <script>
         // Check for Admin status to reveal hidden link
@@ -896,76 +765,216 @@
             accordion.classList.toggle('active');
         }
 
-        // Multi-Step Booking Modal Logic
+        
+// Multi-Step Contact Modal Logic
+        function nextContactStep(stepId) {
+            document.querySelectorAll('.booking-step').forEach(el => {
+                el.classList.remove('active');
+                el.style.display = 'none';
+            });
+            if (stepId === 1) {
+                const el = document.getElementById('step-1');
+                el.classList.add('active');
+                el.style.display = 'block';
+            } else {
+                const el = document.getElementById('step-' + stepId);
+                if (el) {
+                    el.classList.add('active');
+                    el.style.display = 'block';
+                }
+            }
+        }
+        
+        async function submitContact(type) {
+            let payload = {};
+            if (type === 'call') {
+                const name = document.getElementById('c_name').value;
+                const phone = document.getElementById('c_phone').value;
+                const time = document.getElementById('c_time').value;
+                if(!name || !phone || !time) { alert("Please fill all fields"); return; }
+                
+                payload = { name, phone, location: 'N/A', preferred_time: time, focus: 'Schedule Call' };
+            } else if (type === 'text') {
+                const name = document.getElementById('t_name').value;
+                const phone = document.getElementById('t_phone').value;
+                if(!name || !phone) { alert("Please fill all fields"); return; }
+                
+                payload = { name, phone, location: 'N/A', preferred_time: 'ASAP', focus: 'Send Text' };
+            }
+
+            nextContactStep('success');
+
+            try {
+                await fetch('/api/book', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(payload)
+                });
+            } catch (err) {
+                console.error("Submission error", err);
+            }
+        }
+
+        
+        function nextContactStep(stepId) {
+            document.querySelectorAll('.booking-step').forEach(el => {
+                el.classList.remove('active');
+                el.style.display = 'none';
+            });
+            if (stepId === 1) {
+                const el = document.getElementById('step-1');
+                el.classList.add('active');
+                el.style.display = 'block';
+            } else {
+                const el = document.getElementById('step-' + stepId);
+                if (el) {
+                    el.classList.add('active');
+                    el.style.display = 'block';
+                }
+            }
+        }
+        
+        async function submitContact(type) {
+            let payload = {};
+            if (type === 'call') {
+                const name = document.getElementById('c_name').value;
+                const phone = document.getElementById('c_phone').value;
+                const time = document.getElementById('c_time').value;
+                if(!name || !phone || !time) { alert("Please fill all fields"); return; }
+                payload = { name, phone, location: 'N/A', preferred_time: time, focus: 'Schedule Call' };
+            } else if (type === 'text') {
+                const name = document.getElementById('t_name').value;
+                const phone = document.getElementById('t_phone').value;
+                if(!name || !phone) { alert("Please fill all fields"); return; }
+                payload = { name, phone, location: 'N/A', preferred_time: 'ASAP', focus: 'Send Text' };
+            }
+
+            nextContactStep('success');
+
+            try {
+                await fetch('/api/book', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(payload)
+                });
+            } catch (err) {
+                console.error("Submission error", err);
+            }
+        }
+
+        
+        function nextContactStep(stepId) {
+            document.querySelectorAll('.booking-step').forEach(el => {
+                el.classList.remove('active');
+                el.style.display = 'none';
+            });
+            if (stepId === 1) {
+                const el = document.getElementById('step-1');
+                el.classList.add('active');
+                el.style.display = 'block';
+            } else {
+                const el = document.getElementById('step-' + stepId);
+                if (el) {
+                    el.classList.add('active');
+                    el.style.display = 'block';
+                }
+            }
+        }
+        
+        async function submitContact(type) {
+            let payload = {};
+            if (type === 'call') {
+                const name = document.getElementById('c_name').value;
+                const phone = document.getElementById('c_phone').value;
+                const time = document.getElementById('c_time').value;
+                if(!name || !phone || !time) { alert("Please fill all fields"); return; }
+                payload = { name, phone, location: 'N/A', preferred_time: time, focus: 'Schedule Call' };
+            } else if (type === 'text') {
+                const name = document.getElementById('t_name').value;
+                const phone = document.getElementById('t_phone').value;
+                if(!name || !phone) { alert("Please fill all fields"); return; }
+                payload = { name, phone, location: 'N/A', preferred_time: 'ASAP', focus: 'Send Text' };
+            }
+
+            nextContactStep('success');
+
+            try {
+                await fetch('/api/book', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(payload)
+                });
+            } catch (err) {
+                console.error("Submission error", err);
+            }
+        }
+
+        
+// Multi-Step Contact Modal Logic
+        function nextContactStep(stepId) {
+            document.querySelectorAll('.booking-step').forEach(el => {
+                el.classList.remove('active');
+                el.style.display = 'none';
+            });
+            if (stepId === 1) {
+                const el = document.getElementById('step-1');
+                el.classList.add('active');
+                el.style.display = 'block';
+            } else {
+                const el = document.getElementById('step-' + stepId);
+                if (el) {
+                    el.classList.add('active');
+                    el.style.display = 'block';
+                }
+            }
+        }
+        
+        async function submitContact(type) {
+            let payload = {};
+            if (type === 'call') {
+                const name = document.getElementById('c_name').value;
+                const phone = document.getElementById('c_phone').value;
+                const time = document.getElementById('c_time').value;
+                if(!name || !phone || !time) { alert("Please fill all fields"); return; }
+                
+                payload = { name, phone, location: 'N/A', preferred_time: time, focus: 'Schedule Call' };
+            } else if (type === 'text') {
+                const name = document.getElementById('t_name').value;
+                const phone = document.getElementById('t_phone').value;
+                if(!name || !phone) { alert("Please fill all fields"); return; }
+                
+                payload = { name, phone, location: 'N/A', preferred_time: 'ASAP', focus: 'Send Text' };
+            }
+
+            nextContactStep('success');
+
+            try {
+                await fetch('/api/book', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(payload)
+                });
+            } catch (err) {
+                console.error("Submission error", err);
+            }
+        }
+
         function openModal(e) {
             if(e) e.preventDefault();
-            document.getElementById('bookingModal').style.display = 'flex';
-            // Reset to step 1
-            nextStep(1);
+            const modal = document.getElementById('bookingModal');
+            modal.style.display = 'flex';
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100vh';
+            modal.style.zIndex = '9999';
+            nextContactStep(1);
             document.body.style.overflow = 'hidden';
         }
         function closeModal() {
             document.getElementById('bookingModal').style.display = 'none';
             document.body.style.overflow = 'auto';
-        }
-        
-        function selectRadio(field, value, el) {
-            document.getElementById('b_' + field).value = value;
-            const siblings = el.parentElement.children;
-            for(let i=0; i<siblings.length; i++) {
-                siblings[i].classList.remove('selected');
-            }
-            el.classList.add('selected');
-        }
-
-        function nextStep(step) {
-            // Basic validation before moving forward
-            if(step === 3) {
-                if(!document.getElementById('b_time').value.trim()) {
-                    alert('Please enter a preferred time.');
-                    return;
-                }
-            }
-
-            document.querySelectorAll('.booking-step').forEach(el => el.classList.remove('active'));
-            document.getElementById('step-' + step).classList.add('active');
-            
-            document.querySelectorAll('.step-dot').forEach((el, index) => {
-                if (index < step) el.classList.add('active');
-                else el.classList.remove('active');
-            });
-        }
-        
-        async function submitBooking(e) {
-            e.preventDefault();
-            const btn = document.getElementById('b_submit');
-            btn.innerText = "Processing...";
-            btn.disabled = true;
-
-            const payload = {
-                name: document.getElementById('b_name').value,
-                phone: document.getElementById('b_phone').value,
-                location: document.getElementById('b_location').value,
-                preferred_time: document.getElementById('b_time').value
-            };
-
-            try {
-                const res = await fetch('/api/book', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(payload)
-                });
-                
-                if (res.ok) {
-                    window.location.href = "https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01";
-                } else {
-                    console.error("Booking error, redirecting anyway.");
-                    window.location.href = "https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01";
-                }
-            } catch (err) {
-                console.error("Network error, redirecting anyway.", err);
-                window.location.href = "https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01";
-            }
         }
 
     </script>
@@ -991,7 +1000,7 @@
             if (!terminal) {
                 terminal = document.createElement('div');
                 terminal.id = btn.id === 'btn-idx-raqgen' ? 'idx-terminal' : 'profile-terminal';
-                terminal.style.cssText = "background: #000; color: #ccff00; font-family: monospace; font-size: 0.85rem; padding: 16px; margin-top: 20px; border-radius: 8px; height: 150px; overflow-y: hidden; text-align: left; box-shadow: inset 0 0 10px rgba(204,255,0,0.2); border: 1px solid #333;";
+                terminal.style.cssText = "background: #000; color: #B3E6B5; font-family: monospace; font-size: 0.85rem; padding: 16px; margin-top: 20px; border-radius: 8px; height: 150px; overflow-y: hidden; text-align: left; box-shadow: inset 0 0 10px rgba(204,255,0,0.2); border: 1px solid #333;";
                 btn.parentNode.insertBefore(terminal, btn.nextSibling);
             }
             terminal.style.display = 'block';

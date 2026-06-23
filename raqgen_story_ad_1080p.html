@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, height=1920, initial-scale=1.0">
+<title>RaQGeN IG Story Ad - 1080p Native</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+  body {
+    margin: 0; padding: 0; background: #0b0b0b; color: #fff;
+    font-family: 'Inter', sans-serif;
+    width: 1080px; height: 1920px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    overflow: hidden; position: relative;
+  }
+  .bg-glow {
+    position: absolute; width: 1000px; height: 1000px;
+    background: #ECD06F; filter: blur(400px); opacity: 0.15;
+    border-radius: 50%; top: -200px; left: -200px; animation: pulse 4s infinite alternate;
+  }
+  @keyframes pulse { 0% { opacity: 0.1; } 100% { opacity: 0.3; } }
+  
+  .title {
+    font-size: 9rem; font-weight: 900; text-transform: uppercase;
+    text-align: center; line-height: 1; margin-bottom: 80px; z-index: 10;
+    opacity: 0; animation: fadeIn 0.8s forwards 0.5s; letter-spacing: -0.04em;
+  }
+  .accent { color: #ECD06F; }
+  
+  .terminal {
+    width: 880px; height: 600px; background: rgba(0,0,0,0.8);
+    border: 3px solid #333; border-radius: 30px;
+    padding: 60px; font-family: monospace; font-size: 2.5rem; color: #ECD06F;
+    box-shadow: inset 0 0 50px rgba(204,255,0,0.1), 0 20px 80px rgba(0,0,0,0.9);
+    display: flex; flex-direction: column; gap: 24px; z-index: 10;
+    opacity: 0; animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards 1.8s;
+  }
+  
+  .line { opacity: 0; text-shadow: 0 0 10px rgba(204,255,0,0.5); }
+  
+  .result {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: #ECD06F; color: #000; z-index: 20;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; opacity: 0; pointer-events: none;
+    transform: scale(1.05); transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .result h2 { font-size: 4rem; font-weight: 900; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 5px; }
+  .result h1 { font-size: 11rem; font-weight: 900; margin: 0; line-height: 0.95; text-transform: uppercase; letter-spacing: -0.05em; }
+  .cta { margin-top: 100px; font-size: 4rem; font-weight: 900; background: #000; color: #ECD06F; padding: 40px 80px; border-radius: 100px; text-transform: uppercase; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(80px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+  <div class="title">Stop<br>Guessing.<br><span class="accent">Compute It.</span></div>
+  
+  <div class="terminal" id="term">
+    <div class="line" id="l1">> Booting Master Equation...</div>
+    <div class="line" id="l2">> Loading 35 Elite Frames...</div>
+    <div class="line" id="l3">> Scanning: 6'2", Two-Handed...</div>
+    <div class="line" id="l4">> Torsional Stability calculated.</div>
+    <div class="line" id="l5">> Eval: Wilson Pro Staff 97...</div>
+    <div class="line" id="l6">> Eval: Yonex Percept 97D...</div>
+    <div class="line" id="l7">> [SYS] Optimal frame isolated.</div>
+  </div>
+
+  <div class="result" id="res">
+    <h2>Bio-Kinetic Match</h2>
+    <h1>YONEX<br>PERCEPT<br>97D</h1>
+    <div class="cta">Link in Bio</div>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      const lines = [
+        {id: 'l1', t: 2400}, {id: 'l2', t: 3000}, {id: 'l3', t: 3800},
+        {id: 'l4', t: 4400}, {id: 'l5', t: 5100}, {id: 'l6', t: 5600},
+        {id: 'l7', t: 6400}
+      ];
+      lines.forEach(l => {
+        setTimeout(() => { document.getElementById(l.id).style.opacity = 1; }, l.t);
+      });
+      
+      setTimeout(() => {
+        const res = document.getElementById('res');
+        res.style.opacity = 1;
+        res.style.transform = 'scale(1)';
+      }, 7500);
+    }, 0);
+  </script>
+</body>
+</html>
