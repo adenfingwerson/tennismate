@@ -22,7 +22,8 @@
             font-family: 'Inter', -apple-system, sans-serif;
             color: var(--text);
             background-color: var(--bg);
-            line-height: 1.5;
+            line-height: 1.6;
+            font-size: 1.125rem;
             -webkit-font-smoothing: antialiased;
             padding: 20px 16px; /* Mobile friendly padding */
         }
@@ -32,7 +33,7 @@
         }
 
         h1, h2, h3, h4 {
-            font-weight: 900;
+            font-weight: 800;
             letter-spacing: -0.04em;
             line-height: 1.05;
             text-transform: uppercase;
@@ -58,7 +59,7 @@
         }
 
         .logo {
-            font-weight: 900;
+            font-weight: 800;
             font-size: 1.25rem;
             text-transform: uppercase;
             letter-spacing: -0.02em;
@@ -79,7 +80,7 @@
             text-decoration: none;
             color: var(--text);
             font-weight: 500;
-            font-size: 0.9rem;
+            font-size: 1rem;
             text-transform: uppercase;
         }
         
@@ -119,9 +120,9 @@
             background-color: var(--text);
             color: var(--bg);
             padding: 8px 16px;
-            font-weight: 900;
+            font-weight: 800;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 1rem;
             letter-spacing: 0.05em;
             align-self: flex-start;
         }
@@ -143,12 +144,12 @@
             border: 2px solid var(--border-dark);
             padding: 10px 16px;
             font-family: 'Inter', sans-serif;
-            font-weight: 900;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-size: 0.85rem;
+            font-size: 1rem;
         }
 
         @media (min-width: 768px) {
@@ -244,7 +245,7 @@
             border: 2px solid var(--border-dark);
             cursor: pointer;
             outline: none;
-            font-size: 0.9rem;
+            font-size: 1rem;
             appearance: auto;
             width: 100%;
         }
@@ -284,7 +285,7 @@
             background-color: var(--bg);
             color: var(--text);
             padding: 16px 24px;
-            font-weight: 900;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             border: 2px solid var(--border-dark);
@@ -308,7 +309,7 @@
         .kicker {
             display: block;
             text-transform: uppercase;
-            font-weight: 900;
+            font-weight: 800;
             color: var(--text-muted);
             margin-bottom: 0.5rem;
             letter-spacing: 0.05em;
@@ -478,7 +479,7 @@
         .ai-module-title {
             color: var(--accent);
             font-size: 0.8rem;
-            font-weight: 900;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.1em;
         }
@@ -505,20 +506,20 @@
         <div class="container">
             <div class="logo"><a href="/">Tennis T-Mate</a></div>
             <div class="nav-links" style="position: relative; display: flex; align-items: center; gap: 1rem;">
-                <a href="/admin.html" id="admin-link" style="display: none; color: #000; border: 2px solid #000; padding: 6px 12px; background: #ECD06F; text-decoration: none; font-weight: 900; text-transform: uppercase;">Admin</a>
+                <a href="/admin.html" id="admin-link" style="display: none; color: #000; border: 2px solid #000; padding: 6px 12px; background: #ECD06F; text-decoration: none; font-weight: 800; text-transform: uppercase;">Admin</a>
                 
                 <details class="nav-dropdown" style="position: relative;">
                     <style>
                         .nav-dropdown summary::-webkit-details-marker { display: none; }
                         .nav-dropdown[open] summary { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px var(--border-dark); }
                         .tm8-nav-item {
-                            padding: 16px 20px; border-bottom: 2px solid var(--border-dark); text-decoration: none; color: var(--text); font-weight: 900; text-transform: uppercase; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; background: #fff; transition: background 0.15s ease;
+                            padding: 16px 20px; border-bottom: 2px solid var(--border-dark); text-decoration: none; color: var(--text); font-weight: 800; text-transform: uppercase; font-size: 1rem; display: flex; justify-content: space-between; align-items: center; background: #fff; transition: background 0.15s ease;
                         }
                         .tm8-nav-item:hover { background: #f4f4f4; }
                         .tm8-nav-item.accent { background: var(--bg); color: var(--text); border: 2px solid var(--text) !important; border-bottom: 2px solid var(--text) !important; margin: 4px; padding: 14px; }
                         .tm8-nav-item.accent:hover { background: var(--text); color: var(--bg); }
                     </style>
-                    <summary style="list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 900; text-transform: uppercase; border: 3px solid var(--border-dark); padding: 10px 20px; background: var(--bg); color: var(--text); box-shadow: 4px 4px 0px var(--border-dark); transition: transform 0.1s, box-shadow 0.1s; font-size: 0.9rem;" onmouseover="this.style.transform='translate(-2px, -2px)'; this.style.boxShadow='6px 6px 0px var(--border-dark)';" onmouseout="if(!this.parentElement.open){this.style.transform='translate(0, 0)'; this.style.boxShadow='4px 4px 0px var(--border-dark)';}">
+                    <summary style="list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 800; text-transform: uppercase; border: 3px solid var(--border-dark); padding: 10px 20px; background: var(--bg); color: var(--text); box-shadow: 4px 4px 0px var(--border-dark); transition: transform 0.1s, box-shadow 0.1s; font-size: 1rem;" onmouseover="this.style.transform='translate(-2px, -2px)'; this.style.boxShadow='6px 6px 0px var(--border-dark)';" onmouseout="if(!this.parentElement.open){this.style.transform='translate(0, 0)'; this.style.boxShadow='4px 4px 0px var(--border-dark)';}">
                         <span class="pulse-dot" style="width: 10px; height: 10px;"></span>
                         TM8 T00LS <span style="font-size: 0.7rem; margin-left: 4px;">▼</span>
                     </summary>
@@ -549,7 +550,7 @@
     <div class="profile-header">
         <div>
             <span class="kicker">Player Profile</span>
-            <input type="text" id="profile-name" value="" placeholder="Player Name" class="tm-input" style="font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; background: transparent; border: none; border-bottom: 2px dashed var(--border-dark); padding: 0; text-align: left; max-width: 100%; width: 100%; color: var(--text);">
+            <input type="text" id="profile-name" value="" placeholder="Player Name" class="tm-input" style="font-size: clamp(2rem, 5vw, 4rem); font-weight: 800; background: transparent; border: none; border-bottom: 2px dashed var(--border-dark); padding: 0; text-align: left; max-width: 100%; width: 100%; color: var(--text);">
         </div>
         <div class="badge">TennistMate PRO</div>
     </div>
@@ -777,7 +778,7 @@
                         <!-- Module 3 -->
                         <div class="ai-module">
                             <span class="ai-module-title">03 / The Golden Rule</span>
-                            <div class="ai-module-content" id="ai-rule" style="font-weight: 900;">[Awaiting Analysis]</div>
+                            <div class="ai-module-content" id="ai-rule" style="font-weight: 800;">[Awaiting Analysis]</div>
                         </div>
                     </div>
                 </div>
@@ -811,39 +812,39 @@
             
             <div class="grid-layout" style="margin-bottom: 32px; gap: 24px;">
                 <div class="data-card" style="background: #f4f4f4; border: 2px solid var(--border-dark);">
-                    <h4 style="margin-bottom: 20px; color: var(--text); font-size: 0.9rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid var(--border-dark); padding-bottom: 8px;">BIOMECHANICS</h4>
+                    <h4 style="margin-bottom: 20px; color: var(--text); font-size: 1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid var(--border-dark); padding-bottom: 8px;">BIOMECHANICS</h4>
                     <div class="stat-row" style="border-bottom: 1px solid #ddd; padding-bottom: 12px;">
-                        <span style="color: var(--text-muted); font-size: 0.9rem; font-weight: 700;">Height</span>
-                        <span style="color: var(--text); font-weight: 900;" id="raq-height">Auto-Linked</span>
+                        <span style="color: var(--text-muted); font-size: 1rem; font-weight: 700;">Height</span>
+                        <span style="color: var(--text); font-weight: 800;" id="raq-height">Auto-Linked</span>
                     </div>
                     <div class="stat-row" style="border-bottom: 1px solid #ddd; padding: 12px 0;">
-                        <span style="color: var(--text-muted); font-size: 0.9rem; font-weight: 700;">Weight</span>
-                        <span style="color: var(--text); font-weight: 900;" id="raq-weight">Auto-Linked</span>
+                        <span style="color: var(--text-muted); font-size: 1rem; font-weight: 700;">Weight</span>
+                        <span style="color: var(--text); font-weight: 800;" id="raq-weight">Auto-Linked</span>
                     </div>
                     <div class="stat-row" style="padding-top: 12px;">
-                        <span style="color: var(--text-muted); font-size: 0.9rem; font-weight: 700;">Wingspan</span>
-                        <span style="color: var(--text); font-weight: 900;" id="raq-wingspan">Auto-Linked</span>
+                        <span style="color: var(--text-muted); font-size: 1rem; font-weight: 700;">Wingspan</span>
+                        <span style="color: var(--text); font-weight: 800;" id="raq-wingspan">Auto-Linked</span>
                     </div>
                 </div>
                 
                 <div class="data-card" style="background: #f4f4f4; border: 2px solid var(--border-dark);">
-                    <h4 style="margin-bottom: 20px; color: var(--text); font-size: 0.9rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid var(--border-dark); padding-bottom: 8px;">DYNAMICS</h4>
+                    <h4 style="margin-bottom: 20px; color: var(--text); font-size: 1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid var(--border-dark); padding-bottom: 8px;">DYNAMICS</h4>
                     <div class="stat-row" style="border-bottom: 1px solid #ddd; padding-bottom: 12px;">
-                        <span style="color: var(--text-muted); font-size: 0.9rem; font-weight: 700;">Forehand</span>
-                        <span style="color: var(--text); font-weight: 900;" id="raq-grip">Auto-Linked</span>
+                        <span style="color: var(--text-muted); font-size: 1rem; font-weight: 700;">Forehand</span>
+                        <span style="color: var(--text); font-weight: 800;" id="raq-grip">Auto-Linked</span>
                     </div>
                     <div class="stat-row" style="border-bottom: 1px solid #ddd; padding: 12px 0;">
-                        <span style="color: var(--text-muted); font-size: 0.9rem; font-weight: 700;">Backhand</span>
-                        <span style="color: var(--text); font-weight: 900;" id="raq-bh">Auto-Linked</span>
+                        <span style="color: var(--text-muted); font-size: 1rem; font-weight: 700;">Backhand</span>
+                        <span style="color: var(--text); font-weight: 800;" id="raq-bh">Auto-Linked</span>
                     </div>
                     <div class="stat-row" style="padding-top: 12px;">
-                        <span style="color: var(--text-muted); font-size: 0.9rem; font-weight: 700;">Playstyle</span>
-                        <span style="color: var(--text); font-weight: 900;" id="raq-style">Auto-Linked</span>
+                        <span style="color: var(--text-muted); font-size: 1rem; font-weight: 700;">Playstyle</span>
+                        <span style="color: var(--text); font-weight: 800;" id="raq-style">Auto-Linked</span>
                     </div>
                 </div>
             </div>
 
-            <button class="tm-btn echo-button" id="btn-raqgen" style="width: 100%; font-size: 1.1rem; padding: 20px; background: var(--text); color: var(--bg); border: 2px solid var(--border-dark); font-weight: 900; letter-spacing: 2px; text-transform: uppercase; cursor: pointer;" onclick="generateRaqGen()">
+            <button class="tm-btn echo-button" id="btn-raqgen" style="width: 100%; font-size: 1.1rem; padding: 20px; background: var(--text); color: var(--bg); border: 2px solid var(--border-dark); font-weight: 800; letter-spacing: 2px; text-transform: uppercase; cursor: pointer;" onclick="generateRaqGen()">
                 INITIALIZE MASTER EQUATION
             </button>
             
@@ -852,17 +853,17 @@
                 
                 <!-- BEST MATCH -->
                 <div style="background: #fff; border: 4px solid var(--border-dark); padding: 24px; margin-bottom: 32px; position: relative;">
-                    <div style="position: absolute; top: -14px; right: 16px; background: var(--accent); border: 2px solid var(--border-dark); padding: 4px 10px; font-weight: 900; letter-spacing: 1px; font-size: 0.8rem; box-shadow: 2px 2px 0px var(--border-dark);">100% MATCH</div>
+                    <div style="position: absolute; top: -14px; right: 16px; background: var(--accent); border: 2px solid var(--border-dark); padding: 4px 10px; font-weight: 800; letter-spacing: 1px; font-size: 0.8rem; box-shadow: 2px 2px 0px var(--border-dark);">100% MATCH</div>
                     
                     <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px;">
-                        <span style="font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: var(--text-muted); letter-spacing: 2px;">Primary Recommendation</span>
-                        <h4 style="font-size: clamp(1.5rem, 4vw, 2.5rem); margin: 0; font-weight: 900; line-height: 1; text-transform: uppercase;" id="raqgen-racket-name">--</h4>
+                        <span style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); letter-spacing: 2px;">Primary Recommendation</span>
+                        <h4 style="font-size: clamp(1.5rem, 4vw, 2.5rem); margin: 0; font-weight: 800; line-height: 1; text-transform: uppercase;" id="raqgen-racket-name">--</h4>
                     </div>
 
                     <!-- SCORE BARS -->
                     <div style="margin-bottom: 32px;">
                         <div style="margin-bottom: 16px;">
-                            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 900; margin-bottom: 6px; text-transform: uppercase;">
+                            <div style="display: flex; justify-content: space-between; font-size: 1rem; font-weight: 800; margin-bottom: 6px; text-transform: uppercase;">
                                 <span>Bio-Kinetic Fit</span>
                                 <span id="bar-bio-val">--%</span>
                             </div>
@@ -871,7 +872,7 @@
                             </div>
                         </div>
                         <div style="margin-bottom: 16px;">
-                            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 900; margin-bottom: 6px; text-transform: uppercase;">
+                            <div style="display: flex; justify-content: space-between; font-size: 1rem; font-weight: 800; margin-bottom: 6px; text-transform: uppercase;">
                                 <span>Tactical Alignment</span>
                                 <span id="bar-tac-val">--%</span>
                             </div>
@@ -880,7 +881,7 @@
                             </div>
                         </div>
                         <div>
-                            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 900; margin-bottom: 6px; text-transform: uppercase;">
+                            <div style="display: flex; justify-content: space-between; font-size: 1rem; font-weight: 800; margin-bottom: 6px; text-transform: uppercase;">
                                 <span>Arm Safety / Fatigue</span>
                                 <span id="bar-safe-val">--%</span>
                             </div>
@@ -895,75 +896,75 @@
 
                     <!-- TW METRICS -->
                     <div style="margin-top: 32px; border-top: 2px dashed var(--border-dark); padding-top: 24px;">
-                        <span style="font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: var(--text-muted); letter-spacing: 2px; display: block; margin-bottom: 16px;">1-100 Performance Metrics</span>
+                        <span style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); letter-spacing: 2px; display: block; margin-bottom: 16px;">1-100 Performance Metrics</span>
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px;">
                             <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Overall</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="tw-overall">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Overall</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="tw-overall">--</span>
                             </div>
                             <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Power</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="tw-power">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Power</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="tw-power">--</span>
                             </div>
                             <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Control</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="tw-control">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Control</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="tw-control">--</span>
                             </div>
                             <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Maneuverability</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="tw-maneuver">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Maneuverability</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="tw-maneuver">--</span>
                             </div>
                             <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Stability</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="tw-stability">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Stability</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="tw-stability">--</span>
                             </div>
                             <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Comfort</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="tw-comfort">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Comfort</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="tw-comfort">--</span>
                             </div>
                             <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Topspin</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="tw-topspin">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Topspin</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="tw-topspin">--</span>
                             </div>
                             <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Touch</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="tw-touch">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Touch</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="tw-touch">--</span>
                             </div>
                             <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Groundstrokes</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="tw-ground">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Groundstrokes</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="tw-ground">--</span>
                             </div>
                             <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Volleys</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="tw-volleys">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Volleys</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="tw-volleys">--</span>
                             </div>
                             <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Serves</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="tw-serves">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Serves</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="tw-serves">--</span>
                             </div>
                             <div style="background: #f4f4f4; padding: 12px; border: 2px solid var(--border-dark);">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Returns</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="tw-returns">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Returns</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="tw-returns">--</span>
                             </div>
                         </div>
                     </div>
 
-                        <div><span style="display: block; font-size: 0.75rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Swingweight</span> <span style="font-weight: 900; font-size: 1.4rem;" id="raqgen-sw">--</span></div>
-                        <div><span style="display: block; font-size: 0.75rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Stiffness</span> <span style="font-weight: 900; font-size: 1.4rem;" id="raqgen-ra">--</span></div>
-                        <div><span style="display: block; font-size: 0.75rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Pattern</span> <span style="font-weight: 900; font-size: 1.4rem;" id="raqgen-pattern">--</span></div>
+                        <div><span style="display: block; font-size: 0.95rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Swingweight</span> <span style="font-weight: 800; font-size: 1.4rem;" id="raqgen-sw">--</span></div>
+                        <div><span style="display: block; font-size: 0.95rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Stiffness</span> <span style="font-weight: 800; font-size: 1.4rem;" id="raqgen-ra">--</span></div>
+                        <div><span style="display: block; font-size: 0.95rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Pattern</span> <span style="font-weight: 800; font-size: 1.4rem;" id="raqgen-pattern">--</span></div>
                     </div>
                 </div>
 
                 <!-- RUNNERS UP -->
-                <h5 style="font-size: 1rem; font-weight: 900; text-transform: uppercase; margin-bottom: 16px;">Mathematical Alternatives</h5>
+                <h5 style="font-size: 1rem; font-weight: 800; text-transform: uppercase; margin-bottom: 16px;">Mathematical Alternatives</h5>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
                     <div style="border: 2px solid var(--border-dark); padding: 16px; display: flex; justify-content: space-between; align-items: center; background: #f4f4f4;">
-                        <span style="font-weight: 900; font-size: 1.1rem; text-transform: uppercase;" id="ru1-name">--</span>
-                        <span style="background: var(--text); color: var(--bg); padding: 4px 8px; font-weight: 900;" id="ru1-score">--%</span>
+                        <span style="font-weight: 800; font-size: 1.1rem; text-transform: uppercase;" id="ru1-name">--</span>
+                        <span style="background: var(--text); color: var(--bg); padding: 4px 8px; font-weight: 800;" id="ru1-score">--%</span>
                     </div>
                     <div style="border: 2px solid var(--border-dark); padding: 16px; display: flex; justify-content: space-between; align-items: center; background: #f4f4f4;">
-                        <span style="font-weight: 900; font-size: 1.1rem; text-transform: uppercase;" id="ru2-name">--</span>
-                        <span style="background: var(--text); color: var(--bg); padding: 4px 8px; font-weight: 900;" id="ru2-score">--%</span>
+                        <span style="font-weight: 800; font-size: 1.1rem; text-transform: uppercase;" id="ru2-name">--</span>
+                        <span style="background: var(--text); color: var(--bg); padding: 4px 8px; font-weight: 800;" id="ru2-score">--%</span>
                     </div>
                 </div>
 
@@ -989,14 +990,14 @@
                         </div>
                         <div style="text-align: right;">
                             <span style="font-size: 0.7rem; color: var(--text-muted); font-weight: 700; letter-spacing: 1px;">MATCH SCORE</span>
-                            <div style="font-size: 1.8rem; font-weight: 900; color: var(--text); line-height: 1;" id="raqgen-score">--%</div>
+                            <div style="font-size: 1.8rem; font-weight: 800; color: var(--text); line-height: 1;" id="raqgen-score">--%</div>
                         </div>
                     </div>
 
                     <!-- SCORE BARS -->
                     <div style="margin-bottom: 20px;">
                         <div style="margin-bottom: 12px;">
-                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px; color: var(--text-muted);">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.95rem; margin-bottom: 4px; color: var(--text-muted);">
                                 <span>Bio-Kinetic Fit</span>
                                 <span id="bar-bio-val">--%</span>
                             </div>
@@ -1005,7 +1006,7 @@
                             </div>
                         </div>
                         <div style="margin-bottom: 12px;">
-                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px; color: var(--text-muted);">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.95rem; margin-bottom: 4px; color: var(--text-muted);">
                                 <span>Tactical Alignment</span>
                                 <span id="bar-tac-val">--%</span>
                             </div>
@@ -1014,7 +1015,7 @@
                             </div>
                         </div>
                         <div>
-                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px; color: var(--text-muted);">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.95rem; margin-bottom: 4px; color: var(--text-muted);">
                                 <span>Arm Safety / Fatigue</span>
                                 <span id="bar-safe-val">--%</span>
                             </div>
@@ -1025,7 +1026,7 @@
                     </div>
 
                     <!-- SPECS -->
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 0.85rem; border-top: 1px solid #333; padding-top: 16px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 1rem; border-top: 1px solid #333; padding-top: 16px;">
                         <div><span style="color: #666;">Mass:</span> <span style="color: var(--text); font-weight: 600;" id="raqgen-weight">--</span></div>
                         <div><span style="color: #666;">Swingweight:</span> <span style="color: var(--text); font-weight: 600;" id="raqgen-sw">--</span></div>
                         <div><span style="color: #666;">Stiffness (RA):</span> <span style="color: var(--text); font-weight: 600;" id="raqgen-ra">--</span></div>
@@ -1037,12 +1038,12 @@
                 <h5 style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 1px;">ALTERNATIVES</h5>
                 <div style="display: grid; grid-template-columns: 1fr; gap: 8px;">
                     <div style="background: #f4f4f4; border: 2px solid var(--border-dark); padding: 12px; display: flex; justify-content: space-between; align-items: center;">
-                        <span style="color: var(--text-muted); font-size: 0.9rem;" id="ru1-name">--</span>
-                        <span style="color: var(--text); font-weight: 700; font-size: 0.9rem;" id="ru1-score">--%</span>
+                        <span style="color: var(--text-muted); font-size: 1rem;" id="ru1-name">--</span>
+                        <span style="color: var(--text); font-weight: 700; font-size: 1rem;" id="ru1-score">--%</span>
                     </div>
                     <div style="background: #f4f4f4; border: 2px solid var(--border-dark); padding: 12px; display: flex; justify-content: space-between; align-items: center;">
-                        <span style="color: var(--text-muted); font-size: 0.9rem;" id="ru2-name">--</span>
-                        <span style="color: var(--text); font-weight: 700; font-size: 0.9rem;" id="ru2-score">--%</span>
+                        <span style="color: var(--text-muted); font-size: 1rem;" id="ru2-name">--</span>
+                        <span style="color: var(--text); font-weight: 700; font-size: 1rem;" id="ru2-score">--%</span>
                     </div>
                 </div>
 
@@ -1140,7 +1141,7 @@
             if (!terminal) {
                 terminal = document.createElement('div');
                 terminal.id = btn.id === 'btn-idx-raqgen' ? 'idx-terminal' : 'profile-terminal';
-                terminal.style.cssText = "background: #fff; color: #000; font-family: monospace; font-size: 0.85rem; padding: 16px; margin-top: 20px; border-radius: 8px; height: 150px; overflow-y: hidden; text-align: left; box-shadow: inset 0 0 10px rgba(204,255,0,0.2); border: 2px solid var(--border-dark);";
+                terminal.style.cssText = "background: #fff; color: #000; font-family: monospace; font-size: 1rem; padding: 16px; margin-top: 20px; border-radius: 8px; height: 150px; overflow-y: hidden; text-align: left; box-shadow: inset 0 0 10px rgba(204,255,0,0.2); border: 2px solid var(--border-dark);";
                 btn.parentNode.insertBefore(terminal, btn.nextSibling);
             }
             terminal.style.display = 'block';

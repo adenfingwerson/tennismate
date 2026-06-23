@@ -12,14 +12,14 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
 
                                 :root {
-            --bg: #F40C3F;
-            --bg-card: #F40C3F;
-            --text: #160000;
-            --text-muted: rgba(22, 0, 0, 0.6);
-            --border: #160000;
-            --border-dark: #160000;
-            --accent: #160000;
-            --accent-hover: #000000;
+            --bg: #FAFAFA;
+            --bg-card: #FFFFFF;
+            --text: #111827;
+            --text-muted: #4B5563;
+            --border: #E5E7EB;
+            --border-dark: #111827;
+            --accent: #F40C3F;
+            --accent-hover: #D90A36;
             --radius-pill: 0px;
             --radius-card: 0px;
             --shadow-soft: none;
@@ -39,7 +39,7 @@
             top: 0; left: 0; width: 100vw; height: 100vh;
             pointer-events: none;
             z-index: 9999;
-            opacity: 0.4;
+            opacity: 0.03;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
             mix-blend-mode: multiply;
         }
@@ -49,23 +49,16 @@
             border: 1px solid var(--border);
             margin: 16px;
             font-family: 'Inter', -apple-system, sans-serif;
+            font-size: 1.125rem;
             color: var(--text);
             background-color: var(--bg);
-            line-height: 1.5;
+            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
         h1, h2, h3, h4 {
-            font-weight: 900;
-            letter-spacing: -0.05em;
-            line-height: 0.95;
-            text-transform: uppercase;
-        }
-
-
-        h1, h2, h3, h4 {
-            font-weight: 900;
-            letter-spacing: -0.04em;
-            line-height: 1.05;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
             text-transform: uppercase;
         }
 
@@ -95,7 +88,7 @@
 
         .logo {
             font-size: 1.5rem;
-            font-weight: 900;
+            font-weight: 800;
             letter-spacing: -0.04em;
             text-transform: uppercase;
         }
@@ -104,7 +97,7 @@
             display: flex;
             gap: 2rem;
             align-items: center;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 700;
             text-transform: uppercase;
         }
@@ -117,7 +110,7 @@
                 .btn {
             display: inline-block;
             text-align: center;
-            font-weight: 900;
+            font-weight: 800;
             text-transform: uppercase;
             border: 3px solid var(--border-dark) !important;
             padding: 10px 20px;
@@ -175,7 +168,7 @@
             border: none;
             padding: 18px 40px;
             font-size: 1.1rem;
-            font-weight: 900;
+            font-weight: 800;
             border-radius: 50px;
             box-shadow: 0 8px 24px rgba(22, 0, 0, 0.4);
             transform: translateY(0);
@@ -292,11 +285,11 @@
 
         .stat-val {
             font-size: 2rem;
-            font-weight: 900;
+            font-weight: 800;
         }
 
         .stat-lbl {
-            font-size: 0.75rem;
+            font-size: 1rem;
             text-transform: uppercase;
             font-weight: 700;
             color: var(--text-muted);
@@ -304,7 +297,7 @@
 
         /* ===== Typography Helpers ===== */
         .kicker {
-            font-size: 0.75rem;
+            font-size: 1rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -380,7 +373,7 @@
             justify-content: space-between;
             padding: 1rem 0;
             border-top: 1px solid var(--border);
-            font-size: 0.9rem;
+            font-size: 1rem;
         }
 
         /* ===== Footer ===== */
@@ -417,7 +410,7 @@
             background: none;
             border: none;
             font-size: 2.5rem;
-            font-weight: 900;
+            font-weight: 800;
             text-transform: uppercase;
             cursor: pointer;
             display: flex;
@@ -468,7 +461,7 @@
         .modal-subtitle { color: var(--text-muted); margin-bottom: 32px; font-size: 1rem; }
 
         .form-group { margin-bottom: 24px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.05em; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 700; text-transform: uppercase; font-size: 1rem; letter-spacing: 0.05em; }
         .form-group input, .form-group select { width: 100%; padding: 16px; border: 1px solid var(--border-dark); border-radius: 8px; font-family: inherit; font-size: 1.1rem; background: var(--bg); color: var(--text); outline: none; transition: border-color 0.2s; }
         .form-group input:focus, .form-group select:focus { border-color: var(--bg); box-shadow: 0 0 0 3px rgba(204,255,0,0.2); }
         
@@ -476,12 +469,12 @@
         .radio-option { border: 1px solid var(--border-dark); border-radius: 8px; padding: 16px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; }
         .radio-option:hover { border-color: var(--text); background: #f9f9f9; }
         .radio-option.selected { border-color: var(--text); border-width: 2px; background: var(--accent); color: var(--bg); color: var(--bg); }
-        .radio-option-title { font-weight: 900; font-size: 1.1rem; text-transform: uppercase; margin-bottom: 4px; }
-        .radio-option-desc { font-size: 0.9rem; color: var(--text-muted); }
+        .radio-option-title { font-weight: 800; font-size: 1.1rem; text-transform: uppercase; margin-bottom: 4px; }
+        .radio-option-desc { font-size: 1rem; color: var(--text-muted); }
         .radio-option.selected .radio-option-desc { color: #aaaaaa; }
 
         .modal-actions { display: flex; gap: 16px; margin-top: 40px; }
-        .btn-modal { flex: 1; padding: 16px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; font-size: 1rem; cursor: pointer; border-radius: 8px; border: none; transition: all 0.2s; }
+        .btn-modal { flex: 1; padding: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; font-size: 1rem; cursor: pointer; border-radius: 8px; border: none; transition: all 0.2s; }
         .btn-next { background: var(--accent); color: var(--bg); color: var(--bg); }
         .btn-next:hover { background: #333; }
         .btn-prev { background: transparent; color: var(--text); border: 1px solid var(--border-dark); }
@@ -493,7 +486,7 @@
         @media (max-width: 600px) {
             .modal-content { padding: 32px 24px; }
             .radio-option { padding: 12px; }
-            .btn-modal { padding: 12px; font-size: 0.9rem; }
+            .btn-modal { padding: 12px; font-size: 1rem; }
             .modal-title { font-size: 1.5rem; }
         }
     
@@ -502,7 +495,7 @@
                 .btn {
             display: inline-block;
             text-align: center;
-            font-weight: 900;
+            font-weight: 800;
             text-transform: uppercase;
             border: 3px solid var(--border-dark) !important;
             padding: 10px 20px;
@@ -580,7 +573,7 @@
         .fs-title {
             font-size: clamp(2.5rem, 15vw, 6rem);
             font-family: 'Bigger-Display', 'Syne', sans-serif;
-            font-weight: 900;
+            font-weight: 800;
             letter-spacing: -0.04em;
             text-align: left;
             margin-bottom: 0px;
@@ -762,14 +755,14 @@
         <div class="container">
             <div class="logo">Tennis T-Mate</div>
             <div class="nav-links" style="position: relative; display: flex; align-items: center; gap: 1rem;">
-                <a href="/admin.html" id="admin-link" style="display: none; color: #000; border: none; padding: 6px 12px; background: #B3E6B5; text-decoration: none; font-weight: 900; text-transform: uppercase;">Admin</a>
+                <a href="/admin.html" id="admin-link" style="display: none; color: #000; border: none; padding: 6px 12px; background: #B3E6B5; text-decoration: none; font-weight: 800; text-transform: uppercase;">Admin</a>
                 
                 <details class="nav-dropdown" style="position: relative;">
                     <style>
                         .nav-dropdown summary::-webkit-details-marker { display: none; }
                         .nav-dropdown[open] summary { transform: translate(-2px, -2px); box-shadow: none; }
                         .tm8-nav-item {
-                            padding: 16px 20px; border-bottom: 2px solid var(--border-dark); text-decoration: none; color: var(--text); font-weight: 900; text-transform: uppercase; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; background: #fff; transition: background 0.15s ease;
+                            padding: 16px 20px; border-bottom: 2px solid var(--border-dark); text-decoration: none; color: var(--text); font-weight: 800; text-transform: uppercase; font-size: 1rem; display: flex; justify-content: space-between; align-items: center; background: #fff; transition: background 0.15s ease;
                         }
                         .tm8-nav-item:hover { background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; }
                         .tm8-nav-item.accent { background: var(--bg); color: var(--text); border: 2px solid var(--text) !important; border-bottom: 2px solid var(--text) !important; margin: 4px; padding: 14px; }
@@ -780,7 +773,7 @@
                 .btn {
             display: inline-block;
             text-align: center;
-            font-weight: 900;
+            font-weight: 800;
             text-transform: uppercase;
             border: 3px solid var(--border-dark) !important;
             padding: 10px 20px;
@@ -858,7 +851,7 @@
         .fs-title {
             font-size: clamp(2.5rem, 15vw, 6rem);
             font-family: 'Bigger-Display', 'Syne', sans-serif;
-            font-weight: 900;
+            font-weight: 800;
             letter-spacing: -0.04em;
             text-align: left;
             margin-bottom: 0px;
@@ -967,7 +960,7 @@
             color: var(--bg);
         }
 </style>
-                    <summary style="list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 900; text-transform: uppercase; border: 3px solid var(--border-dark); padding: 10px 20px; background: var(--bg); color: var(--text); box-shadow: 4px 4px 0px var(--border-dark); transition: transform 0.1s, box-shadow 0.1s; font-size: 0.9rem;" onmouseover="this.style.transform='translate(-2px, -2px)'; this.style.boxShadow='6px 6px 0px var(--border-dark)';" onmouseout="if(!this.parentElement.open){this.style.transform='translate(0, 0)'; this.style.boxShadow='4px 4px 0px var(--border-dark)';}">
+                    <summary style="list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 800; text-transform: uppercase; border: 3px solid var(--border-dark); padding: 10px 20px; background: var(--bg); color: var(--text); box-shadow: 4px 4px 0px var(--border-dark); transition: transform 0.1s, box-shadow 0.1s; font-size: 1rem;" onmouseover="this.style.transform='translate(-2px, -2px)'; this.style.boxShadow='6px 6px 0px var(--border-dark)';" onmouseout="if(!this.parentElement.open){this.style.transform='translate(0, 0)'; this.style.boxShadow='4px 4px 0px var(--border-dark)';}">
                         <span class="pulse-dot" style="width: 10px; height: 10px;"></span>
                         TM8 T00LS <span style="font-size: 0.7rem; margin-left: 4px;">▼</span>
                     </summary>
@@ -1047,7 +1040,7 @@
                     
                 <div class="location-card" style="border-radius: 0; box-shadow: none; background: var(--bg-card); padding: 32px;" style="max-width: 500px; margin: 0 auto; border-radius: 0; box-shadow: none; background: var(--bg-card); padding: 32px;">
                     <h3>Single Lesson</h3>
-                    <p style="font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem;">$25</p>
+                    <p style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">$25</p>
                     <p style="color: var(--text-muted); margin-bottom: 2rem;">1 Hour Session. No hidden fees. No commitments.</p>
                     <a href="#" onclick="openModal(event)" class="btn" style="border-radius: 0; font-weight: 700; box-shadow: none; border: none;" style="width: 100%; text-align: center;">Book Now</a>
                 </div>
@@ -1072,7 +1065,7 @@
                     </div>
                     <div class="detail-row" style="border-bottom: none;">
                         <span>Location</span>
-                        <strong style="text-align: right;">North Park Courts<br><span style="font-size: 0.8em; font-weight: 400; color: var(--text-muted);">301 W 14th Ave</span></strong>
+                        <strong style="text-align: right;">North Park Courts<br><span style="font-size: 0.9em; font-weight: 400; color: var(--text-muted);">301 W 14th Ave</span></strong>
                     </div>
                 </div>
                 <div class="location-card" style="border-radius: 0; box-shadow: none; background: var(--bg-card); padding: 32px;">
@@ -1083,7 +1076,7 @@
                     </div>
                     <div class="detail-row" style="border-bottom: none;">
                         <span>Location</span>
-                        <strong style="text-align: right;">Hastings College<br><span style="font-size: 0.8em; font-weight: 400; color: var(--text-muted);">903 E 9th St</span></strong>
+                        <strong style="text-align: right;">Hastings College<br><span style="font-size: 0.9em; font-weight: 400; color: var(--text-muted);">903 E 9th St</span></strong>
                     </div>
                 </div>
             
@@ -1114,7 +1107,7 @@
                         <text x="195" y="30" font-family="Inter, sans-serif" font-weight="900" font-size="16" fill="#000" letter-spacing="1">V.2</text>
                     </svg>
                 </div>
-                <h2 style="font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900; line-height: 1; margin-bottom: 20px; text-transform: uppercase;">The Master Equation.</h2>
+                <h2 style="font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; line-height: 1; margin-bottom: 20px; text-transform: uppercase;">The Master Equation.</h2>
                 <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 650px; margin: 0 auto; font-weight: 500;">
                     Personalized Racket Recommendation Engine. Powered by TennisT-Mate's Equations, OSINT data, and the Mahalanobis Distance Model.
                 </p>
@@ -1125,26 +1118,26 @@
                     
                     <!-- Bio Input -->
                     <div>
-                        <h4 style="font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid var(--border); padding-bottom: 8px; margin-bottom: 24px;">Biomechanics</h4>
+                        <h4 style="font-size: 1.1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid var(--border); padding-bottom: 8px; margin-bottom: 24px;">Biomechanics</h4>
                         <div style="margin-bottom: 20px;">
-                            <label style="display: block; font-size: 0.9rem; font-weight: 900; margin-bottom: 8px;">Height (Inches)</label>
+                            <label style="display: block; font-size: 1rem; font-weight: 800; margin-bottom: 8px;">Height (Inches)</label>
                             <input type="number" id="idx-raq-height" placeholder="72" class="tm-input" style="width: 100%; border: none; background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 14px; font-weight: 700; font-size: 1.1rem;">
                         </div>
                         <div style="margin-bottom: 20px;">
-                            <label style="display: block; font-size: 0.9rem; font-weight: 900; margin-bottom: 8px;">Weight (lbs)</label>
+                            <label style="display: block; font-size: 1rem; font-weight: 800; margin-bottom: 8px;">Weight (lbs)</label>
                             <input type="number" id="idx-raq-weight" placeholder="165" class="tm-input" style="width: 100%; border: none; background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 14px; font-weight: 700; font-size: 1.1rem;">
                         </div>
                         <div>
-                            <label style="display: block; font-size: 0.9rem; font-weight: 900; margin-bottom: 8px;">Wingspan (Inches)</label>
+                            <label style="display: block; font-size: 1rem; font-weight: 800; margin-bottom: 8px;">Wingspan (Inches)</label>
                             <input type="number" id="idx-raq-wingspan" placeholder="74" class="tm-input" style="width: 100%; border: none; background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 14px; font-weight: 700; font-size: 1.1rem;">
                         </div>
                     </div>
 
                     <!-- Dynamics Input -->
                     <div>
-                        <h4 style="font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid var(--border); padding-bottom: 8px; margin-bottom: 24px;">Dynamics</h4>
+                        <h4 style="font-size: 1.1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid var(--border); padding-bottom: 8px; margin-bottom: 24px;">Dynamics</h4>
                         <div style="margin-bottom: 20px;">
-                            <label style="display: block; font-size: 0.9rem; font-weight: 900; margin-bottom: 8px;">Forehand Grip</label>
+                            <label style="display: block; font-size: 1rem; font-weight: 800; margin-bottom: 8px;">Forehand Grip</label>
                             <select id="idx-raq-grip" style="width: 100%; border: none; background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 14px; font-weight: 700; font-size: 1.1rem; font-family: 'Inter', sans-serif;">
                                 <option>Eastern</option>
                                 <option selected>Semi-Western</option>
@@ -1152,7 +1145,7 @@
                             </select>
                         </div>
                         <div style="margin-bottom: 20px;">
-                            <label style="display: block; font-size: 0.9rem; font-weight: 900; margin-bottom: 8px;">Backhand</label>
+                            <label style="display: block; font-size: 1rem; font-weight: 800; margin-bottom: 8px;">Backhand</label>
                             <select id="idx-raq-bh" style="width: 100%; border: none; background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 14px; font-weight: 700; font-size: 1.1rem; font-family: 'Inter', sans-serif;">
                                 <option selected>Two-Handed</option>
                                 <option>One-Handed</option>
@@ -1160,7 +1153,7 @@
                             </select>
                         </div>
                         <div>
-                            <label style="display: block; font-size: 0.9rem; font-weight: 900; margin-bottom: 8px;">Playstyle</label>
+                            <label style="display: block; font-size: 1rem; font-weight: 800; margin-bottom: 8px;">Playstyle</label>
                             <select id="idx-raq-style" style="width: 100%; border: none; background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 14px; font-weight: 700; font-size: 1.1rem; font-family: 'Inter', sans-serif;">
                                 <option selected>All-Court Player</option>
                                 <option>Aggressive Baseliner</option>
@@ -1173,7 +1166,7 @@
 
                 <div class="echo-button-wrapper" style="width: 100%; display: block;">
                     <div class="echo-ring"></div>
-                    <button id="btn-idx-raqgen" class="echo-button" style="width: 100%; font-size: 1.2rem; padding: 20px; background: var(--accent); color: var(--bg); color: var(--bg); border: none; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; cursor: pointer;" onclick="runIndexRaqGen()">
+                    <button id="btn-idx-raqgen" class="echo-button" style="width: 100%; font-size: 1.2rem; padding: 20px; background: var(--accent); color: var(--bg); color: var(--bg); border: none; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; cursor: pointer;" onclick="runIndexRaqGen()">
                         Compute Optimal Frame
                     </button>
                 </div>
@@ -1183,17 +1176,17 @@
                     
                     <!-- BEST MATCH -->
                     <div style="border: none; padding: 30px; margin-bottom: 40px; position: relative; background: #fff;">
-                        <div style="position: absolute; top: -18px; right: 20px; background: var(--accent); border: none; padding: 6px 16px; font-weight: 900; letter-spacing: 1px; font-size: 1rem; box-shadow: none;"><span id="idx-raqgen-score">100%</span> MATCH</div>
+                        <div style="position: absolute; top: -18px; right: 20px; background: var(--accent); border: none; padding: 6px 16px; font-weight: 800; letter-spacing: 1px; font-size: 1rem; box-shadow: none;"><span id="idx-raqgen-score">100%</span> MATCH</div>
                         
                         <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 40px;">
-                            <span style="font-size: 0.9rem; font-weight: 900; text-transform: uppercase; color: var(--text-muted); letter-spacing: 2px;">Primary Recommendation</span>
-                            <h4 style="font-size: clamp(2rem, 5vw, 3.5rem); margin: 0; font-weight: 900; line-height: 1; text-transform: uppercase;" id="idx-raqgen-name">--</h4>
+                            <span style="font-size: 1rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); letter-spacing: 2px;">Primary Recommendation</span>
+                            <h4 style="font-size: clamp(2rem, 5vw, 3.5rem); margin: 0; font-weight: 800; line-height: 1; text-transform: uppercase;" id="idx-raqgen-name">--</h4>
                         </div>
 
                         <!-- SCORE BARS -->
                         <div style="margin-bottom: 40px;">
                             <div style="margin-bottom: 24px;">
-                                <div style="display: flex; justify-content: space-between; font-size: 1rem; font-weight: 900; margin-bottom: 8px; text-transform: uppercase;">
+                                <div style="display: flex; justify-content: space-between; font-size: 1rem; font-weight: 800; margin-bottom: 8px; text-transform: uppercase;">
                                     <span>Bio-Kinetic Fit</span>
                                     <span id="idx-bar-bio-val">--%</span>
                                 </div>
@@ -1202,7 +1195,7 @@
                                 </div>
                             </div>
                             <div style="margin-bottom: 24px;">
-                                <div style="display: flex; justify-content: space-between; font-size: 1rem; font-weight: 900; margin-bottom: 8px; text-transform: uppercase;">
+                                <div style="display: flex; justify-content: space-between; font-size: 1rem; font-weight: 800; margin-bottom: 8px; text-transform: uppercase;">
                                     <span>Tactical Alignment</span>
                                     <span id="idx-bar-tac-val">--%</span>
                                 </div>
@@ -1211,7 +1204,7 @@
                                 </div>
                             </div>
                             <div>
-                                <div style="display: flex; justify-content: space-between; font-size: 1rem; font-weight: 900; margin-bottom: 8px; text-transform: uppercase;">
+                                <div style="display: flex; justify-content: space-between; font-size: 1rem; font-weight: 800; margin-bottom: 8px; text-transform: uppercase;">
                                     <span>Arm Safety / Fatigue</span>
                                     <span id="idx-bar-safe-val">--%</span>
                                 </div>
@@ -1223,78 +1216,78 @@
 
                         <!-- SPECS -->
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 20px;  padding-top: 30px;">
-                            <div><span style="display: block; font-size: 0.85rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Mass</span> <span style="font-weight: 900; font-size: 1.8rem;" id="idx-raqgen-weight">--</span></div>
-                            <div><span style="display: block; font-size: 0.85rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Swingweight</span> <span style="font-weight: 900; font-size: 1.8rem;" id="idx-raqgen-sw">--</span></div>
-                            <div><span style="display: block; font-size: 0.85rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Stiffness (RA)</span> <span style="font-weight: 900; font-size: 1.8rem;" id="idx-raqgen-ra">--</span></div>
-                            <div><span style="display: block; font-size: 0.85rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Pattern</span> <span style="font-weight: 900; font-size: 1.8rem;" id="idx-raqgen-pattern">--</span></div>
+                            <div><span style="display: block; font-size: 1rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Mass</span> <span style="font-weight: 800; font-size: 1.8rem;" id="idx-raqgen-weight">--</span></div>
+                            <div><span style="display: block; font-size: 1rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Swingweight</span> <span style="font-weight: 800; font-size: 1.8rem;" id="idx-raqgen-sw">--</span></div>
+                            <div><span style="display: block; font-size: 1rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Stiffness (RA)</span> <span style="font-weight: 800; font-size: 1.8rem;" id="idx-raqgen-ra">--</span></div>
+                            <div><span style="display: block; font-size: 1rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Pattern</span> <span style="font-weight: 800; font-size: 1.8rem;" id="idx-raqgen-pattern">--</span></div>
                         </div>
                     </div>
 
                     
                     <!-- TW METRICS -->
                     <div style="margin-top: 32px; border-top: 2px dashed var(--border-dark); padding-top: 24px; margin-bottom: 32px;">
-                        <span style="font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: var(--text-muted); letter-spacing: 2px; display: block; margin-bottom: 16px;">1-100 Performance Metrics</span>
+                        <span style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); letter-spacing: 2px; display: block; margin-bottom: 16px;">1-100 Performance Metrics</span>
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px;">
                             <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Overall</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-overall">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Overall</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="idx-tw-overall">--</span>
                             </div>
                             <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Power</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-power">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Power</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="idx-tw-power">--</span>
                             </div>
                             <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Control</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-control">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Control</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="idx-tw-control">--</span>
                             </div>
                             <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Maneuverability</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-maneuver">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Maneuverability</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="idx-tw-maneuver">--</span>
                             </div>
                             <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Stability</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-stability">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Stability</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="idx-tw-stability">--</span>
                             </div>
                             <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Comfort</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-comfort">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Comfort</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="idx-tw-comfort">--</span>
                             </div>
                             <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Topspin</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-topspin">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Topspin</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="idx-tw-topspin">--</span>
                             </div>
                             <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Touch</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-touch">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Touch</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="idx-tw-touch">--</span>
                             </div>
                             <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Groundstrokes</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-ground">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Groundstrokes</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="idx-tw-ground">--</span>
                             </div>
                             <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Volleys</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-volleys">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Volleys</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="idx-tw-volleys">--</span>
                             </div>
                             <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Serves</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-serves">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Serves</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="idx-tw-serves">--</span>
                             </div>
                             <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
-                                <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Returns</span>
-                                <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-returns">--</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Returns</span>
+                                <span style="font-weight: 800; font-size: 1.2rem;" id="idx-tw-returns">--</span>
                             </div>
                         </div>
                     </div>
 \n                    <!-- RUNNERS UP -->
-                    <h5 style="font-size: 1.1rem; font-weight: 900; text-transform: uppercase; margin-bottom: 20px;">Mathematical Alternatives</h5>
+                    <h5 style="font-size: 1.1rem; font-weight: 800; text-transform: uppercase; margin-bottom: 20px;">Mathematical Alternatives</h5>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
                         <div style="border: none; padding: 24px; display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); border: 2px solid var(--border); border-radius: 0;">
-                            <span style="font-weight: 900; font-size: 1.2rem; text-transform: uppercase;" id="idx-ru1-name">--</span>
-                            <span style="background: var(--accent); color: var(--bg); color: var(--bg); padding: 6px 12px; font-weight: 900; font-size: 1.1rem;" id="idx-ru1-score">--%</span>
+                            <span style="font-weight: 800; font-size: 1.2rem; text-transform: uppercase;" id="idx-ru1-name">--</span>
+                            <span style="background: var(--accent); color: var(--bg); color: var(--bg); padding: 6px 12px; font-weight: 800; font-size: 1.1rem;" id="idx-ru1-score">--%</span>
                         </div>
                         <div style="border: none; padding: 24px; display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); border: 2px solid var(--border); border-radius: 0;">
-                            <span style="font-weight: 900; font-size: 1.2rem; text-transform: uppercase;" id="idx-ru2-name">--</span>
-                            <span style="background: var(--accent); color: var(--bg); color: var(--bg); padding: 6px 12px; font-weight: 900; font-size: 1.1rem;" id="idx-ru2-score">--%</span>
+                            <span style="font-weight: 800; font-size: 1.2rem; text-transform: uppercase;" id="idx-ru2-name">--</span>
+                            <span style="background: var(--accent); color: var(--bg); color: var(--bg); padding: 6px 12px; font-weight: 800; font-size: 1.1rem;" id="idx-ru2-score">--%</span>
                         </div>
                     </div>
 
@@ -1435,7 +1428,7 @@
             if (!terminal) {
                 terminal = document.createElement('div');
                 terminal.id = btn.id === 'btn-idx-raqgen' ? 'idx-terminal' : 'profile-terminal';
-                terminal.style.cssText = "background: #fff; color: #000; font-family: monospace; font-size: 0.85rem; padding: 16px; margin-top: 20px; border-radius: 8px; height: 150px; overflow-y: hidden; text-align: left; box-shadow: inset 0 0 10px rgba(204,255,0,0.2); border: 1px solid #333;";
+                terminal.style.cssText = "background: #fff; color: #000; font-family: monospace; font-size: 1rem; padding: 16px; margin-top: 20px; border-radius: 8px; height: 150px; overflow-y: hidden; text-align: left; box-shadow: inset 0 0 10px rgba(204,255,0,0.2); border: 1px solid #333;";
                 btn.parentNode.insertBefore(terminal, btn.nextSibling);
             }
             terminal.style.display = 'block';
