@@ -1551,6 +1551,7 @@ function computeRaqGenLocal(p) {
         let bio_score = Math.max(0, Math.min(100, 100 - (biomech_cost * 2.5)));
         let tac_score = Math.max(0, Math.min(100, 100 - (tactical_cost * 2.5)));
         let safe_score = Math.max(0, Math.min(100, 100 - (safety_cost * 2.5)));
+        let tw_ratings = calcTWMetrics(r, ideal_SW);
 
         results.push({
             name: r.name,
@@ -1558,7 +1559,8 @@ function computeRaqGenLocal(p) {
             score: match_score,
             bio_score: bio_score,
             tac_score: tac_score,
-            safe_score: safe_score,\n            tw_ratings: tw_ratings,
+            safe_score: safe_score,
+            tw_ratings: tw_ratings,
             specs: {
                 weight: r.mass,
                 sw: r.SW,
