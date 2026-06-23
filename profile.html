@@ -461,7 +461,7 @@
     
         /* AI Insight Modules (Hyper-Simple) */
         .ai-module {
-            background: #111;
+            background: #f4f4f4;
             border: 1px solid var(--border-dark);
             border-radius: 12px;
             padding: 24px;
@@ -483,7 +483,7 @@
             letter-spacing: 0.1em;
         }
         .ai-module-content {
-            color: #fff;
+            color: var(--text);
             font-size: 1.25rem;
             font-weight: 500;
             line-height: 1.4;
@@ -518,7 +518,7 @@
                         .tm8-nav-item.accent { background: var(--bg); color: var(--text); border: 2px solid var(--text) !important; border-bottom: 2px solid var(--text) !important; margin: 4px; padding: 14px; }
                         .tm8-nav-item.accent:hover { background: var(--text); color: var(--bg); }
                     </style>
-                    <summary style="list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 900; text-transform: uppercase; border: 3px solid var(--border-dark); padding: 10px 20px; background: #fff; box-shadow: 4px 4px 0px var(--border-dark); transition: transform 0.1s, box-shadow 0.1s; font-size: 0.9rem;" onmouseover="this.style.transform='translate(-2px, -2px)'; this.style.boxShadow='6px 6px 0px var(--border-dark)';" onmouseout="if(!this.parentElement.open){this.style.transform='translate(0, 0)'; this.style.boxShadow='4px 4px 0px var(--border-dark)';}">
+                    <summary style="list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 900; text-transform: uppercase; border: 3px solid var(--border-dark); padding: 10px 20px; background: var(--bg); color: var(--text); box-shadow: 4px 4px 0px var(--border-dark); transition: transform 0.1s, box-shadow 0.1s; font-size: 0.9rem;" onmouseover="this.style.transform='translate(-2px, -2px)'; this.style.boxShadow='6px 6px 0px var(--border-dark)';" onmouseout="if(!this.parentElement.open){this.style.transform='translate(0, 0)'; this.style.boxShadow='4px 4px 0px var(--border-dark)';}">
                         <span class="pulse-dot" style="width: 10px; height: 10px;"></span>
                         TM8 T00LS <span style="font-size: 0.7rem; margin-left: 4px;">▼</span>
                     </summary>
@@ -979,42 +979,42 @@
             <div id="raqgen-result" style="display: none; margin-top: 32px; padding-top: 24px; border-top: 1px solid #333;">
                 
                 <!-- BEST MATCH -->
-                <div style="background: #1a1a1a; border: 1px solid #00ffcc; border-radius: 8px; padding: 20px; margin-bottom: 24px; position: relative; overflow: hidden;">
-                    <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #00ffcc;"></div>
+                <div style="background: #fff; border: 1px solid var(--text); border-radius: 8px; padding: 20px; margin-bottom: 24px; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--text);"></div>
                     
                     <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
                         <div>
-                            <span style="font-size: 0.7rem; color: #00ffcc; font-weight: 700; letter-spacing: 2px;">OPTIMAL FRAME MATRIX</span>
-                            <h4 style="font-size: 1.4rem; margin: 4px 0 0 0; color: #fff;" id="raqgen-racket-name">--</h4>
+                            <span style="font-size: 0.7rem; color: var(--text); font-weight: 700; letter-spacing: 2px;">OPTIMAL FRAME MATRIX</span>
+                            <h4 style="font-size: 1.4rem; margin: 4px 0 0 0; color: var(--text);" id="raqgen-racket-name">--</h4>
                         </div>
                         <div style="text-align: right;">
-                            <span style="font-size: 0.7rem; color: #888; font-weight: 700; letter-spacing: 1px;">MATCH SCORE</span>
-                            <div style="font-size: 1.8rem; font-weight: 900; color: #00ffcc; line-height: 1;" id="raqgen-score">--%</div>
+                            <span style="font-size: 0.7rem; color: var(--text-muted); font-weight: 700; letter-spacing: 1px;">MATCH SCORE</span>
+                            <div style="font-size: 1.8rem; font-weight: 900; color: var(--text); line-height: 1;" id="raqgen-score">--%</div>
                         </div>
                     </div>
 
                     <!-- SCORE BARS -->
                     <div style="margin-bottom: 20px;">
                         <div style="margin-bottom: 12px;">
-                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px; color: #aaa;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px; color: var(--text-muted);">
                                 <span>Bio-Kinetic Fit</span>
                                 <span id="bar-bio-val">--%</span>
                             </div>
                             <div style="width: 100%; height: 6px; background: #333; border-radius: 3px; overflow: hidden;">
-                                <div id="bar-bio" style="height: 100%; background: #00ffcc; width: 0%; transition: width 1s ease-out;"></div>
+                                <div id="bar-bio" style="height: 100%; background: var(--text); width: 0%; transition: width 1s ease-out;"></div>
                             </div>
                         </div>
                         <div style="margin-bottom: 12px;">
-                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px; color: #aaa;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px; color: var(--text-muted);">
                                 <span>Tactical Alignment</span>
                                 <span id="bar-tac-val">--%</span>
                             </div>
                             <div style="width: 100%; height: 6px; background: #333; border-radius: 3px; overflow: hidden;">
-                                <div id="bar-tac" style="height: 100%; background: #00b3ff; width: 0%; transition: width 1s ease-out 0.2s;"></div>
+                                <div id="bar-tac" style="height: 100%; background: var(--text); width: 0%; transition: width 1s ease-out 0.2s;"></div>
                             </div>
                         </div>
                         <div>
-                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px; color: #aaa;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px; color: var(--text-muted);">
                                 <span>Arm Safety / Fatigue</span>
                                 <span id="bar-safe-val">--%</span>
                             </div>
@@ -1026,23 +1026,23 @@
 
                     <!-- SPECS -->
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 0.85rem; border-top: 1px solid #333; padding-top: 16px;">
-                        <div><span style="color: #666;">Mass:</span> <span style="color: #fff; font-weight: 600;" id="raqgen-weight">--</span></div>
-                        <div><span style="color: #666;">Swingweight:</span> <span style="color: #fff; font-weight: 600;" id="raqgen-sw">--</span></div>
-                        <div><span style="color: #666;">Stiffness (RA):</span> <span style="color: #fff; font-weight: 600;" id="raqgen-ra">--</span></div>
-                        <div><span style="color: #666;">Pattern:</span> <span style="color: #fff; font-weight: 600;" id="raqgen-pattern">--</span></div>
+                        <div><span style="color: #666;">Mass:</span> <span style="color: var(--text); font-weight: 600;" id="raqgen-weight">--</span></div>
+                        <div><span style="color: #666;">Swingweight:</span> <span style="color: var(--text); font-weight: 600;" id="raqgen-sw">--</span></div>
+                        <div><span style="color: #666;">Stiffness (RA):</span> <span style="color: var(--text); font-weight: 600;" id="raqgen-ra">--</span></div>
+                        <div><span style="color: #666;">Pattern:</span> <span style="color: var(--text); font-weight: 600;" id="raqgen-pattern">--</span></div>
                     </div>
                 </div>
 
                 <!-- RUNNERS UP -->
-                <h5 style="font-size: 0.8rem; color: #888; margin-bottom: 12px; letter-spacing: 1px;">ALTERNATIVES</h5>
+                <h5 style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 1px;">ALTERNATIVES</h5>
                 <div style="display: grid; grid-template-columns: 1fr; gap: 8px;">
-                    <div style="background: #111; border: 1px solid #333; padding: 12px; display: flex; justify-content: space-between; align-items: center;">
-                        <span style="color: #ccc; font-size: 0.9rem;" id="ru1-name">--</span>
-                        <span style="color: #00ffcc; font-weight: 700; font-size: 0.9rem;" id="ru1-score">--%</span>
+                    <div style="background: #f4f4f4; border: 2px solid var(--border-dark); padding: 12px; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: var(--text-muted); font-size: 0.9rem;" id="ru1-name">--</span>
+                        <span style="color: var(--text); font-weight: 700; font-size: 0.9rem;" id="ru1-score">--%</span>
                     </div>
-                    <div style="background: #111; border: 1px solid #333; padding: 12px; display: flex; justify-content: space-between; align-items: center;">
-                        <span style="color: #ccc; font-size: 0.9rem;" id="ru2-name">--</span>
-                        <span style="color: #00ffcc; font-weight: 700; font-size: 0.9rem;" id="ru2-score">--%</span>
+                    <div style="background: #f4f4f4; border: 2px solid var(--border-dark); padding: 12px; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: var(--text-muted); font-size: 0.9rem;" id="ru2-name">--</span>
+                        <span style="color: var(--text); font-weight: 700; font-size: 0.9rem;" id="ru2-score">--%</span>
                     </div>
                 </div>
 
@@ -1140,7 +1140,7 @@
             if (!terminal) {
                 terminal = document.createElement('div');
                 terminal.id = btn.id === 'btn-idx-raqgen' ? 'idx-terminal' : 'profile-terminal';
-                terminal.style.cssText = "background: #fff; color: #000; font-family: monospace; font-size: 0.85rem; padding: 16px; margin-top: 20px; border-radius: 8px; height: 150px; overflow-y: hidden; text-align: left; box-shadow: inset 0 0 10px rgba(204,255,0,0.2); border: 1px solid #333;";
+                terminal.style.cssText = "background: #fff; color: #000; font-family: monospace; font-size: 0.85rem; padding: 16px; margin-top: 20px; border-radius: 8px; height: 150px; overflow-y: hidden; text-align: left; box-shadow: inset 0 0 10px rgba(204,255,0,0.2); border: 2px solid var(--border-dark);";
                 btn.parentNode.insertBefore(terminal, btn.nextSibling);
             }
             terminal.style.display = 'block';
