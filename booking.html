@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tennis T-Mate - Connect</title>
     <style>
-        :root {
+                :root {
             --bg: #FAFAFA;
             --bg-card: #FFFFFF;
-            --text: #212413;
-            --text-muted: #6B705C;
-            --border: #E8EBE0;
-            --accent: #B3E6B5;
+            --text: #160000;
+            --text-muted: #8E0023;
+            --border: #FCA5B7;
+            --border-dark: #160000;
+            --accent: #F40C3F;
+            --accent-hover: #D00030;
             --radius-pill: 100px;
             --radius-card: 32px;
-            --shadow-soft: 0 12px 32px rgba(33, 36, 19, 0.08);
+            --shadow-soft: 0 16px 40px rgba(244, 12, 63, 0.15);
         }
 
         * {
@@ -22,6 +24,19 @@
             margin: 0;
             padding: 0;
             cursor: none; /* Custom cursor */
+        }
+
+        
+        /* WODNIACK.DEV NOISE SHADER TEXTURE */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.4;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            mix-blend-mode: multiply;
         }
 
         body {
@@ -33,12 +48,13 @@
             min-height: 100vh;
         }
 
+
         /* CUSTOM CURSOR */
         #cursor {
             position: fixed;
             top: 0; left: 0;
             width: 20px; height: 20px;
-            background-color: var(--accent);
+            background-color: var(--bg);
             border-radius: 50%;
             pointer-events: none;
             mix-blend-mode: difference;
@@ -210,7 +226,7 @@
             box-shadow: 0 4px 12px rgba(33, 36, 19, 0.02);
         }
         .fs-input:focus {
-            border-color: var(--accent);
+            border-color: var(--bg);
             box-shadow: 0 0 0 4px rgba(179, 230, 181, 0.3);
         }
 
@@ -219,7 +235,7 @@
             align-items: center;
             justify-content: center;
             background: var(--text);
-            color: var(--accent);
+            color: var(--bg);
             border: none;
             border-radius: var(--radius-pill);
             padding: 20px 32px;
@@ -289,7 +305,7 @@
             </g>
 
             <!-- Ball -->
-            <circle id="anim-ball" cx="0" cy="0" r="10" fill="#B3E6B5" stroke="#000000" stroke-width="3"/>
+            <circle id="anim-ball" cx="0" cy="0" r="10" fill="#F40C3F" stroke="#000000" stroke-width="3"/>
         </svg>
     </div>
 

@@ -11,17 +11,18 @@
         /* ===== Minimalist Editorial / Brutalist Architecture ===== */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
 
-                :root {
+                        :root {
             --bg: #FAFAFA;
             --bg-card: #FFFFFF;
-            --text: #212413;
-            --text-muted: #6B705C;
-            --border: #E8EBE0;
-            --border-dark: #212413;
-            --accent: #B3E6B5;
+            --text: #160000;
+            --text-muted: #8E0023;
+            --border: #FCA5B7;
+            --border-dark: #160000;
+            --accent: #F40C3F;
+            --accent-hover: #D00030;
             --radius-pill: 100px;
             --radius-card: 32px;
-            --shadow-soft: 0 12px 32px rgba(33, 36, 19, 0.08);
+            --shadow-soft: 0 16px 40px rgba(244, 12, 63, 0.15);
         }
 
         * {
@@ -30,6 +31,20 @@
             padding: 0;
         }
 
+        
+        /* WODNIACK.DEV NOISE SHADER TEXTURE */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.4;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            mix-blend-mode: multiply;
+        }
+
+        /* Update typography and general style to be sharper and punchier */
         body {
             font-family: 'Inter', -apple-system, sans-serif;
             color: var(--text);
@@ -37,6 +52,13 @@
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
         }
+        h1, h2, h3, h4 {
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 0.95;
+            text-transform: uppercase;
+        }
+
 
         h1, h2, h3, h4 {
             font-weight: 900;
@@ -89,19 +111,33 @@
             text-decoration: underline;
         }
 
+        
         .btn {
             display: inline-block;
-            background-color: var(--text); color: var(--accent);
+            background-color: var(--accent);
             color: var(--bg);
-            padding: 12px 24px;
-            font-size: 0.85rem;
-            font-weight: 700;
+            padding: 16px 32px;
+            font-size: 1rem;
+            font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            border: 1px solid var(--text);
-            cursor: pointer;
-            transition: all 0.2s;
+            border-radius: var(--radius-pill);
+            cursor: none;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: none;
+            box-shadow: var(--shadow-soft);
         }
+
+        .btn:hover {
+            background-color: var(--text);
+            color: var(--bg);
+            transform: translateY(-4px);
+        }
+        
+        
+        
+        
+
 
         .btn:hover {
             background-color: var(--bg);
@@ -115,24 +151,9 @@
             margin-bottom: 12px;
         }
 
-        .echo-button {
-            position: relative;
-            z-index: 2;
-            background-color: var(--accent);
-            color: var(--text);
-            border: none;
-            padding: 18px 40px;
-            font-size: 1.1rem;
-            box-shadow: var(--shadow-soft);
-            transform: translateY(0);
-        }
+        
 
-        .echo-button:hover {
-            background-color: var(--text); color: var(--accent);
-            color: var(--bg);
-            box-shadow: var(--shadow-soft);
-            transform: translateY(4px) translateX(4px);
-        }
+        
 
         .echo-ring {
             position: absolute;
@@ -382,7 +403,7 @@
         
         .step-indicator { display: flex; gap: 8px; margin-bottom: 32px; }
         .step-dot { height: 4px; flex: 1; background: var(--border); border-radius: 2px; transition: background 0.3s; }
-        .step-dot.active { background: var(--text); color: var(--accent); }
+        .step-dot.active { background: var(--accent); color: var(--bg); }
         
         .booking-step { display: none; animation: slideIn 0.3s ease forwards; }
         .booking-step.active { display: block; }
@@ -394,19 +415,19 @@
         .form-group { margin-bottom: 24px; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.05em; }
         .form-group input, .form-group select { width: 100%; padding: 16px; border: 1px solid var(--border-dark); border-radius: 8px; font-family: inherit; font-size: 1.1rem; background: var(--bg); color: var(--text); outline: none; transition: border-color 0.2s; }
-        .form-group input:focus, .form-group select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(204,255,0,0.2); }
+        .form-group input:focus, .form-group select:focus { border-color: var(--bg); box-shadow: 0 0 0 3px rgba(204,255,0,0.2); }
         
         .radio-group { display: grid; grid-template-columns: 1fr; gap: 12px; }
         .radio-option { border: 1px solid var(--border-dark); border-radius: 8px; padding: 16px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; }
         .radio-option:hover { border-color: var(--text); background: #f9f9f9; }
-        .radio-option.selected { border-color: var(--text); border-width: 2px; background: var(--text); color: var(--accent); color: var(--bg); }
+        .radio-option.selected { border-color: var(--text); border-width: 2px; background: var(--accent); color: var(--bg); color: var(--bg); }
         .radio-option-title { font-weight: 900; font-size: 1.1rem; text-transform: uppercase; margin-bottom: 4px; }
         .radio-option-desc { font-size: 0.9rem; color: var(--text-muted); }
         .radio-option.selected .radio-option-desc { color: #aaaaaa; }
 
         .modal-actions { display: flex; gap: 16px; margin-top: 40px; }
         .btn-modal { flex: 1; padding: 16px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; font-size: 1rem; cursor: pointer; border-radius: 8px; border: none; transition: all 0.2s; }
-        .btn-next { background: var(--text); color: var(--accent); color: var(--bg); }
+        .btn-next { background: var(--accent); color: var(--bg); color: var(--bg); }
         .btn-next:hover { background: #333; }
         .btn-prev { background: transparent; color: var(--text); border: 1px solid var(--border-dark); }
         .btn-prev:hover { background: #f5f5f5; }
@@ -422,12 +443,33 @@
         }
     
         /* Update global buttons */
+        
         .btn {
-            border-radius: var(--radius-pill) !important;
-            border: none !important;
-            box-shadow: var(--shadow-soft);
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--bg);
+            padding: 16px 32px;
+            font-size: 1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: var(--radius-pill);
+            cursor: none;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: none;
+            box-shadow: var(--shadow-soft);
         }
+
+        .btn:hover {
+            background-color: var(--text);
+            color: var(--bg);
+            transform: translateY(-4px);
+        }
+        
+        
+        
+        
+
         .btn:hover {
             transform: translateY(-4px);
         }
@@ -523,7 +565,7 @@
             box-shadow: 0 4px 12px rgba(33, 36, 19, 0.02);
         }
         .fs-input:focus {
-            border-color: var(--accent);
+            border-color: var(--bg);
             box-shadow: 0 0 0 4px rgba(179, 230, 181, 0.3);
         }
 
@@ -531,8 +573,8 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: var(--text);
-            color: var(--accent);
+            background: var(--accent);
+            color: var(--bg);
             border: none;
             border-radius: var(--radius-pill);
             padding: 20px 32px;
@@ -646,12 +688,33 @@
                         .tm8-nav-item.accent:hover { background: linear-gradient(135deg, #d4ff33 0%, #b8e600 100%); }
                     
         /* Update global buttons */
+        
         .btn {
-            border-radius: var(--radius-pill) !important;
-            border: none !important;
-            box-shadow: var(--shadow-soft);
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--bg);
+            padding: 16px 32px;
+            font-size: 1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: var(--radius-pill);
+            cursor: none;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: none;
+            box-shadow: var(--shadow-soft);
         }
+
+        .btn:hover {
+            background-color: var(--text);
+            color: var(--bg);
+            transform: translateY(-4px);
+        }
+        
+        
+        
+        
+
         .btn:hover {
             transform: translateY(-4px);
         }
@@ -747,7 +810,7 @@
             box-shadow: 0 4px 12px rgba(33, 36, 19, 0.02);
         }
         .fs-input:focus {
-            border-color: var(--accent);
+            border-color: var(--bg);
             box-shadow: 0 0 0 4px rgba(179, 230, 181, 0.3);
         }
 
@@ -755,8 +818,8 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: var(--text);
-            color: var(--accent);
+            background: var(--accent);
+            color: var(--bg);
             border: none;
             border-radius: var(--radius-pill);
             padding: 20px 32px;
@@ -989,7 +1052,7 @@
 
                 <div class="echo-button-wrapper" style="width: 100%; display: block;">
                     <div class="echo-ring" style="border-color: var(--border-dark);"></div>
-                    <button id="btn-idx-raqgen" class="btn echo-button" style="border-radius: var(--radius-pill); font-weight: 700; box-shadow: var(--shadow-soft); border: none;" style="width: 100%; font-size: 1.2rem; padding: 20px; background: var(--text); color: var(--accent); color: var(--bg); border: none; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; cursor: pointer;" onclick="runIndexRaqGen()">
+                    <button id="btn-idx-raqgen" class="btn echo-button" style="border-radius: var(--radius-pill); font-weight: 700; box-shadow: var(--shadow-soft); border: none;" style="width: 100%; font-size: 1.2rem; padding: 20px; background: var(--accent); color: var(--bg); color: var(--bg); border: none; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; cursor: pointer;" onclick="runIndexRaqGen()">
                         Compute Optimal Frame
                     </button>
                 </div>
@@ -1014,7 +1077,7 @@
                                     <span id="idx-bar-bio-val">--%</span>
                                 </div>
                                 <div style="width: 100%; height: 16px; background: #eee; border: none;">
-                                    <div id="idx-bar-bio" style="height: 100%; background: var(--text); color: var(--accent); width: 0%; transition: width 1s ease-out;"></div>
+                                    <div id="idx-bar-bio" style="height: 100%; background: var(--accent); color: var(--bg); width: 0%; transition: width 1s ease-out;"></div>
                                 </div>
                             </div>
                             <div style="margin-bottom: 24px;">
@@ -1023,7 +1086,7 @@
                                     <span id="idx-bar-tac-val">--%</span>
                                 </div>
                                 <div style="width: 100%; height: 16px; background: #eee; border: none;">
-                                    <div id="idx-bar-tac" style="height: 100%; background: var(--text); color: var(--accent); width: 0%; transition: width 1s ease-out 0.2s;"></div>
+                                    <div id="idx-bar-tac" style="height: 100%; background: var(--accent); color: var(--bg); width: 0%; transition: width 1s ease-out 0.2s;"></div>
                                 </div>
                             </div>
                             <div>
@@ -1106,11 +1169,11 @@
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
                         <div style="border: none; padding: 24px; display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill);">
                             <span style="font-weight: 900; font-size: 1.2rem; text-transform: uppercase;" id="idx-ru1-name">--</span>
-                            <span style="background: var(--text); color: var(--accent); color: var(--bg); padding: 6px 12px; font-weight: 900; font-size: 1.1rem;" id="idx-ru1-score">--%</span>
+                            <span style="background: var(--accent); color: var(--bg); color: var(--bg); padding: 6px 12px; font-weight: 900; font-size: 1.1rem;" id="idx-ru1-score">--%</span>
                         </div>
                         <div style="border: none; padding: 24px; display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill);">
                             <span style="font-weight: 900; font-size: 1.2rem; text-transform: uppercase;" id="idx-ru2-name">--</span>
-                            <span style="background: var(--text); color: var(--accent); color: var(--bg); padding: 6px 12px; font-weight: 900; font-size: 1.1rem;" id="idx-ru2-score">--%</span>
+                            <span style="background: var(--accent); color: var(--bg); color: var(--bg); padding: 6px 12px; font-weight: 900; font-size: 1.1rem;" id="idx-ru2-score">--%</span>
                         </div>
                     </div>
 
@@ -1120,7 +1183,7 @@
     </section>
 
 
-<section class="second-cta" style="background-color: var(--text); color: var(--accent); color: var(--bg); text-align: center; padding: 120px 0;">
+<section class="second-cta" style="background-color: var(--bg); color: var(--bg); color: var(--bg); text-align: center; padding: 120px 0;">
         <div class="container">
             <h2 style="font-size: clamp(3rem, 8vw, 6rem); margin-bottom: 2rem; line-height: 1;">Ready to hit<br>the court?</h2>
             <a href="/booking.html" class="btn" style="border-radius: var(--radius-pill); font-weight: 700; box-shadow: var(--shadow-soft); border: none;" style="background-color: var(--bg); color: var(--text); border-color: var(--bg); font-size: 1.25rem; padding: 16px 32px;">Book Session</a>
