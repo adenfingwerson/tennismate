@@ -39,7 +39,7 @@ export async function onRequestPost(context) {
             {name: "Head Radical MP 2023", mass: 318, SW: 323, RA: 65, Hz: 142, TW: 14.0, headsize: 98, mains: 16, crosses: 19, osint_plushness: 2},
             {name: "Head Radical Pro 2023", mass: 332, SW: 330, RA: 64, Hz: 140, TW: 14.5, headsize: 98, mains: 16, crosses: 19, osint_plushness: 2},
             {name: "Head Gravity Pro 2023", mass: 332, SW: 333, RA: 59, Hz: 125, TW: 15.0, headsize: 100, mains: 18, crosses: 20, osint_plushness: 1},
-            {name: "Head Gravity Tour 2023", mass: 323, SW: 325, RA: 61, Hz: 128, TW: 14.6, headsize: 100, mains: 18, crosses: 20, osint_plushness: 1},
+            {name: "Head Gravity Tour 2025", mass: 323, SW: 325, RA: 61, Hz: 128, TW: 14.6, headsize: 98, mains: 16, crosses: 19, osint_plushness: 2},
             {name: "Head Extreme MP 2024", mass: 318, SW: 322, RA: 63, Hz: 138, TW: 14.0, headsize: 100, mains: 16, crosses: 19, osint_plushness: 2},
             {name: "Head Extreme Pro 2024", mass: 332, SW: 331, RA: 63, Hz: 138, TW: 14.4, headsize: 98, mains: 16, crosses: 19, osint_plushness: 2},
             {name: "Head Prestige Pro 2023", mass: 337, SW: 330, RA: 60, Hz: 130, TW: 14.2, headsize: 98, mains: 18, crosses: 20, osint_plushness: 1},
@@ -88,6 +88,59 @@ export async function onRequestPost(context) {
         
         let max_safe_mass = (weight_kg * 4.8) * gender_scalar;
 
+        // NEW: TennisWarehouse-Style Algorithm Mapping
+        const calcTWMetrics = (r, idealSW) => {
+            let sldm = SLDM(r);
+            let dasi = DASI(r);
+            
+            let power = 48 + (r.RA - 60) * 1.5 + (r.SW - 300) * 0.8 + (sldm - 28) * 2.5;
+            power = Math.max(0, Math.min(100, power));
+            
+            let control = 100 - (power * 0.3) + (r.TW - 13) * 6 - (sldm - 32) * 3;
+            control = Math.max(0, Math.min(100, control));
+            
+            let maneuverability = 96 - (r.SW - idealSW) * 1.0 - (r.mass - 300) * 0.15;
+            maneuverability = Math.max(0, Math.min(100, maneuverability));
+            
+            let stability = 65 + (r.TW - 13) * 10 + (r.mass - 300) * 0.2;
+            stability = Math.max(0, Math.min(100, stability));
+            
+            let comfort = 110 - (dasi * 1.0) + (r.osint_plushness * 2.5);
+            comfort = Math.max(0, Math.min(100, comfort));
+            
+            let touch = 90 - (r.Hz - 130) * 0.8 + (r.osint_plushness * 2.0);
+            touch = Math.max(0, Math.min(100, touch));
+            
+            let topspin = 62 + (sldm - 28) * 5 + (maneuverability * 0.05);
+            topspin = Math.max(0, Math.min(100, topspin));
+            
+            let slice = 55 + stability * 0.3 + (r.mass - 300) * 0.15 - (sldm - 32) * 1.5;
+            slice = Math.max(0, Math.min(100, slice));
+            
+            let groundstrokes = (power * 0.2 + control * 0.3 + topspin * 0.2 + stability * 0.3);
+            let volleys = (maneuverability * 0.3 + stability * 0.3 + touch * 0.2 + control * 0.2);
+            let serves = (power * 0.4 + maneuverability * 0.3 + topspin * 0.3);
+            let returns = (stability * 0.4 + maneuverability * 0.3 + control * 0.3);
+            
+            let overall = (groundstrokes + volleys + serves + returns + power + control + maneuverability + stability + comfort + touch + topspin + slice) / 12;
+
+            return {
+                overall: parseFloat(overall.toFixed(1)),
+                groundstrokes: parseFloat(groundstrokes.toFixed(1)),
+                volleys: parseFloat(volleys.toFixed(1)),
+                serves: parseFloat(serves.toFixed(1)),
+                returns: parseFloat(returns.toFixed(1)),
+                power: parseFloat(power.toFixed(1)),
+                control: parseFloat(control.toFixed(1)),
+                maneuverability: parseFloat(maneuverability.toFixed(1)),
+                stability: parseFloat(stability.toFixed(1)),
+                comfort: parseFloat(comfort.toFixed(1)),
+                touch: parseFloat(touch.toFixed(1)),
+                topspin: parseFloat(topspin.toFixed(1)),
+                slice: parseFloat(slice.toFixed(1))
+            };
+        };
+
         let results = [];
 
         rackets.forEach(r => {
@@ -103,6 +156,8 @@ export async function onRequestPost(context) {
             let bio_score = Math.max(0, Math.min(100, 100 - (biomech_cost * 2.5)));
             let tac_score = Math.max(0, Math.min(100, 100 - (tactical_cost * 2.5)));
             let safe_score = Math.max(0, Math.min(100, 100 - (safety_cost * 2.5)));
+            
+            let tw_ratings = calcTWMetrics(r, ideal_SW);
 
             results.push({
                 name: r.name,
@@ -111,6 +166,7 @@ export async function onRequestPost(context) {
                 bio_score: bio_score,
                 tac_score: tac_score,
                 safe_score: safe_score,
+                tw_ratings: tw_ratings,
                 specs: {
                     weight: r.mass,
                     sw: r.SW,
