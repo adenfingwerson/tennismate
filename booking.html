@@ -297,30 +297,8 @@
 
     <div class="modal-content-wrapper">
         
-        <!-- STEP 1: Focus Area (Triggers Animations) -->
-        <div class="booking-step active" id="step-1">
-            <h2 class="fs-title" style="margin-bottom: 24px;">Focus</h2>
-            <p class="fs-subtitle">Pick a shot to work on</p>
-            
-            <div class="contact-grid">
-                <div class="contact-option hover-target" onmouseenter="triggerAnim('fh')" onclick="nextContactStep('contact', 'Forehand')">
-                    <span class="contact-title">Forehand</span>
-                </div>
-                <div class="contact-option hover-target" onmouseenter="triggerAnim('bh')" onclick="nextContactStep('contact', 'Backhand')">
-                    <span class="contact-title">Backhand</span>
-                </div>
-                <div class="contact-option hover-target" onmouseenter="triggerAnim('volley')" onclick="nextContactStep('contact', 'Volley')">
-                    <span class="contact-title">Volleys</span>
-                </div>
-                <div class="contact-option hover-target" onmouseenter="triggerAnim('ace')" onclick="nextContactStep('contact', 'Serve')">
-                    <span class="contact-title">The Serve</span>
-                </div>
-            </div>
-            <input type="hidden" id="b_focus" value="Forehand">
-        </div>
-
-        <!-- STEP 2: Connect -->
-        <div class="booking-step" id="step-contact">
+        <!-- STEP 1: Connect -->
+        <div class="booking-step active" id="step-contact">
             <h2 class="fs-title">Connect</h2>
             <div class="contact-grid">
                 <div class="contact-option hover-target" onclick="nextContactStep('call')">
@@ -387,17 +365,7 @@
             cursor.style.top = e.clientY - 10 + 'px';
         });
 
-        function triggerAnim(animType) {
-            const svg = document.getElementById('tennis-svg');
-            svg.className.baseVal = ''; // clear
-            void svg.offsetWidth; // trigger reflow
-            svg.classList.add('anim-active');
-            svg.classList.add('anim-' + animType);
-
-            // After animation finishes, return to rally
-            setTimeout(() => {
-                svg.className.baseVal = '';
-            }, 1600);
+        , 1600);
         }
 
         function nextContactStep(stepId, focusVal = null) {
@@ -409,15 +377,17 @@
                 el.classList.remove('active');
             });
             
-            if (stepId === 1) {
-                document.getElementById('step-1').classList.add('active');
+            
+            if (stepId === 1 || stepId === 'contact') {
+                const el = document.getElementById('step-contact');
+                if (el) el.classList.add('active');
+
             } else {
                 document.getElementById('step-' + stepId).classList.add('active');
             }
         }
         
         async function submitContact(type) {
-            const focusVal = document.getElementById('b_focus').value;
             let payload = {};
             if (type === 'call') {
                 const name = document.getElementById('c_name').value;
@@ -425,13 +395,13 @@
                 const time = document.getElementById('c_time').value;
                 if(!name || !phone || !time) { alert("Please fill all fields"); return; }
                 
-                payload = { name, phone, location: 'N/A', preferred_time: time, focus: focusVal + ' - Schedule Call' };
+                payload = { name, phone, location: 'N/A', preferred_time: time, focus: 'Schedule Call' };
             } else if (type === 'text') {
                 const name = document.getElementById('t_name').value;
                 const phone = document.getElementById('t_phone').value;
                 if(!name || !phone) { alert("Please fill all fields"); return; }
                 
-                payload = { name, phone, location: 'N/A', preferred_time: 'ASAP', focus: focusVal + ' - Send Text' };
+                payload = { name, phone, location: 'N/A', preferred_time: 'ASAP', focus: 'Send Text' };
             }
 
             nextContactStep('success');
