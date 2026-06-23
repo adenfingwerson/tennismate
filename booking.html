@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tennis T-Mate - Connect</title>
     <style>
-                :root {
-            --bg: #FAFAFA;
-            --bg-card: #FFFFFF;
+                        :root {
+            --bg: #F40C3F;
+            --bg-card: #F40C3F;
             --text: #160000;
-            --text-muted: #8E0023;
-            --border: #FCA5B7;
+            --text-muted: rgba(22, 0, 0, 0.6);
+            --border: #160000;
             --border-dark: #160000;
-            --accent: #F40C3F;
-            --accent-hover: #D00030;
-            --radius-pill: 100px;
-            --radius-card: 32px;
-            --shadow-soft: 0 16px 40px rgba(244, 12, 63, 0.15);
+            --accent: #160000;
+            --accent-hover: #000000;
+            --radius-pill: 0px;
+            --radius-card: 0px;
+            --shadow-soft: none;
         }
 
         * {
@@ -40,6 +40,8 @@
         }
 
         body {
+            border: 1px solid var(--border);
+            margin: 16px;
             font-family: 'Inter', sans-serif;
             background-color: var(--bg);
             color: var(--text);
@@ -150,9 +152,9 @@
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-radius: var(--radius-card);
+            border-radius: 0;
             padding: 48px 32px;
-            box-shadow: var(--shadow-soft);
+            box-shadow: none;
             animation: slideIn 0.3s ease forwards;
         }
         .booking-step.active {
@@ -192,7 +194,7 @@
             justify-content: center;
             background: var(--bg-card);
             padding: 24px 32px;
-            border-radius: var(--radius-pill);
+            border-radius: 0;
             text-align: center;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             text-decoration: none;
@@ -203,7 +205,7 @@
         .contact-option:hover {
             background: var(--accent);
             transform: scale(1.02);
-            box-shadow: var(--shadow-soft);
+            box-shadow: none;
         }
         .contact-title {
             font-weight: 700;
@@ -215,7 +217,7 @@
             width: 100%;
             background: var(--bg-card);
             border: 2px solid var(--border);
-            border-radius: var(--radius-pill);
+            border-radius: 0;
             padding: 20px 24px;
             font-family: 'Inter', sans-serif;
             font-size: 1.25rem;
@@ -237,7 +239,7 @@
             background: var(--text);
             color: var(--bg);
             border: none;
-            border-radius: var(--radius-pill);
+            border-radius: 0;
             padding: 20px 32px;
             font-size: 1.25rem;
             font-weight: 700;
@@ -246,7 +248,7 @@
         }
         .fs-btn:hover {
             transform: scale(1.02);
-            box-shadow: var(--shadow-soft);
+            box-shadow: none;
         }
         .fs-btn-back {
             background: var(--border);

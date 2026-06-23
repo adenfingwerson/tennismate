@@ -11,18 +11,18 @@
         /* ===== Minimalist Editorial / Brutalist Architecture ===== */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
 
-                        :root {
-            --bg: #FAFAFA;
-            --bg-card: #FFFFFF;
+                                :root {
+            --bg: #F40C3F;
+            --bg-card: #F40C3F;
             --text: #160000;
-            --text-muted: #8E0023;
-            --border: #FCA5B7;
+            --text-muted: rgba(22, 0, 0, 0.6);
+            --border: #160000;
             --border-dark: #160000;
-            --accent: #F40C3F;
-            --accent-hover: #D00030;
-            --radius-pill: 100px;
-            --radius-card: 32px;
-            --shadow-soft: 0 16px 40px rgba(244, 12, 63, 0.15);
+            --accent: #160000;
+            --accent-hover: #000000;
+            --radius-pill: 0px;
+            --radius-card: 0px;
+            --shadow-soft: none;
         }
 
         * {
@@ -46,6 +46,8 @@
 
         /* Update typography and general style to be sharper and punchier */
         body {
+            border: 1px solid var(--border);
+            margin: 16px;
             font-family: 'Inter', -apple-system, sans-serif;
             color: var(--text);
             background-color: var(--bg);
@@ -112,20 +114,18 @@
         }
 
         
-        .btn {
-            display: inline-block;
-            background-color: var(--accent);
-            color: var(--bg);
-            padding: 16px 32px;
-            font-size: 1rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border-radius: var(--radius-pill);
-            cursor: none;
+                .btn {
+            border-radius: 0 !important;
+            border: 1px solid var(--text) !important;
+            box-shadow: none;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            border: none;
-            box-shadow: var(--shadow-soft);
+            background: var(--bg);
+            color: var(--text);
+            text-transform: uppercase;
+        }
+        .btn:hover {
+            background: var(--text) !important;
+            color: var(--bg) !important;
         }
 
         .btn:hover {
@@ -431,8 +431,8 @@
         .btn-next:hover { background: #333; }
         .btn-prev { background: transparent; color: var(--text); border: 1px solid var(--border-dark); }
         .btn-prev:hover { background: #f5f5f5; }
-        .btn-submit { background: var(--accent); color: var(--text); border: none; box-shadow: var(--shadow-soft); }
-        .btn-submit:hover { transform: translate(2px, 2px); box-shadow: var(--shadow-soft); }
+        .btn-submit { background: var(--accent); color: var(--text); border: none; box-shadow: none; }
+        .btn-submit:hover { transform: translate(2px, 2px); box-shadow: none; }
 
     
         @media (max-width: 600px) {
@@ -444,20 +444,18 @@
     
         /* Update global buttons */
         
-        .btn {
-            display: inline-block;
-            background-color: var(--accent);
-            color: var(--bg);
-            padding: 16px 32px;
-            font-size: 1rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border-radius: var(--radius-pill);
-            cursor: none;
+                .btn {
+            border-radius: 0 !important;
+            border: 1px solid var(--text) !important;
+            box-shadow: none;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            border: none;
-            box-shadow: var(--shadow-soft);
+            background: var(--bg);
+            color: var(--text);
+            text-transform: uppercase;
+        }
+        .btn:hover {
+            background: var(--text) !important;
+            color: var(--bg) !important;
         }
 
         .btn:hover {
@@ -474,11 +472,10 @@
             transform: translateY(-4px);
         }
 
-        /* --- FINGERSPELLING AESTHETIC --- */
+        
+        /* --- WODNIACK AESTHETIC --- */
         #bookingModal {
-            background: rgba(250, 250, 250, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: var(--bg);
         }
         .modal-content-wrapper {
             max-width: 600px;
@@ -489,6 +486,8 @@
             min-height: 100vh;
             padding: 24px;
             pointer-events: auto;
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
         }
         .modal-close {
             position: absolute;
@@ -498,109 +497,122 @@
             color: var(--text);
             cursor: pointer;
             z-index: 100;
-            opacity: 0.5;
+            opacity: 1;
             transition: opacity 0.3s;
         }
-        .modal-close:hover { opacity: 1; }
 
         .fs-title {
-            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-size: clamp(2.5rem, 15vw, 6rem);
+            font-family: 'Bigger-Display', 'Syne', sans-serif;
             font-weight: 900;
             letter-spacing: -0.04em;
-            text-align: center;
-            margin-bottom: 40px;
+            text-align: left;
+            margin-bottom: 0px;
             color: var(--text);
+            line-height: 0.9;
+            text-transform: uppercase;
         }
 
         .fs-subtitle {
-            text-align: center;
+            text-align: left;
             font-size: 1.25rem;
-            color: var(--text-muted);
+            color: var(--text);
             margin-bottom: 32px;
+            font-family: monospace;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 16px;
         }
 
         .contact-grid {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 0px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
         .contact-option {
             display: flex;
             align-items: center;
-            justify-content: center;
-            background: var(--bg-card);
-            padding: 24px 32px;
-            border-radius: var(--radius-pill);
-            text-align: center;
+            justify-content: flex-start;
+            background: var(--bg);
+            padding: 24px 0px;
+            border-radius: 0;
+            text-align: left;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.2s ease;
             text-decoration: none;
             color: var(--text);
-            box-shadow: 0 4px 12px rgba(33, 36, 19, 0.05);
-            border: 2px solid transparent;
+            box-shadow: none;
+            border-bottom: 1px solid var(--border);
+        }
+        .contact-option:last-child {
+            border-bottom: none;
         }
         .contact-option:hover {
-            background: var(--accent);
-            transform: scale(1.02);
-            box-shadow: var(--shadow-soft);
+            background: var(--text);
+            color: var(--bg);
+            padding-left: 24px;
         }
         .contact-title {
             font-weight: 700;
-            font-size: 1.5rem;
+            font-size: 2rem;
             letter-spacing: -0.02em;
+            text-transform: uppercase;
         }
 
         .fs-input {
             width: 100%;
-            background: var(--bg-card);
-            border: 2px solid var(--border);
-            border-radius: var(--radius-pill);
-            padding: 20px 24px;
+            background: var(--bg);
+            border: none;
+            border-bottom: 1px solid var(--border);
+            border-radius: 0;
+            padding: 20px 0px;
             font-family: 'Inter', sans-serif;
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             color: var(--text);
             margin-bottom: 16px;
             outline: none;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(33, 36, 19, 0.02);
+            box-shadow: none;
         }
+        .fs-input::placeholder { color: rgba(22, 0, 0, 0.4); }
         .fs-input:focus {
-            border-color: var(--bg);
-            box-shadow: 0 0 0 4px rgba(179, 230, 181, 0.3);
+            border-color: var(--text);
+            padding-left: 16px;
         }
 
         .fs-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: var(--accent);
-            color: var(--bg);
-            border: none;
-            border-radius: var(--radius-pill);
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 0;
             padding: 20px 32px;
             font-size: 1.25rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.2s ease;
             width: 100%;
+            text-transform: uppercase;
         }
         .fs-btn:hover {
-            transform: scale(1.02);
-            box-shadow: var(--shadow-soft);
+            background: var(--text);
+            color: var(--bg);
         }
         .fs-btn-back {
-            background: var(--border);
+            background: var(--bg);
             color: var(--text);
             width: auto;
             padding: 20px;
-            border-radius: 50%;
+            border-radius: 0;
         }
         .fs-btn-back:hover {
-            background: var(--text-muted);
+            background: var(--text);
             color: var(--bg);
         }
-
-    </style>
+</style>
 
 </head>
 <body>
@@ -679,30 +691,28 @@
                 <details class="nav-dropdown" style="position: relative;">
                     <style>
                         .nav-dropdown summary::-webkit-details-marker { display: none; }
-                        .nav-dropdown[open] summary { transform: translate(-2px, -2px); box-shadow: var(--shadow-soft); }
+                        .nav-dropdown[open] summary { transform: translate(-2px, -2px); box-shadow: none; }
                         .tm8-nav-item {
                             padding: 16px 20px; border-bottom: 2px solid var(--border-dark); text-decoration: none; color: var(--text); font-weight: 900; text-transform: uppercase; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; background: #fff; transition: background 0.15s ease;
                         }
-                        .tm8-nav-item:hover { background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill); }
+                        .tm8-nav-item:hover { background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; }
                         .tm8-nav-item.accent { background: linear-gradient(135deg, #B3E6B5 0%, #aadd00 100%); border-bottom: none; }
                         .tm8-nav-item.accent:hover { background: linear-gradient(135deg, #d4ff33 0%, #b8e600 100%); }
                     
         /* Update global buttons */
         
-        .btn {
-            display: inline-block;
-            background-color: var(--accent);
-            color: var(--bg);
-            padding: 16px 32px;
-            font-size: 1rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border-radius: var(--radius-pill);
-            cursor: none;
+                .btn {
+            border-radius: 0 !important;
+            border: 1px solid var(--text) !important;
+            box-shadow: none;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            border: none;
-            box-shadow: var(--shadow-soft);
+            background: var(--bg);
+            color: var(--text);
+            text-transform: uppercase;
+        }
+        .btn:hover {
+            background: var(--text) !important;
+            color: var(--bg) !important;
         }
 
         .btn:hover {
@@ -719,11 +729,10 @@
             transform: translateY(-4px);
         }
 
-        /* --- FINGERSPELLING AESTHETIC --- */
+        
+        /* --- WODNIACK AESTHETIC --- */
         #bookingModal {
-            background: rgba(250, 250, 250, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: var(--bg);
         }
         .modal-content-wrapper {
             max-width: 600px;
@@ -734,6 +743,8 @@
             min-height: 100vh;
             padding: 24px;
             pointer-events: auto;
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
         }
         .modal-close {
             position: absolute;
@@ -743,114 +754,127 @@
             color: var(--text);
             cursor: pointer;
             z-index: 100;
-            opacity: 0.5;
+            opacity: 1;
             transition: opacity 0.3s;
         }
-        .modal-close:hover { opacity: 1; }
 
         .fs-title {
-            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-size: clamp(2.5rem, 15vw, 6rem);
+            font-family: 'Bigger-Display', 'Syne', sans-serif;
             font-weight: 900;
             letter-spacing: -0.04em;
-            text-align: center;
-            margin-bottom: 40px;
+            text-align: left;
+            margin-bottom: 0px;
             color: var(--text);
+            line-height: 0.9;
+            text-transform: uppercase;
         }
 
         .fs-subtitle {
-            text-align: center;
+            text-align: left;
             font-size: 1.25rem;
-            color: var(--text-muted);
+            color: var(--text);
             margin-bottom: 32px;
+            font-family: monospace;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 16px;
         }
 
         .contact-grid {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 0px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
         .contact-option {
             display: flex;
             align-items: center;
-            justify-content: center;
-            background: var(--bg-card);
-            padding: 24px 32px;
-            border-radius: var(--radius-pill);
-            text-align: center;
+            justify-content: flex-start;
+            background: var(--bg);
+            padding: 24px 0px;
+            border-radius: 0;
+            text-align: left;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.2s ease;
             text-decoration: none;
             color: var(--text);
-            box-shadow: 0 4px 12px rgba(33, 36, 19, 0.05);
-            border: 2px solid transparent;
+            box-shadow: none;
+            border-bottom: 1px solid var(--border);
+        }
+        .contact-option:last-child {
+            border-bottom: none;
         }
         .contact-option:hover {
-            background: var(--accent);
-            transform: scale(1.02);
-            box-shadow: var(--shadow-soft);
+            background: var(--text);
+            color: var(--bg);
+            padding-left: 24px;
         }
         .contact-title {
             font-weight: 700;
-            font-size: 1.5rem;
+            font-size: 2rem;
             letter-spacing: -0.02em;
+            text-transform: uppercase;
         }
 
         .fs-input {
             width: 100%;
-            background: var(--bg-card);
-            border: 2px solid var(--border);
-            border-radius: var(--radius-pill);
-            padding: 20px 24px;
+            background: var(--bg);
+            border: none;
+            border-bottom: 1px solid var(--border);
+            border-radius: 0;
+            padding: 20px 0px;
             font-family: 'Inter', sans-serif;
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             color: var(--text);
             margin-bottom: 16px;
             outline: none;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(33, 36, 19, 0.02);
+            box-shadow: none;
         }
+        .fs-input::placeholder { color: rgba(22, 0, 0, 0.4); }
         .fs-input:focus {
-            border-color: var(--bg);
-            box-shadow: 0 0 0 4px rgba(179, 230, 181, 0.3);
+            border-color: var(--text);
+            padding-left: 16px;
         }
 
         .fs-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: var(--accent);
-            color: var(--bg);
-            border: none;
-            border-radius: var(--radius-pill);
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 0;
             padding: 20px 32px;
             font-size: 1.25rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.2s ease;
             width: 100%;
+            text-transform: uppercase;
         }
         .fs-btn:hover {
-            transform: scale(1.02);
-            box-shadow: var(--shadow-soft);
+            background: var(--text);
+            color: var(--bg);
         }
         .fs-btn-back {
-            background: var(--border);
+            background: var(--bg);
             color: var(--text);
             width: auto;
             padding: 20px;
-            border-radius: 50%;
+            border-radius: 0;
         }
         .fs-btn-back:hover {
-            background: var(--text-muted);
+            background: var(--text);
             color: var(--bg);
         }
-
-    </style>
-                    <summary style="list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 900; text-transform: uppercase; border: 3px solid var(--border-dark); padding: 10px 20px; background: #fff; box-shadow: var(--shadow-soft); transition: transform 0.1s, box-shadow 0.1s; font-size: 0.9rem;" onmouseover="this.style.transform='translate(-2px, -2px)'; this.style.boxShadow='6px 6px 0px var(--border-dark)';" onmouseout="if(!this.parentElement.open){this.style.transform='translate(0, 0)'; this.style.boxShadow='4px 4px 0px var(--border-dark)';}">
+</style>
+                    <summary style="list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 900; text-transform: uppercase; border: 3px solid var(--border-dark); padding: 10px 20px; background: #fff; box-shadow: none; transition: transform 0.1s, box-shadow 0.1s; font-size: 0.9rem;" onmouseover="this.style.transform='translate(-2px, -2px)'; this.style.boxShadow='6px 6px 0px var(--border-dark)';" onmouseout="if(!this.parentElement.open){this.style.transform='translate(0, 0)'; this.style.boxShadow='4px 4px 0px var(--border-dark)';}">
                         <span class="pulse-dot" style="width: 10px; height: 10px;"></span>
                         TM8 T00LS <span style="font-size: 0.7rem; margin-left: 4px;">▼</span>
                     </summary>
-                    <div style="position: absolute; top: calc(100% + 14px); right: 0; background: #fff; border: none; box-shadow: var(--shadow-soft); width: 280px; display: flex; flex-direction: column; z-index: 1000;">
+                    <div style="position: absolute; top: calc(100% + 14px); right: 0; background: #fff; border: none; box-shadow: none; width: 280px; display: flex; flex-direction: column; z-index: 1000;">
                         <a href="/profile.html?tab=stats" class="tm8-nav-item">
                             <span>Player Profile</span><span>→</span>
                         </a>
@@ -881,7 +905,7 @@
             <div class="hero-cta">
                 <div class="echo-button-wrapper">
                     <div class="echo-ring"></div>
-                    <a href="/booking.html" class="btn echo-button" style="border-radius: var(--radius-pill); font-weight: 700; box-shadow: var(--shadow-soft); border: none;">BOOK A $25 LESSON</a>
+                    <a href="/booking.html" class="btn echo-button" style="border-radius: 0; font-weight: 700; box-shadow: none; border: none;">BOOK A $25 LESSON</a>
                 </div>
                 <span class="no-account-text">No account required to book. Just pick a time.</span>
             </div>
@@ -906,7 +930,7 @@
                 </button>
                 <div class="accordion-content">
                     
-                <div class="roster-card" style="max-width: 500px; border-radius: var(--radius-card); box-shadow: var(--shadow-soft); background: var(--bg-card); padding: 32px;">
+                <div class="roster-card" style="max-width: 500px; border-radius: 0; box-shadow: none; background: var(--bg-card); padding: 32px;">
                     <img src="assets/aden.jpg" alt="Aden Ingwerson" class="roster-image" style="border-radius: 1000px; width: 120px; height: 120px; object-fit: cover; margin-bottom: 24px; border: none;">
                     <h3 class="roster-name">Aden Ingwerson</h3>
                     <span class="kicker" style="margin-bottom: 0.5rem; margin-top: 1rem;">Coach (Holdrege & Hastings)</span>
@@ -924,11 +948,11 @@
                 <div class="accordion-content">
                     <div style="padding-top: 16px;">
                     
-                <div class="location-card" style="border-radius: var(--radius-card); box-shadow: var(--shadow-soft); background: var(--bg-card); padding: 32px;" style="max-width: 500px; margin: 0 auto; border-radius: var(--radius-card); box-shadow: var(--shadow-soft); background: var(--bg-card); padding: 32px;">
+                <div class="location-card" style="border-radius: 0; box-shadow: none; background: var(--bg-card); padding: 32px;" style="max-width: 500px; margin: 0 auto; border-radius: 0; box-shadow: none; background: var(--bg-card); padding: 32px;">
                     <h3>Single Lesson</h3>
                     <p style="font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem;">$25</p>
                     <p style="color: var(--text-muted); margin-bottom: 2rem;">1 Hour Session. No hidden fees. No commitments.</p>
-                    <a href="/booking.html" class="btn" style="border-radius: var(--radius-pill); font-weight: 700; box-shadow: var(--shadow-soft); border: none;" style="width: 100%; text-align: center;">Book Now</a>
+                    <a href="/booking.html" class="btn" style="border-radius: 0; font-weight: 700; box-shadow: none; border: none;" style="width: 100%; text-align: center;">Book Now</a>
                 </div>
             
                     </div>
@@ -943,7 +967,7 @@
                 <div class="accordion-content">
                     <div class="location-grid" style="padding-top: 16px;">
                     
-                <div class="location-card" style="border-radius: var(--radius-card); box-shadow: var(--shadow-soft); background: var(--bg-card); padding: 32px;">
+                <div class="location-card" style="border-radius: 0; box-shadow: none; background: var(--bg-card); padding: 32px;">
                     <h3>Holdrege, NE</h3>
                     <div class="detail-row">
                         <span>Schedule</span>
@@ -954,7 +978,7 @@
                         <strong style="text-align: right;">North Park Courts<br><span style="font-size: 0.8em; font-weight: 400; color: var(--text-muted);">301 W 14th Ave</span></strong>
                     </div>
                 </div>
-                <div class="location-card" style="border-radius: var(--radius-card); box-shadow: var(--shadow-soft); background: var(--bg-card); padding: 32px;">
+                <div class="location-card" style="border-radius: 0; box-shadow: none; background: var(--bg-card); padding: 32px;">
                     <h3>Hastings, NE</h3>
                     <div class="detail-row">
                         <span>Schedule</span>
@@ -999,7 +1023,7 @@
                 </p>
             </div>
 
-            <div style="border: none; padding: 40px; background: #fff; box-shadow: var(--shadow-soft);">
+            <div style="border: none; padding: 40px; background: #fff; box-shadow: none;">
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-bottom: 40px;">
                     
                     <!-- Bio Input -->
@@ -1007,15 +1031,15 @@
                         <h4 style="font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid var(--border); padding-bottom: 8px; margin-bottom: 24px;">Biomechanics</h4>
                         <div style="margin-bottom: 20px;">
                             <label style="display: block; font-size: 0.9rem; font-weight: 900; margin-bottom: 8px;">Height (Inches)</label>
-                            <input type="number" id="idx-raq-height" placeholder="72" class="tm-input" style="width: 100%; border: none; background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 14px; font-weight: 700; font-size: 1.1rem;">
+                            <input type="number" id="idx-raq-height" placeholder="72" class="tm-input" style="width: 100%; border: none; background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 14px; font-weight: 700; font-size: 1.1rem;">
                         </div>
                         <div style="margin-bottom: 20px;">
                             <label style="display: block; font-size: 0.9rem; font-weight: 900; margin-bottom: 8px;">Weight (lbs)</label>
-                            <input type="number" id="idx-raq-weight" placeholder="165" class="tm-input" style="width: 100%; border: none; background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 14px; font-weight: 700; font-size: 1.1rem;">
+                            <input type="number" id="idx-raq-weight" placeholder="165" class="tm-input" style="width: 100%; border: none; background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 14px; font-weight: 700; font-size: 1.1rem;">
                         </div>
                         <div>
                             <label style="display: block; font-size: 0.9rem; font-weight: 900; margin-bottom: 8px;">Wingspan (Inches)</label>
-                            <input type="number" id="idx-raq-wingspan" placeholder="74" class="tm-input" style="width: 100%; border: none; background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 14px; font-weight: 700; font-size: 1.1rem;">
+                            <input type="number" id="idx-raq-wingspan" placeholder="74" class="tm-input" style="width: 100%; border: none; background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 14px; font-weight: 700; font-size: 1.1rem;">
                         </div>
                     </div>
 
@@ -1024,7 +1048,7 @@
                         <h4 style="font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid var(--border); padding-bottom: 8px; margin-bottom: 24px;">Dynamics</h4>
                         <div style="margin-bottom: 20px;">
                             <label style="display: block; font-size: 0.9rem; font-weight: 900; margin-bottom: 8px;">Forehand Grip</label>
-                            <select id="idx-raq-grip" style="width: 100%; border: none; background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 14px; font-weight: 700; font-size: 1.1rem; font-family: 'Inter', sans-serif;">
+                            <select id="idx-raq-grip" style="width: 100%; border: none; background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 14px; font-weight: 700; font-size: 1.1rem; font-family: 'Inter', sans-serif;">
                                 <option>Eastern</option>
                                 <option selected>Semi-Western</option>
                                 <option>Western</option>
@@ -1032,7 +1056,7 @@
                         </div>
                         <div style="margin-bottom: 20px;">
                             <label style="display: block; font-size: 0.9rem; font-weight: 900; margin-bottom: 8px;">Backhand</label>
-                            <select id="idx-raq-bh" style="width: 100%; border: none; background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 14px; font-weight: 700; font-size: 1.1rem; font-family: 'Inter', sans-serif;">
+                            <select id="idx-raq-bh" style="width: 100%; border: none; background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 14px; font-weight: 700; font-size: 1.1rem; font-family: 'Inter', sans-serif;">
                                 <option selected>Two-Handed</option>
                                 <option>One-Handed</option>
                                 <option>Slice Only</option>
@@ -1040,7 +1064,7 @@
                         </div>
                         <div>
                             <label style="display: block; font-size: 0.9rem; font-weight: 900; margin-bottom: 8px;">Playstyle</label>
-                            <select id="idx-raq-style" style="width: 100%; border: none; background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 14px; font-weight: 700; font-size: 1.1rem; font-family: 'Inter', sans-serif;">
+                            <select id="idx-raq-style" style="width: 100%; border: none; background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 14px; font-weight: 700; font-size: 1.1rem; font-family: 'Inter', sans-serif;">
                                 <option selected>All-Court Player</option>
                                 <option>Aggressive Baseliner</option>
                                 <option>Counter-Puncher</option>
@@ -1052,7 +1076,7 @@
 
                 <div class="echo-button-wrapper" style="width: 100%; display: block;">
                     <div class="echo-ring" style="border-color: var(--border-dark);"></div>
-                    <button id="btn-idx-raqgen" class="btn echo-button" style="border-radius: var(--radius-pill); font-weight: 700; box-shadow: var(--shadow-soft); border: none;" style="width: 100%; font-size: 1.2rem; padding: 20px; background: var(--accent); color: var(--bg); color: var(--bg); border: none; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; cursor: pointer;" onclick="runIndexRaqGen()">
+                    <button id="btn-idx-raqgen" class="btn echo-button" style="border-radius: 0; font-weight: 700; box-shadow: none; border: none;" style="width: 100%; font-size: 1.2rem; padding: 20px; background: var(--accent); color: var(--bg); color: var(--bg); border: none; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; cursor: pointer;" onclick="runIndexRaqGen()">
                         Compute Optimal Frame
                     </button>
                 </div>
@@ -1062,7 +1086,7 @@
                     
                     <!-- BEST MATCH -->
                     <div style="border: none; padding: 30px; margin-bottom: 40px; position: relative; background: #fff;">
-                        <div style="position: absolute; top: -18px; right: 20px; background: var(--accent); border: none; padding: 6px 16px; font-weight: 900; letter-spacing: 1px; font-size: 1rem; box-shadow: var(--shadow-soft);"><span id="idx-raqgen-score">100%</span> MATCH</div>
+                        <div style="position: absolute; top: -18px; right: 20px; background: var(--accent); border: none; padding: 6px 16px; font-weight: 900; letter-spacing: 1px; font-size: 1rem; box-shadow: none;"><span id="idx-raqgen-score">100%</span> MATCH</div>
                         
                         <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 40px;">
                             <span style="font-size: 0.9rem; font-weight: 900; text-transform: uppercase; color: var(--text-muted); letter-spacing: 2px;">Primary Recommendation</span>
@@ -1114,51 +1138,51 @@
                     <div style="margin-top: 32px; border-top: 2px dashed var(--border-dark); padding-top: 24px; margin-bottom: 32px;">
                         <span style="font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: var(--text-muted); letter-spacing: 2px; display: block; margin-bottom: 16px;">1-100 Performance Metrics</span>
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px;">
-                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 12px; border: none;">
+                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
                                 <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Overall</span>
                                 <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-overall">--</span>
                             </div>
-                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 12px; border: none;">
+                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
                                 <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Power</span>
                                 <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-power">--</span>
                             </div>
-                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 12px; border: none;">
+                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
                                 <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Control</span>
                                 <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-control">--</span>
                             </div>
-                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 12px; border: none;">
+                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
                                 <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Maneuverability</span>
                                 <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-maneuver">--</span>
                             </div>
-                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 12px; border: none;">
+                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
                                 <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Stability</span>
                                 <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-stability">--</span>
                             </div>
-                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 12px; border: none;">
+                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
                                 <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Comfort</span>
                                 <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-comfort">--</span>
                             </div>
-                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 12px; border: none;">
+                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
                                 <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Topspin</span>
                                 <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-topspin">--</span>
                             </div>
-                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 12px; border: none;">
+                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
                                 <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Touch</span>
                                 <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-touch">--</span>
                             </div>
-                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 12px; border: none;">
+                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
                                 <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Groundstrokes</span>
                                 <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-ground">--</span>
                             </div>
-                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 12px; border: none;">
+                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
                                 <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Volleys</span>
                                 <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-volleys">--</span>
                             </div>
-                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 12px; border: none;">
+                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
                                 <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Serves</span>
                                 <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-serves">--</span>
                             </div>
-                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 12px; border: none;">
+                            <div style="background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 12px; border: none;">
                                 <span style="font-size: 0.7rem; font-weight: 900; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">Returns</span>
                                 <span style="font-weight: 900; font-size: 1.2rem;" id="idx-tw-returns">--</span>
                             </div>
@@ -1167,11 +1191,11 @@
 \n                    <!-- RUNNERS UP -->
                     <h5 style="font-size: 1.1rem; font-weight: 900; text-transform: uppercase; margin-bottom: 20px;">Mathematical Alternatives</h5>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-                        <div style="border: none; padding: 24px; display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill);">
+                        <div style="border: none; padding: 24px; display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); border: 2px solid var(--border); border-radius: 0;">
                             <span style="font-weight: 900; font-size: 1.2rem; text-transform: uppercase;" id="idx-ru1-name">--</span>
                             <span style="background: var(--accent); color: var(--bg); color: var(--bg); padding: 6px 12px; font-weight: 900; font-size: 1.1rem;" id="idx-ru1-score">--%</span>
                         </div>
-                        <div style="border: none; padding: 24px; display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); border: 2px solid var(--border); border-radius: var(--radius-pill);">
+                        <div style="border: none; padding: 24px; display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); border: 2px solid var(--border); border-radius: 0;">
                             <span style="font-weight: 900; font-size: 1.2rem; text-transform: uppercase;" id="idx-ru2-name">--</span>
                             <span style="background: var(--accent); color: var(--bg); color: var(--bg); padding: 6px 12px; font-weight: 900; font-size: 1.1rem;" id="idx-ru2-score">--%</span>
                         </div>
@@ -1186,7 +1210,7 @@
 <section class="second-cta" style="background-color: var(--bg); color: var(--bg); color: var(--bg); text-align: center; padding: 120px 0;">
         <div class="container">
             <h2 style="font-size: clamp(3rem, 8vw, 6rem); margin-bottom: 2rem; line-height: 1;">Ready to hit<br>the court?</h2>
-            <a href="/booking.html" class="btn" style="border-radius: var(--radius-pill); font-weight: 700; box-shadow: var(--shadow-soft); border: none;" style="background-color: var(--bg); color: var(--text); border-color: var(--bg); font-size: 1.25rem; padding: 16px 32px;">Book Session</a>
+            <a href="/booking.html" class="btn" style="border-radius: 0; font-weight: 700; box-shadow: none; border: none;" style="background-color: var(--bg); color: var(--text); border-color: var(--bg); font-size: 1.25rem; padding: 16px 32px;">Book Session</a>
         </div>
     </section>
     <footer>
