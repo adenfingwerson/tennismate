@@ -8,3 +8,4 @@ database_id = "acf4c5f9-176b-475c-9d34-9cdbe2d791fb"
 
 [ai]
 binding = "AI"
+compatibility_date = "2026-05-03"

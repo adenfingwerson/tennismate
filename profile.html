@@ -515,7 +515,7 @@
                             padding: 16px 20px; border-bottom: 2px solid var(--border-dark); text-decoration: none; color: var(--text); font-weight: 900; text-transform: uppercase; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; background: #fff; transition: background 0.15s ease;
                         }
                         .tm8-nav-item:hover { background: #f4f4f4; }
-                        .tm8-nav-item.accent { background: var(--bg); color: var(--text); border-bottom: none; }
+                        .tm8-nav-item.accent { background: var(--bg); color: var(--text); border: 2px solid var(--text) !important; border-bottom: 2px solid var(--text) !important; margin: 4px; padding: 14px; }
                         .tm8-nav-item.accent:hover { background: var(--text); color: var(--bg); }
                     </style>
                     <summary style="list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 900; text-transform: uppercase; border: 3px solid var(--border-dark); padding: 10px 20px; background: #fff; box-shadow: 4px 4px 0px var(--border-dark); transition: transform 0.1s, box-shadow 0.1s; font-size: 0.9rem;" onmouseover="this.style.transform='translate(-2px, -2px)'; this.style.boxShadow='6px 6px 0px var(--border-dark)';" onmouseout="if(!this.parentElement.open){this.style.transform='translate(0, 0)'; this.style.boxShadow='4px 4px 0px var(--border-dark)';}">
@@ -1140,7 +1140,7 @@
             if (!terminal) {
                 terminal = document.createElement('div');
                 terminal.id = btn.id === 'btn-idx-raqgen' ? 'idx-terminal' : 'profile-terminal';
-                terminal.style.cssText = "background: #000; color: #ECD06F; font-family: monospace; font-size: 0.85rem; padding: 16px; margin-top: 20px; border-radius: 8px; height: 150px; overflow-y: hidden; text-align: left; box-shadow: inset 0 0 10px rgba(204,255,0,0.2); border: 1px solid #333;";
+                terminal.style.cssText = "background: #fff; color: #000; font-family: monospace; font-size: 0.85rem; padding: 16px; margin-top: 20px; border-radius: 8px; height: 150px; overflow-y: hidden; text-align: left; box-shadow: inset 0 0 10px rgba(204,255,0,0.2); border: 1px solid #333;";
                 btn.parentNode.insertBefore(terminal, btn.nextSibling);
             }
             terminal.style.display = 'block';
