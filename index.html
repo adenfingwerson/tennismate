@@ -736,14 +736,35 @@
                 </div>
             </div>
             
-            <!-- STEP 4: Success -->
+            <!-- STEP 4: Sending -->
+            <div class="booking-step" id="step-sending" style="display: none; text-align: center;">
+                <h2 class="fs-title" style="margin-bottom: 16px;">Sending…</h2>
+                <p class="fs-subtitle">One moment.</p>
+            </div>
+
+            <!-- STEP 5: Success -->
             <div class="booking-step" id="step-success" style="display: none; text-align: center;">
                 <div style="width: 80px; height: 80px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 32px;">
                     ✓
                 </div>
                 <h2 class="fs-title" style="margin-bottom: 16px;">Received.</h2>
                 <p class="fs-subtitle">I'll be in touch shortly.</p>
+                <div style="margin: 24px 0; padding-top: 24px; border-top: 2px solid var(--border-dark, #000);">
+                    <p class="fs-subtitle" style="margin-bottom: 16px;">Want to lock in your first lesson now? It's $25.</p>
+                    <a class="fs-btn" href="https://buy.stripe.com/7sY7sD22CeHQdWs9zhaZi01" target="_blank" rel="noopener" style="display: inline-block; text-decoration: none;">Pay $25 with Card</a>
+                    <!-- Venmo option lands here once the handle is confirmed -->
+                </div>
                 <button type="button" class="fs-btn" onclick="closeModal()">Close</button>
+            </div>
+
+            <!-- STEP 6: Error -->
+            <div class="booking-step" id="step-error" style="display: none; text-align: center;">
+                <h2 class="fs-title" style="margin-bottom: 16px;">That didn't go through.</h2>
+                <p class="fs-subtitle" style="margin-bottom: 24px;">Your request didn't reach us. Please try again — or call/text <a href="tel:3089910173">(308) 991-0173</a> directly.</p>
+                <div style="display: flex; gap: 16px; justify-content: center;">
+                    <button type="button" class="fs-btn fs-btn-back" onclick="nextContactStep(lastContactType)">←</button>
+                    <button type="button" class="fs-btn" onclick="submitContact(lastContactType)">Try Again</button>
+                </div>
             </div>
 
         </div>
@@ -1363,33 +1384,44 @@
             }
         }
         
+        let submittingContact = false;
+        let lastContactType = 'call';
+
         async function submitContact(type) {
+            if (submittingContact) return;
+            lastContactType = type;
             let payload = {};
             if (type === 'call') {
                 const name = document.getElementById('c_name').value;
                 const phone = document.getElementById('c_phone').value;
                 const time = document.getElementById('c_time').value;
                 if(!name || !phone || !time) { alert("Please fill all fields"); return; }
-                
+
                 payload = { name, phone, location: 'N/A', preferred_time: time, focus: 'Schedule Call' };
             } else if (type === 'text') {
                 const name = document.getElementById('t_name').value;
                 const phone = document.getElementById('t_phone').value;
                 if(!name || !phone) { alert("Please fill all fields"); return; }
-                
+
                 payload = { name, phone, location: 'N/A', preferred_time: 'ASAP', focus: 'Send Text' };
             }
 
-            nextContactStep('success');
+            submittingContact = true;
+            nextContactStep('sending');
 
             try {
-                await fetch('/api/book', {
+                const res = await fetch('/api/book', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(payload)
                 });
+                if (!res.ok) throw new Error('Booking failed: HTTP ' + res.status);
+                nextContactStep('success');
             } catch (err) {
                 console.error("Submission error", err);
+                nextContactStep('error');
+            } finally {
+                submittingContact = false;
             }
         }
 
