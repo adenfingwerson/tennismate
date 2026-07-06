@@ -1300,11 +1300,14 @@
             if (data.success && data.metrics) {
                 const metrics = JSON.parse(data.metrics);
                 
-                // Populate inputs
+                // Populate inputs by ID
                 const inputs = document.querySelectorAll('#profile-name, #tab-stats .tm-input, #tab-stats .tm-select');
-                inputs.forEach((input, index) => {
-                    if (metrics[`field_${index}`]) {
-                        input.value = metrics[`field_${index}`];
+                inputs.forEach(input => {
+                    if (input.id && metrics[input.id] !== undefined) {
+                        input.value = metrics[input.id];
+                    } else if (metrics[`field_${Array.from(inputs).indexOf(input)}`]) {
+                        // Fallback for older saves
+                        input.value = metrics[`field_${Array.from(inputs).indexOf(input)}`];
                     }
                 });
 
@@ -1333,7 +1336,11 @@
         const metrics = {};
         
         inputs.forEach((input, index) => {
-            metrics[`field_${index}`] = input.value;
+            if (input.id) {
+                metrics[input.id] = input.value;
+            } else {
+                metrics[`field_${index}`] = input.value;
+            }
         });
 
         try {
@@ -1359,7 +1366,7 @@
 
     // Lead Capture Unlock Logic
     async function unlockContent() {
-        const email = document.getElementById('lead-email').value;
+        const email = localStorage.getItem('tm_user_email');
         const phone = document.getElementById('lead-phone').value;
 
         if(!email || !phone) {

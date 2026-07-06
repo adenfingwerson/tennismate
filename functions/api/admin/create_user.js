@@ -24,9 +24,9 @@ export async function onRequestPost(context) {
         await env.DB.prepare("INSERT INTO users (id, email) VALUES (?, ?)")
             .bind(id, dummyEmail).run();
 
-        // 2. Insert into player_metrics table with the name as field_0
-        // (field_0 maps to the #profile-name input on the frontend)
-        const metricsObj = { field_0: name };
+        // 2. Insert into player_metrics table with the name as 'profile-name'
+        // (maps to the #profile-name input on the frontend)
+        const metricsObj = { "profile-name": name };
         await env.DB.prepare("INSERT INTO player_metrics (user_id, metrics_json) VALUES (?, ?)")
             .bind(id, JSON.stringify(metricsObj)).run();
 
