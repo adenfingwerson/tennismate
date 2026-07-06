@@ -17,6 +17,7 @@ export async function onRequestPost(context) {
     const phone = data.phone;
     const location = data.location;
     const preferred_time = data.preferred_time;
+    const focus = data.focus || 'Unspecified';
 
     if (!name || !phone || !location || !preferred_time) {
       return new Response(JSON.stringify({ error: 'Missing required fields' }), {
@@ -55,6 +56,7 @@ export async function onRequestPost(context) {
         '📱 Phone: ' + phone,
         '📍 Location: ' + location,
         '⏰ Time: ' + preferred_time,
+        '🎯 Focus: ' + focus,
         '',
         '💳 Payment links (forward to the lead):',
         'Stripe ($25): ' + STRIPE_PAYMENT_LINK
